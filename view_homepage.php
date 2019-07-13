@@ -173,7 +173,7 @@ require 'model_form.php';
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment le Php. Ce site est l'une de mes conceptions, visant à exposer mes talents.</p>
+                    <p>Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment le Php. Ce site est l'une de mes conceptions, visant à exposer mes talents et à partager des articles sur divers thèmes.</p>
                 </div>
                 <div class="col-lg-4">
                     <p>Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation, sur Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony. Vous pourrez accéder à mon CV en cliquant sur le lien ci dessous</p>
@@ -267,18 +267,12 @@ require 'model_form.php';
                             <li>
                                 <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                             </li>
+                            
+                            
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                                <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
                             </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
+                            
                         </ul>
                     </div>
                     <div class="footer-col col-md-4">
