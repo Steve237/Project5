@@ -38,7 +38,7 @@ $headers = 'FROM: adouessono@yahoo.fr';
 
 mail('essonoadou@gmail.com', 'Formulaire de contact', $message, $headers);    
   
-header('Location: view_homepage.php'); 
+header('Location: view_homepage.php#contact'); 
 
 }
-}
+}    

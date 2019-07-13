@@ -176,7 +176,7 @@ require 'model_form.php';
                     <p>Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment le Php. Ce site est l'une de mes conceptions, visant à exposer mes talents et à partager des articles sur divers thèmes.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation, sur Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony. Vous pourrez accéder à mon CV en cliquant sur le lien ci dessous</p>
+                    <p>Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation, sur Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony.</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="cv_steve.pdf" class="btn btn-lg btn-outline">
