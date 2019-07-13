@@ -25,7 +25,7 @@ if(!empty($errors))
     $_SESSION['input'] = $_POST;
     
     
-    header('Location: view_homepage.php');  
+    header('Location: view_homepage.php#contact');  
 }
 
 else
