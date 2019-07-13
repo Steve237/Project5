@@ -1,10 +1,6 @@
-Class form_site
-
-{
-
 <?php
 
-class form
+class form_site
 {
 
 private $datas = [];
@@ -16,7 +12,8 @@ $this->datas = $datas;
     
 }
     
-private function input($type, $name, $label){
+private function input($type, $name, $label)
+{
 
 $value= "";
     
@@ -29,12 +26,12 @@ $value = $this->datas['name'];
 if ($type == 'textarea')
 {
 
-$input = "<textarea required name =\"$name\" id=\"input$name\">$value</textarea>";
+$input = "<textarea class=\"form-control\" placeholder=\"$label\" required name=\"$name\" id=\"input$name\">$value</textarea>";
 }
 
 else
 {
-$input = "<input required type =\"$type\" name=\"$name\" id=\"input$name\" value=\"$value\">";
+$input = "<input placeholder=\"$label\" class=\"form-control\" required type=\"$type\" name=\"$name\" id=\"input$name\" value=\"$value\">";
     
 }
 
@@ -74,43 +71,4 @@ public function textarea($name, $label)
 }
 
 
-}
-?>    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+}     

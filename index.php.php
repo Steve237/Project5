@@ -1,12 +1,9 @@
-
 <?php
-require "include_form.php";
+require 'include_form.php';
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -173,14 +170,14 @@ require "include_form.php";
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+                    <p>Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment le Php. Ce site est l'une de mes conceptions, visant à exposer mes talents.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+                    <p>Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation, sur Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony. Vous pourrez accéder à mon CV en cliquant sur le lien ci dessous</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="#" class="btn btn-lg btn-outline">
-                        <i class="fa fa-download"></i> Download Theme
+                    <a href="cv_steve.pdf" class="btn btn-lg btn-outline">
+                        <i class="fa fa-download"></i> Voir mon cv
                     </a>
                 </div>
             </div>
@@ -188,26 +185,7 @@ require "include_form.php";
     </section>
 
     <!-- Contact Section -->
-      <?php if(array_key_exists('errors', $_SESSION)): ?>
-
-<div>
-<?= implode('</br>', $_SESSION['errors']); ?>
-
-</div>
-    
-<?php endif; ?>
-    
-  <?php if(array_key_exists('success', $_SESSION)): ?>
-
-<div>
-
-    Votre email a bien été envoyé
-
-</div>
-    
-<?php endif; ?>      
-
-    <section id="contact">
+      <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -217,8 +195,27 @@ require "include_form.php";
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    
+                         <?php if(array_key_exists('errors', $_SESSION)): ?>
+
+<div class="alert alert-danger">
+<?= implode('</br>', $_SESSION['errors']); ?>
+
+</div>
+    
+<?php endif; ?>
+    
+  <?php if(array_key_exists('success', $_SESSION)): ?>
+
+<div class="alert alert-danger">
+
+    Votre email a bien été envoyé
+
+</div>
+    
+<?php endif; ?> 
+                    
+                    
                     <form action="contact_site.php" method="post">
                     <?php $form = new form_site(isset($_SESSION['input']) ? $_SESSION['input'] : []);?>
                         <div class="row control-group">
@@ -263,10 +260,10 @@ require "include_form.php";
                             <br>Villeurbanne, 69100</p>
                     </div>
                     <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
+                        <h3>Réseaux sociaux</h3>
                         <ul class="list-inline">
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                                <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
                             </li>
                             <li>
                                 <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
@@ -289,11 +286,12 @@ require "include_form.php";
                 </div>
             </div>
         </div>
+        
         <div class="footer-below">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Your Website 2016
+                        Copyright &copy; Blog Steve Essama 2019
                     </div>
                 </div>
             </div>
@@ -556,4 +554,5 @@ require "include_form.php";
 unset($_SESSION['errors']);
 unset($_SESSION['input']);
 unset($_SESSION['success']);
+
 ?>
