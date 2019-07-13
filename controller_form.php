@@ -1,6 +1,11 @@
 <?php
 
-require 'include_form.php';
+session_start();
+
+require 'model_form.php';
+
+function formulaire_site()
+{
 
 $errors = [];
 
@@ -20,7 +25,7 @@ if(!empty($errors))
     $_SESSION['input'] = $_POST;
     
     
-    header('Location: index1.php');  
+    header('Location: view_homepage.php');  
 }
 
 else
@@ -32,5 +37,8 @@ $message = $_POST['message'];
 $headers = 'FROM: adouessono@yahoo.fr';
 
 mail('essonoadou@gmail.com', 'Formulaire de contact', $message, $headers);    
-    
+  
+header('Location: view_homepage.php'); 
+
+}
 }
