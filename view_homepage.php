@@ -56,14 +56,14 @@ require 'model_form.php';
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#portfolio">Portfolio</a>
+                    <li>
+                        <a href="view_homepage.php">Accueil</a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#about">A propos </a>
+                    <li class="">
+                        <a href=""> Nos articles </a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                    <li class="">
+                        <a href="">Espace d'administration</a>
                     </li>
                 </ul>
             </div>
