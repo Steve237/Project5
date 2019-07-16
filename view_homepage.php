@@ -59,7 +59,7 @@ require 'model_form.php';
                     <li>
                         <a href="view_homepage.php">Accueil</a>
                     </li>
-                    <li class="">
+                    <li class="page-scroll">
                         <a href=""> Nos articles </a>
                     </li>
                     <li class="">

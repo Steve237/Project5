@@ -29,6 +29,12 @@ if ($type == 'textarea')
 $input = "<textarea class=\"form-control\" placeholder=\"$label\" required name=\"$name\" id=\"input$name\">$value</textarea>";
 }
 
+else if ($type == 'text')
+{
+
+$input = "<input placeholder=\"$label\" pattern=\"[a-zA-Z]\" class=\"form-control\" required type=\"$type\" name=\"$name\" id=\"input$name\" value=\"$value\">";
+}
+    
 else
 {
 $input = "<input placeholder=\"$label\" class=\"form-control\" required type=\"$type\" name=\"$name\" id=\"input$name\" value=\"$value\">";
@@ -47,11 +53,10 @@ public function text($name, $label)
 
 {
     
-  return $this->input('text', $name, $label);
-
+return $this->input('text', $name, $label);
 
 }
-    
+
 
 public function email($name, $label)
 
@@ -94,8 +99,8 @@ $validator = "validate_$rule";
 if(!$this->$validator($name))
 {
    $this->errors[$name] = "le champ $name n'a pas été rempli";   
-
 }
+
 
 else
 {
@@ -103,8 +108,8 @@ else
 return "le message a bien été envoyé";   
     
 }
-
 }
+
 
 public function validate_required($name)
 

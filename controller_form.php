@@ -15,6 +15,7 @@ $validator->check('name', 'required');
 $validator->check('email', 'required');
 $validator->check('email', 'email');
 $validator->check('message', 'required');
+$validator->check('name', is_string('name'));
 $errors = $validator->errors();
 
 
