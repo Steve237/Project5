@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +18,6 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Theme CSS -->
     <link href="../public/css/freelancer.min.css" rel="stylesheet">
 
@@ -50,10 +55,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a href="view_homepage.php">Accueil</a>
+                        <a href="../index.php">Accueil</a>
                     </li>
                     <li class="page-scroll">
-                        <a href=""> Nos articles </a>
+                        <a href="../index.php?action=listposts"> Nos articles </a>
                     </li>
                     <li class="">
                         <a href="">Espace d'administration</a>
@@ -81,80 +86,6 @@
         </div>
     </header>
 
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Portfolio</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="../public/img/portfolio/cabin.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="../public/img/portfolio/cake.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="../public/img/portfolio/circus.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="../public/img/portfolio/game.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="../public/img/portfolio/safe.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="../public/img/portfolio/submarine.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Section -->
     <section class="success" id="about">
         <div class="container">
@@ -166,10 +97,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-2">
-                    <p>Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment le Php. Ce site est l'une de mes conceptions, visant à exposer mes talents et à partager des articles sur divers thèmes.</p>
+                    <p>Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment le                           Php. Ce site est l'une de mes conceptions, visant à exposer mes talents et à partager des articles sur divers thèmes.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p>Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation, sur Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony.</p>
+                    <p>Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation, sur                          Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony.</p>
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="../public/cv_steve.pdf" class="btn btn-lg btn-outline">
@@ -183,7 +114,7 @@
     <!-- Contact Section -->
       <section id="contact">
         <div class="container">
-            <div class="row">
+        <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>Contactez moi</h2>
                     <hr class="star-primary">
@@ -191,25 +122,34 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <form name="sentMessage" id="contactForm" novalidate>
+                    
+    <?php if(array_key_exists('errors', $_SESSION)): ?>
+  <div class="alert alert-danger">
+  <?= implode('<br>', $_SESSION['errors']); ?>
+  </div>
+  <?php endif; ?>
+  <?php if(array_key_exists('success', $_SESSION)): ?>
+  <div class="alert alert-success">
+  Votre message à bien été transmis !
+  </div>
+  <?php endif; ?>
+      
+                    
+                    
+                    
+                    <form action="../index.php?action=sendmail" id="contactForm" method="post">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="name">Votre nom</label>
-                                <input type="text" class="form-control" placeholder="Votre nom" id="name" required data-validation-required-message="Please enter your name.">
+                                  <input required type="text" name="name" class="form-control" id="inputname" value="<?php echo isset($_SESSION['inputs']['name'])? $_SESSION['inputs']['name'] : ''; ?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
-                          <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="surname">Votre prénom</label>
-                                <input type="text" class="form-control" placeholder="Votre prénom" id="surname" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
+                     
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="email">Votre adresse email</label>
-                                <input type="email" class="form-control" placeholder="Votre email" id="email" required data-validation-required-message="Please enter your email address.">
+<input required type="email" name="email" class="form-control" id="inputemail" value="<?php echo isset($_SESSION['inputs']['email'])? $_SESSION['inputs']['email'] : ''; ?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -217,7 +157,7 @@
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="message">Votre message</label>
-                                <textarea rows="5" class="form-control" placeholder="Votre message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+    <textarea id="inputmessage" name="message" class="form-control"><?php echo isset($_SESSION['inputs']['message'])? $_SESSION['inputs']['message'] : ''; ?></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -225,7 +165,7 @@
                         <div id="success"></div>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
+                            <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
                             </div>
                         </div>
                     </form>
@@ -300,7 +240,7 @@
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="../public/img/portfolio/cabin.png" class="public/img-responsive img-centered" alt="">
+                            <img src="../public/img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -510,22 +450,27 @@
     </div>
 
     <!-- jQuery -->
-    <script src="../public/vendor/jquery/jquery.min.js"></script>
+    <script src="/public/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../public/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="../public/js/jqBootstrapValidation.js"></script>
-    <script src="../public/js/contact_me.js"></script>
+    <script src="/public/js/jqBootstrapValidation.js"></script>
+    <script src="/public/js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="../public/js/freelancer.min.js"></script>
+    <script src="/public/js/freelancer.min.js"></script>
 
 </body>
 
 </html>
 
+<?php
+unset($_SESSION['inputs']);
+unset($_SESSION['success']);
+unset($_SESSION['errors']);
+?>

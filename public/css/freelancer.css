@@ -103,6 +103,14 @@ header .intro-text .skills {
     font-size: 1.75em;
   }
 }
+
+.titre_portfolio
+{
+    
+margin-top: 50px;
+
+}
+
 .navbar-custom {
   background: #2C3E50;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -226,7 +234,7 @@ section.success {
   height: 20px;
   font-size: 20px;
   text-align: center;
-  top: 50%;
+  top: 12%;
   margin-top: -12px;
   color: white;
 }
@@ -237,6 +245,8 @@ section.success {
 #portfolio .portfolio-item .portfolio-link .caption .caption-content h4 {
   margin: 0;
 }
+
+
 #portfolio * {
   z-index: 2;
 }
