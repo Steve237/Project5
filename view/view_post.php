@@ -19,21 +19,19 @@
                         <div class="modal-body">
                         <h2><?= htmlspecialchars($post['titre_article']) ?></h2>
                             <hr class="star-primary">
+                            <p><?= htmlspecialchars($post['descriptif_article'])?></p>
                             <img src="<?= htmlspecialchars($post['image_article']) ?>" class="img-responsive img-centered" alt="">
                             <p><?= nl2br(htmlspecialchars($post['contenu']))?></p>
                             <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
+                                <li>Auteur:
+                                    <strong><?= htmlspecialchars($post['pseudo_auteur'])?>
                                     </strong>
                                 </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
+                                <li>Date de mise à jour:
+                                    <strong><?= htmlspecialchars($post['date_modification'])?>
                                     </strong>
                                 </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
+                                
                             </ul>
                             
                             <h3>Laissez un commentaire </h3>

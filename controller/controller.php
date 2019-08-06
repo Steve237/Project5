@@ -3,15 +3,17 @@
 session_start();
 
 // Chargement des classes
-require_once('./model/PostManager.php');
-require_once('./model/CommentManager.php');
+require_once ABSOLUTE_PATH."/model/PostManager.php";
+require_once ABSOLUTE_PATH."/model/CommentManager.php";
+require_once ABSOLUTE_PATH."/model/InscriptionManager.php";
 
 
 function sendMail() 
 {
 // $errors = [];
   $errors = array(); // on crée une vérif de champs
-if(!array_key_exists('name', $_POST) || $_POST['name'] == '') {// on verifie l'existence du champ et d'un contenu
+if(!array_key_exists('name', $_POST) || $_POST['name'] == '') 
+{// on verifie l'existence du champ et d'un contenu
   $errors ['name'] = "vous n'avez pas renseigné votre nom";
   }
 if(!array_key_exists('email', $_POST) || $_POST['email'] == '' || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) 
@@ -26,7 +28,7 @@ if(!array_key_exists('message', $_POST) || $_POST['message'] == '') {
   if(!empty($errors)){ // si erreur on renvoie vers la page précédente
   $_SESSION['errors'] = $errors;//on stocke les erreurs
   $_SESSION['inputs'] = $_POST;
-  header('Location: ./view/view_homepage.php#contactForm');
+  header('Location: index.php#formContact');
   }
     
 else{
@@ -53,7 +55,7 @@ else{
   </table>
   ';
 mail($to, $subject, $message_content, $headers);
-  header('Location: ./view/view_homepage.php#contactForm');
+  header('Location: index.php#formContact');
   }
 }
 
@@ -62,7 +64,7 @@ function listPosts()
     $postManager = new PostManager(); // Création d'un objet
     $posts = $postManager->getPosts(); //Appel d'une fonction de cet objet
     
-    require './view/view_listposts.php';
+    require ABSOLUTE_PATH.'/view/view_listposts.php';
 
 }
 
@@ -74,13 +76,16 @@ function post()
     $post = $postManager->getPost($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
 
-    require './view/view_post.php';
+    require ABSOLUTE_PATH.'/view/view_post.php';
 }
 
 
-
-
-
+function homePage() 
+{
+    
+require ABSOLUTE_PATH.'/view/view_homepage.php';    
+    
+}
 
 
 
