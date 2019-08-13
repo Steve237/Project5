@@ -25,8 +25,8 @@
                     <li class="page-scroll">
                         <a href="index.php?action=listposts"> Nos articles </a>
                     </li>
-                    <li class="">
-                        <a href="">Espace d'administration</a>
+                    <li class="page_scroll">
+                        <a href="index.php?action=connection">Espace d'administration</a>
                     </li>
                 </ul>
             </div>
@@ -111,7 +111,7 @@
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="email">Votre adresse email</label>
-<input required type="email" placeholder="Entrez votre adresse email" name="email" class="form-control" id="inputemail" value="<?php echo isset($_SESSION['inputs']['email'])? $_SESSION['inputs']['email'] : ''; ?>">
+<input required type="email" placeholder="Entrez votre adresse email" name="email" class="form-control" id="email" value="<?php echo isset($_SESSION['inputs']['email'])? $_SESSION['inputs']['email'] : ''; ?>">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>

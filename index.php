@@ -33,8 +33,26 @@ elseif ($_GET['action'] == 'sendmail')
 }
 
 
-}
     
+    
+elseif ($_GET['action'] == 'inscription')
+{
+    Inscription();
+     
+}
+
+    
+elseif ($_GET['action'] == 'connection')
+{
+    Connection();
+     
+}
+
+
+
+}
+
+
 else
 {
     

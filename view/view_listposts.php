@@ -28,7 +28,7 @@
                     </li>
                     
                     <li class="page-scroll">
-                        <a href="">Espace d'administration</a>
+                        <a href="index.php?action=connection">Espace d'administration</a>
                     </li>
                 </ul>
             </div>

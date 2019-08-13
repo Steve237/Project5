@@ -4,8 +4,9 @@ session_start();
 
 // Chargement des classes
 require_once ABSOLUTE_PATH."/model/PostManager.php";
-require_once ABSOLUTE_PATH."/model/CommentManager.php";
 require_once ABSOLUTE_PATH."/model/InscriptionManager.php";
+require_once ABSOLUTE_PATH."/model/connectionManager.php";
+
 
 
 function sendMail() 
@@ -71,12 +72,135 @@ function listPosts()
 function post()
 {
     $postManager = new PostManager();
-    $commentManager = new CommentManager();
+    
 
     $post = $postManager->getPost($_GET['id']);
-    $comments = $commentManager->getComments($_GET['id']);
+    
 
     require ABSOLUTE_PATH.'/view/view_post.php';
+}
+
+
+function Inscription()
+{
+
+if(isset($_POST['inscription']))
+{    
+   
+$_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
+$_POST['email'] = htmlspecialchars($_POST['email']);    
+$_POST['password'] = htmlspecialchars($_POST['password']);    
+$_POST['password_confirm'] = htmlspecialchars($_POST['password_confirm']);  
+    
+    
+$errors = array();
+
+$inscription = new InscriptionManager();
+$nb_pseudo = $inscription->verif_pseudo($_POST['pseudo']);
+
+$inscription = new InscriptionManager();
+$nb_email = $inscription->verif_email($_POST['pseudo']);
+    
+    
+if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo']) || $nb_pseudo['nb_pseudo'] > 0)
+{
+    
+$errors ['pseudo'] = "pseudo non renseigné ou déjà utilisé";
+}
+
+if(!array_key_exists('email', $_POST) || empty($_POST['email']) || $nb_email['nb_email'] > 0)
+{
+    
+$errors ['email'] = "adresse email non renseigné ou déjà utilisé";
+}
+
+if(!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) || empty($_POST['password_confirm']))      {
+    
+$errors ['password'] = "veuillez entrer votre mot de passe";
+}
+
+if($_POST['password'] != $_POST['password_confirm'])
+{
+
+$errors ['password'] = "veuillez entrer deux mots de passe identiques";
+
+}
+
+if(!empty($errors))
+{
+$_SESSION['errors'] = $errors;
+header('Location: index.php?action=inscription#formInscription');
+
+}
+
+else
+{
+$_SESSION['success'] = 1;    
+
+$pass_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+$inscription = new InscriptionManager();
+$affectedLines = $inscription->add_member($_POST['pseudo'], $pass_hash, $_POST['email']);
+header('Location: index.php?action=inscription#formInscription');
+}
+} 
+   else
+   {
+
+       require ABSOLUTE_PATH.'/view/view_inscription.php';
+
+   }
+}
+
+
+function Connection()
+{
+
+    if(isset($_POST['connection']))
+
+{
+
+if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) 
+{
+    
+$errors ['pseudo'] = "veuillez entrer votre pseudo";    
+
+}
+
+if(!array_key_exists('password', $_POST) || empty($_POST['password']))  
+{
+  $errors ['password'] = "veuillez entrer votre mot de passe";  
+}
+
+$connect = new connectionManager();
+$resultat_pass = $connect->connect_Member();
+        
+if (!$resultat_pass)
+{
+        
+$errors ['password'] = "mauvais identifiant ou mot de passe";
+    
+}
+        
+
+if(!empty($errors))
+{
+$_SESSION['errors'] = $errors;
+header('Location: index.php?action=connection#formInscription');
+
+}        
+        
+        
+}
+
+
+ else
+   {
+
+       require ABSOLUTE_PATH.'/view/view_connection.php';
+
+   }
+
+
 }
 
 
@@ -86,18 +210,5 @@ function homePage()
 require ABSOLUTE_PATH.'/view/view_homepage.php';    
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
