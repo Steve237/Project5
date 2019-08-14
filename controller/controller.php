@@ -171,35 +171,56 @@ if(!array_key_exists('password', $_POST) || empty($_POST['password']))
   $errors ['password'] = "veuillez entrer votre mot de passe";  
 }
 
+
 $connect = new connectionManager();
-$resultat_pass = $connect->connect_Member();
+$nb_pseudo = $connect->check_pseudo($_POST['pseudo']);
         
-if (!$resultat_pass)
+if(!$nb_pseudo)
+
+{
+
+    $errors ['pseudo'] = "pseudo inconnu";
+    
+}
+
+
+$connect = new connectionManager();
+$verif_pass = $connect ->connect_Member();
+    
+if($verif_pass == false)
 {
         
 $errors ['password'] = "mauvais identifiant ou mot de passe";
+
+}
+        
+if($verif_pass == true)
+{
+        
+$_SESSION['success'] = 1;
+
+$_SESSION['pseudo'] = $_POST["pseudo"];
+
+header('Location: index.php?action=connection#formInscription');
     
 }
         
-
 if(!empty($errors))
 {
 $_SESSION['errors'] = $errors;
 header('Location: index.php?action=connection#formInscription');
 
-}        
+}    
+    
+    }
         
         
-}
-
-
- else
+else
    {
 
        require ABSOLUTE_PATH.'/view/view_connection.php';
 
    }
-
 
 }
 

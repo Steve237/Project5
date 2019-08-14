@@ -21,7 +21,7 @@
   <?php endif; ?>
   <?php if(array_key_exists('success', $_SESSION)): ?>
   <div class="alert alert-success">
-  Votre message a bien été transmis !
+  Vous êtes désormais connecté
   </div>
   <?php endif; ?>
       

@@ -12,7 +12,22 @@ $db = $this->dbConnect();
 $req = $db->prepare('SELECT id_membre, password FROM membres WHERE pseudo = :pseudo');
 $req->execute(array('pseudo' => $_POST['pseudo']));
 $resultat = $req->fetch();
-return $resultat;
+
+
+$isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
+return $isPasswordCorrect;
 }
+
+
+public function check_pseudo($pseudo)
+{
+    $db = $this->dbConnect();
+
+    $req = $db->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ?');
+    $req->execute(array($pseudo));
+    $nb_pseudo = $req->fetch();
+    return $nb_pseudo['nb_pseudo'];
+}
+
 
 }
