@@ -3,9 +3,9 @@
 session_start();
 
 // Chargement des classes
-require_once ABSOLUTE_PATH."/model/PostManager.php";
-require_once ABSOLUTE_PATH."/model/InscriptionManager.php";
-require_once ABSOLUTE_PATH."/model/connectionManager.php";
+require_once ABSOLUTE_PATH."/model/NewsManager.php";
+require_once ABSOLUTE_PATH."/model/news.php";
+
 
 
 
@@ -32,7 +32,8 @@ if(!array_key_exists('message', $_POST) || $_POST['message'] == '') {
   header('Location: index.php#formContact');
   }
     
-else{
+else
+ {
   $_SESSION['success'] = 1;
   $headers  = 'MIME-Version: 1.0' . "\r\n";
   $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
@@ -55,15 +56,16 @@ else{
   </tr>
   </table>
   ';
-mail($to, $subject, $message_content, $headers);
+  mail($to, $subject, $message_content, $headers);
   header('Location: index.php#formContact');
   }
 }
+-
 
 function listPosts()
 {
-    $postManager = new PostManager(); // Création d'un objet
-    $posts = $postManager->getPosts(); //Appel d'une fonction de cet objet
+    $news_list = new NewsManager(); // Création d'un objet
+    $posts = $news_list->getListPosts(); //Appel d'une fonction de cet objet
     
     require ABSOLUTE_PATH.'/view/view_listposts.php';
 
@@ -71,10 +73,10 @@ function listPosts()
 
 function post()
 {
-    $postManager = new PostManager();
+    $post = new NewsManager();
     
 
-    $post = $postManager->getPost($_GET['id']);
+    $news = $post->getPostById($_GET['id']);
     
 
     require ABSOLUTE_PATH.'/view/view_post.php';
