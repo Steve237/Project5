@@ -31,9 +31,8 @@ elseif ($_GET['action'] == 'sendmail')
     sendMail();
      
 }
+}
 
-
-    
 else
 {
     
