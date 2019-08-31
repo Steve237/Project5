@@ -1,4 +1,4 @@
-<?php $title = htmlspecialchars($post['titre_article']); ?>
+<?php $title = htmlspecialchars($news->titre_article()); ?>
 
 <?php ob_start(); ?>
 
@@ -17,25 +17,28 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                        <h2><?= htmlspecialchars($post['titre_article']) ?></h2>
+                        <h2><?= htmlspecialchars($news->titre_article()) ?></h2>
                             <hr class="star-primary">
-                            <p><?= htmlspecialchars($post['descriptif_article'])?></p>
-                            <img src="<?= htmlspecialchars($post['image_article']) ?>" class="img-responsive img-centered" alt="">
-                            <p><?= nl2br(htmlspecialchars($post['contenu']))?></p>
+                            <p><?= htmlspecialchars($news->descriptif_article())?></p>
+                            <img src="<?= htmlspecialchars($news->image_article()) ?>" class="img-responsive img-centered" alt="">
+                            <p><?= nl2br(htmlspecialchars($news->contenu()))?></p>
                             <ul class="list-inline item-details">
                                 <li>Auteur:
-                                    <strong><?= htmlspecialchars($post['pseudo_auteur'])?>
+                                    <strong><?= htmlspecialchars($news->pseudo_auteur())?>
                                     </strong>
                                 </li>
                                 <li>Date de mise à jour:
-                                    <strong><?= htmlspecialchars($post['date_modification'])?>
+                                    <strong><?= htmlspecialchars($news->date_modification())?>
                                     </strong>
                                 </li>
+                                
+                            
+
                                 
                             </ul>
                             
                             <h3>Laissez un commentaire </h3>
-                            <form action="index.php?action=addComment&amp;id=<?= $post['id_article'] ?>" method="post">
+                            <form action="index.php?action=addComment&amp;id=<?= $news->id_post()?>" method="post">
                             
                             <div>
                             <label for="author"> Pseudo </label></br>

@@ -28,7 +28,7 @@
                     </li>
                     
                     <li class="page-scroll">
-                        <a href="index.php?action=connection">Espace d'administration</a>
+                        <a href="index.php?action=connection">Espace membres</a>
                     </li>
                 </ul>
             </div>
@@ -39,7 +39,7 @@
 
   
     <section id="portfolio">
-        <div class="container">
+      <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="titre_portfolio">Nos icônes</h2>
@@ -48,42 +48,39 @@
             </div>
             
             
-           <div class="row">
+        <div class="row">
                 <?php
-                      while($data = $posts->fetch())
+                      foreach($news_list->getListPosts() as $news)
                 {
                 ?>
                    
                
             <div class="col-sm-4 portfolio-item">
-                    <a href="index.php?action=post&amp;id=<?= $data['id_article'] ?>" class="portfolio-link">
+                    <a href="index.php?action=post&amp;id=<?= $news->id_post()?> " class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <h3>
-                                <?= htmlspecialchars($data['titre_article'])?>
+                                <?= htmlspecialchars($news->titre_article())?>
                                 </h3>
                                 <p>
-                                <?= htmlspecialchars($data['descriptif_article'])?>
+                                <?= htmlspecialchars($news->descriptif_article())?>
                                 </p>
                              <p>
-                                <?='Modifié le : ' . htmlspecialchars($data['date_modification'])?>
+                                <?='Modifié le : ' . htmlspecialchars($news->date_modification())?>
                             </p>
-                            
-                            </div>
+                         </div>
                         </div>
-                        <img src="<?= htmlspecialchars($data['image_liste_article'])?>" class="img-responsive" alt="">
+                        <img src="<?= htmlspecialchars($news->image_article())?>" class="img-responsive" alt="">
                         
                     </a>
-                </div>
+            </div>
       
                 <?php
-                }
-                    $posts->closeCursor();
+                  }
+                
                 ?> 
-    
-            
-            </div>
         </div>
+      </div>
     </section>
                 
   
@@ -108,12 +105,16 @@
                         <h3>Réseaux sociaux</h3>
                         <ul class="list-inline">
                             <li>
-                                <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                                <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline">
+                                    <i class="fa fa-fw fa-facebook"></i>
+                                </a>
                             </li>
                             
                             
                             <li>
-                                <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                                <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
+                                    <i class="fa fa-fw fa-linkedin"></i>
+                                </a>
                             </li>
                             
                         </ul>

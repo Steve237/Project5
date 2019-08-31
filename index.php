@@ -31,27 +31,7 @@ elseif ($_GET['action'] == 'sendmail')
     sendMail();
      
 }
-
-
-    
-    
-elseif ($_GET['action'] == 'inscription')
-{
-    Inscription();
-     
 }
-
-    
-elseif ($_GET['action'] == 'connection')
-{
-    Connection();
-     
-}
-
-
-
-}
-
 
 else
 {
