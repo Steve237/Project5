@@ -5,6 +5,8 @@ define("ABSOLUTE_PATH", dirname(__FILE__));
 
 
 require ABSOLUTE_PATH.'/controller/controller.php';
+require ABSOLUTE_PATH.'/controller/backend.php';
+
 
 if (isset($_GET['action']))
 {
@@ -31,6 +33,26 @@ elseif ($_GET['action'] == 'sendmail')
     sendMail();
      
 }
+
+
+
+elseif ($_GET['action'] == 'inscription')
+{
+    
+
+ Inscription();
+    
+}
+
+
+elseif ($_GET['action'] == 'connection')
+{
+    
+
+ Connection();
+    
+}
+
 }
 
 else
