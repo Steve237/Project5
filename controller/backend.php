@@ -80,13 +80,17 @@ function Connection()
 
     if(isset($_POST['connection']))
 
-$_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);  
 
-$_POST['password'] = htmlspecialchars($_POST['password']);    
-
-        
 {
 
+$_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);  
+
+$_POST['password'] = htmlspecialchars($_POST['password']);       
+    
+    
+    
+    
+    
 if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) 
 {
     
@@ -141,14 +145,13 @@ header('Location: index.php?action=connection#formInscription');
 }    
     
     }
+    
+    else
+{
   
     
-else
-   {
-
-       require ABSOLUTE_PATH.'/view/view_connection.php';
-
-   }
+require ABSOLUTE_PATH.'/view/view_connection.php';
+}
 
 }
 
