@@ -8,86 +8,88 @@ require_once ABSOLUTE_PATH."/model/users.php";
 function Inscription()
 {
 
-if(isset($_POST['inscription']))
-{    
+    if(isset($_POST['inscription']))
+    {    
    
-$_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
-$_POST['email'] = htmlspecialchars($_POST['email']);    
-$_POST['password'] = htmlspecialchars($_POST['password']);    
-$_POST['password_confirm'] = htmlspecialchars($_POST['password_confirm']);  
+        $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
+        $_POST['email'] = htmlspecialchars($_POST['email']);    
+        $_POST['password'] = htmlspecialchars($_POST['password']);    
+        $_POST['password_confirm'] = htmlspecialchars($_POST['password_confirm']);  
     
     
-$errors = array();
+        $errors = array();
 
-$inscription = new UsersManager();
-$nb_pseudo = $inscription->check_pseudo($_POST['pseudo']);
+        $inscription = new UsersManager();
+        $nb_pseudo = $inscription->check_pseudo($_POST['pseudo']);
 
-$connection = new UsersManager();
-$nb_email = $connection->check_email($_POST['email']);
+        $connection = new UsersManager();
+        $nb_email = $connection->check_email($_POST['email']);
     
     
-if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo']) || $nb_pseudo > 0)
-{
+        if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo']) || $nb_pseudo > 0)
+        {
     
- $errors ['pseudo'] = "pseudo non renseigné ou déjà utilisé";
-}
+            $errors ['pseudo'] = "pseudo non renseigné ou déjà utilisé";
+        }
 
 
-if(strlen($_POST['pseudo']) < 7 )
-{
+        if(strlen($_POST['pseudo']) < 7 )
+        {
     
- $errors ['pseudo'] = "le pseudo doit comporter au moins sept caractères";   
+            $errors ['pseudo'] = "le pseudo doit comporter au moins sept caractères";   
     
-}
+        }
     
-if(preg_match("#[^a-z0-9]+#", $_POST['pseudo']))
+        if(preg_match("#[^a-z0-9]+#", $_POST['pseudo']))
    
-{
+        {
     
- $errors ['pseudo'] = "Le pseudo doit être composé seulement de lettres minuscules et d'au moins un chiffre";  
+            $errors ['pseudo'] = "Le pseudo doit être composé seulement de lettres minuscules et d'au moins un chiffre";  
     
-}
+        }
     
 
-if(!array_key_exists('email', $_POST) || empty($_POST['email']) || $nb_email > 0 )
-{
+        if(!array_key_exists('email', $_POST) || empty($_POST['email']) || $nb_email > 0 )
+        {
     
- $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
-}
+            $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
+        }
 
-if(!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) || empty($_POST['password_confirm']))      {
+        if(!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                       empty($_POST['password_confirm']))      
+        {
     
- $errors ['password'] = "veuillez entrer votre mot de passe";
-}
+            $errors ['password'] = "veuillez entrer votre mot de passe";
+        }
 
-if($_POST['password'] != $_POST['password_confirm'])
-{
+        if($_POST['password'] != $_POST['password_confirm'])
+        {
 
- $errors ['password'] = "veuillez entrer deux mots de passe identiques";
+            $errors ['password'] = "veuillez entrer deux mots de passe identiques";
 
-}
+        }
 
-if(!empty($errors))
-{
- $_SESSION['errors'] = $errors;
- header('Location: index.php?action=inscription#formInscription');
+        if(!empty($errors))
+        {
+            $_SESSION['errors'] = $errors;
+            header('Location: index.php?action=inscription#formInscription');
 
-}
+        }
 
-else
-{
- $_SESSION['success'] = 1;    
- $inscription = new UsersManager();
- $inscription->add_Users();
- header('Location: index.php?action=inscription#formInscription');
-}
-} 
-   else
-   {
+        else
+        {
+            $_SESSION['success'] = 1;    
+            $inscription = new UsersManager();
+            $inscription->add_Users();
+            header('Location: index.php?action=inscription#formInscription');
+        }
+    } 
+    
+    else
+    {
 
-       require ABSOLUTE_PATH.'/view/view_inscription.php';
+        require ABSOLUTE_PATH.'/view/view_inscription.php';
+    }
 
-   }
 }
 
 
@@ -96,74 +98,75 @@ function Connection()
 
     if(isset($_POST['connection']))
 
-   {
+    {
 
-    $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);  
+        $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);  
 
-    $_POST['password'] = htmlspecialchars($_POST['password']);       
+        $_POST['password'] = htmlspecialchars($_POST['password']);       
     
     
-if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) 
-{
+        if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) 
+        {
     
-  $errors ['pseudo'] = "veuillez entrer votre pseudo";    
+            $errors ['pseudo'] = "veuillez entrer votre pseudo";    
 
-}
+        }
 
-if(!array_key_exists('password', $_POST) || empty($_POST['password']))  
-{
-  $errors ['password'] = "veuillez entrer votre mot de passe";  
-}
+        if(!array_key_exists('password', $_POST) || empty($_POST['password']))  
+        {
+            $errors ['password'] = "veuillez entrer votre mot de passe";  
+        }
 
 
-$connect = new UsersManager();
-$nb_pseudo = $connect->check_Member();
+    $connect = new UsersManager();
+    $nb_pseudo = $connect->check_Member();
         
-if(!$nb_pseudo)
+        if(!$nb_pseudo)
 
-{
+        {
 
-  $errors ['pseudo'] = "pseudo inconnu";
+            $errors ['pseudo'] = "pseudo inconnu";
     
-}
+        }
 
 
-$connect = new UsersManager();
-$verif_pass = $connect ->connect_User();
+    $connect = new UsersManager();
+    $verif_pass = $connect ->connect_User();
     
-if($verif_pass == false)
-{
+        if($verif_pass == false)
+        {
         
-  $errors ['password'] = "mauvais identifiant ou mot de passe";
+            $errors ['password'] = "mauvais identifiant ou mot de passe";
 
-}
+        }
         
-if($verif_pass == true)
-{
+        if($verif_pass == true)
+        {
         
-$_SESSION['success_connect'] = "vous êtes connecté";
+            $_SESSION['success_connect'] = "vous êtes connecté";
 
-$_SESSION['pseudo'] = $_POST["pseudo"];
+            $_SESSION['pseudo'] = $_POST["pseudo"];
 
-header('Location: index.php');
+            header('Location: index.php');
     
-}
+        }
         
-if(!empty($errors))
-{
-$_SESSION['errors'] = $errors;
-header('Location: index.php?action=connection#formInscription');
+        if(!empty($errors))
+        {
+            $_SESSION['errors'] = $errors;
+            header('Location: index.php?action=connection#formInscription');
 
-}    
+        }    
     
    }
     
-    else
-{
+   else
+   {
   
     
-require ABSOLUTE_PATH.'/view/view_connection.php';
-}
+        require ABSOLUTE_PATH.'/view/view_connection.php';
+   
+   }
 
 }
 
@@ -172,172 +175,175 @@ require ABSOLUTE_PATH.'/view/view_connection.php';
 function Recovery()
 {
 
-if(isset($_GET['section']))
-{
-$section = htmlspecialchars($_GET['section']);   
-}
-else
-{
-   $section=""; 
-}
+    if(isset($_GET['section']))
+    {
+        $section = htmlspecialchars($_GET['section']);   
+    }
+    else
+    {
+        $section=""; 
+    }
 
     
-if(isset($_POST['recovery_submit']))
+    if(isset($_POST['recovery_submit']))
 
-{
+    {   
  
-$email = htmlspecialchars($_POST['email']);   
+        $email = htmlspecialchars($_POST['email']);   
     
-$errors = array();
+        $errors = array();
 
-$verif_email = new UsersManager();
-$nb_email = $verif_email->check_email($_POST['email']);
+        $verif_email = new UsersManager();
+        $nb_email = $verif_email->check_email($_POST['email']);
     
     
-if(!array_key_exists('email', $_POST) || empty($_POST['email']) || !$nb_email)
-{
+        if(!array_key_exists('email', $_POST) || empty($_POST['email']) || !$nb_email)
+        {
     
-$errors ['email'] = "adresse email non renseigné ou inconnu du système";
-header('Location: index.php?action=recovery_pass');
+            $errors ['email'] = "adresse email non renseigné ou inconnu du système";
+            header('Location: index.php?action=recovery_pass');
 
-}
+        }
     
-if($nb_email > 0)
-{
+        if($nb_email > 0)
+        {
     
     
-$_SESSION['email'] = $email;
+            $_SESSION['email'] = $email;
 
-$recovery_pass = sha1(time());
+            $recovery_pass = sha1(time());
 
 
-  $_SESSION['recovery_pass'] = $recovery_pass;
+            $_SESSION['recovery_pass'] = $recovery_pass;
 
-  $verif_email = new UsersManager();
-$nb_email = $verif_email->check_email($_POST['email']);
+            $verif_email = new UsersManager();
+            $nb_email = $verif_email->check_email($_POST['email']);
   
-  if($nb_email > 0)
+            if($nb_email > 0)
   
-{
- $update_data = new Users(array('recovery_code'=>$recovery_pass, 'email'=>$email));
- $update_info = new UsersManager();
- $update_info->update_recovery($update_data);
+            {
+                $update_data = new Users(array('recovery_code'=>$recovery_pass, 'email'=>$email));
+                $update_info = new UsersManager();
+                $update_info->update_recovery($update_data);
 
-         $_SESSION['success'] = 1;
-         $header="MIME-Version: 1.0\r\n";
-         $header.='From:"Blog de Steve Essama"<essonoadou@gmail.com>'."\n";
-         $header.='Content-Type:text/html; charset="utf-8"'."\n";
-         $header.='Content-Transfer-Encoding: 8bit';
-         $message = '
-         <html>
-         <head>
-           <title>Récupération de mot de passe</title>
-           <meta charset="utf-8" />
-         </head>
-         <body>
-           <font color="#303030";>
-             <div align="center">
-               <table width="600px">
-                 <tr>
-                   <td>
+                $_SESSION['success'] = 1;
+                $header="MIME-Version: 1.0\r\n";
+                $header.='From:"Blog de Steve Essama"<essonoadou@gmail.com>'."\n";
+                $header.='Content-Type:text/html; charset="utf-8"'."\n";
+                $header.='Content-Transfer-Encoding: 8bit';
+                $message = '
+                <html>
+                    <head>
+                        <title>Récupération de mot de passe</title>
+                        <meta charset="utf-8" />
+                    </head>
+                    <body>
+                        <font color="#303030";>
+                            <div align="center">
+                                <table width="600px">
+                                    <tr>
+                                        <td>
+                                            <p align="center">
+                                            Bonjour, vous avez indiqué avoir oublié votre mot de passe 
+                                            </p>
+                                            <p>
+                                            Cliquez <a href="http://localhost/test/index.php?                                                                                                               action=recovery_pass&section=update_password&code='.$recovery_pass.'">
+                                            ici pour réinitialiser votre mot de passe</a> </br>
+                                            A bientôt sur <a href="index.php/">Notre blog!</a>
+                                            </p>
                      
-                     <div align="center">Bonjour, vous avez indiqué avoir oublié votre mot de passe </div>
-                     <p>Cliquez <a href="http://localhost/test/index.php?action=recovery_pass&section=update_password&code='.$recovery_pass.'">
-                     ici pour réinitialiser votre mot de passe</a> </br>
-                     A bientôt sur <a href="index.php/">Notre blog!</a></p>
-                     
-                   </td>
-                 </tr>
-                 <tr>
-                   <td align="center">
-                     <font size="2">
-                       Ceci est un email automatique, merci de ne pas y répondre
-                     </font>
-                   </td>
-                 </tr>
-               </table>
-             </div>
-           </font>
-         </body>
-         </html>
-         ';
-         mail($email, "Récupération de mot de passe", $message, $header);
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <font size="2">
+                                            Ceci est un email automatique, merci de ne pas y répondre
+                                            </font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </font>
+                    </body>
+                </html>
+                ';
+                mail($email, "Récupération de mot de passe", $message, $header);
          
 
          
-}
-}
+            }
+        }
 
 
-if(!empty($errors))
-{
-$_SESSION['errors'] = $errors;
+        if(!empty($errors))
+        {
+            $_SESSION['errors'] = $errors;
 
-}  
+        }  
 
-}
+    }
 
-if(isset($_POST['pass_submit']))
-{
-if(isset($_POST['new_pass'], $_POST['confirm_pass']))
-{
+    if(isset($_POST['pass_submit']))
+    {
+        if(isset($_POST['new_pass'], $_POST['confirm_pass']))
+        {
     
-$new_pass = htmlspecialchars($_POST['new_pass']);
-$confirm_pass = htmlspecialchars($_POST['confirm_pass']);
+            $new_pass = htmlspecialchars($_POST['new_pass']);
+            $confirm_pass = htmlspecialchars($_POST['confirm_pass']);
     
-if(!empty($_POST['new_pass']) && !empty($_POST['confirm_pass']))
-{
+            if(!empty($_POST['new_pass']) && !empty($_POST['confirm_pass']))
+            {
     
-if($new_pass == $confirm_pass)
-{
+                if($new_pass == $confirm_pass)
+                {
     
- $update_user = new Users(array('password'=>$new_pass, 'email'=>$_SESSION['email']));
- $update_pass = new UsersManager();
- $update_pass->update_password($update_user);
-header('Location: index.php?action=connection');
+                    $update_user = new Users(array('password'=>$new_pass, 'email'=>$_SESSION['email']));
+                    $update_pass = new UsersManager();
+                    $update_pass->update_password($update_user);
+                    header('Location: index.php?action=connection');
 
 
 
-}
+                }
 
-else
-{
+                else
+                {
 
-$errors ['new_pass'] = "Les deux mots de passe ne correspondent pas";
-header('Location: index.php?action=recovery_pass&section=update_password');
-
-
-}
+                    $errors ['new_pass'] = "Les deux mots de passe ne correspondent pas";
+                    header('Location: index.php?action=recovery_pass&section=update_password');
 
 
-}
+                }
 
-else
-{
+
+            }
+
+            else
+            {
     
-$errors ['new_pass'] = "veuillez remplir les champs";
-header('Location: index.php?action=recovery_pass&section=update_password');
+                $errors ['new_pass'] = "veuillez remplir les champs";
+                header('Location: index.php?action=recovery_pass&section=update_password');
 
-}
+            }
 
-}
+        }
 
 
-if(!empty($errors))
-{
-$_SESSION['errors'] = $errors;
+        if(!empty($errors))
+        {
+            $_SESSION['errors'] = $errors;
 
-}      
+        }         
     
-}
+    }
 
 
-else
-{
+    else
+    {
   
     
-require ABSOLUTE_PATH.'/view/view_recovery-password.php';
-}
+        require ABSOLUTE_PATH.'/view/view_recovery-password.php';
+    }
     
 }
 
@@ -346,21 +352,110 @@ require ABSOLUTE_PATH.'/view/view_recovery-password.php';
 function Disconnect()
 {
     
-if(isset($_POST['disconnect']))
+    if(isset($_POST['disconnect']))
+    {
+    
+
+	   unset($_SESSION['success_connect']);
+ 
+        // On redirige le visiteur vers la page désirée :
+	   header('Location: index.php');
+	   exit();
+   
+    }
+    
+
+}
+
+
+function Connection_admin()
+{
+
+    if(isset($_POST['connect_admin']))
+
+    {
+
+        $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);  
+
+        $_POST['password'] = htmlspecialchars($_POST['password']);       
+    
+    
+        if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) 
+        {
+    
+            $errors ['pseudo'] = "veuillez entrer votre pseudo";    
+
+        }
+
+    
+        if(!array_key_exists('password', $_POST) || empty($_POST['password']))  
+        {
+            $errors ['password'] = "veuillez entrer votre mot de passe";  
+    
+        }
+
+
+        $connect_admin = new UsersManager();
+        $nb_pseudo_admin = $connect_admin->check_Admin();
+        
+        if(!$nb_pseudo_admin)
+
+        {
+
+            $errors ['pseudo'] = "Ce pseudo ne correspond à aucun administrateur ";
+    
+        }
+
+
+        $connect_admin = new UsersManager();
+        $verif_pass = $connect_admin ->connect_User();
+    
+        if($verif_pass == false)
+        {
+        
+            $errors ['password'] = "mauvais identifiant ou mot de passe";
+
+        }
+        
+
+        if($verif_pass == true)
+        {
+        
+            $_SESSION['success_connect'] = "vous êtes connecté";
+
+            $_SESSION['pseudo'] = $_POST["pseudo"];
+
+            header('Location: index.php?action=admin_space');
+    
+        }
+        
+        if(!empty($errors))
+        {
+            $_SESSION['errors'] = $errors;
+            header('Location: index.php?action=connect_admin#form_admin');
+
+        }          
+    
+   }
+    
+   else
+   {
+  
+       require ABSOLUTE_PATH.'/view/view_connection_admin.php';
+   }
+
+}
+
+function Admin_space()
 {
     
+    $news_list = new NewsManager(); // Création d'un objet
+    $posts = $news_list->getListPosts(); //Appel d'une fonction de cet objet
 
-	unset($_SESSION['success_connect']);
- 
-// On redirige le visiteur vers la page désirée :
-	header('Location: index.php');
-	exit();
-   
-}
-    
+    require ABSOLUTE_PATH.'/view/view_admin_space.php';
+
 
 }
-    
 
 
 
