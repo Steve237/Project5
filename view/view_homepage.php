@@ -13,17 +13,28 @@
 			<a class="navbar-brand" href="#page-top">Steve Essama</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="hidden"><a href="#page-top"></a></li>
+		
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			
+            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+                <div style="color:red; position:absolute; right: 14px; top: 5px;"><?= $_SESSION['success_connect']; ?></div>
+                <form action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
+                <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
+                </form>
+                <?php endif; ?>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden"><a href="#page-top"></a></li>
 				<li><a href="index.php">Accueil</a></li>
 				<li class="page-scroll"><a href="index.php?action=listposts"> Nos articles </a></li>
-				<li class="page_scroll"><a href="index.php?action=connection">Espace membres</a></li>
-			</ul>
-		</div>
+				<li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
+                <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
+            </ul>
+		
+        </div>
 		<!-- /.navbar-collapse -->
 	</div>
-	<!-- /.container-fluid -->
+	    <!-- /.container-fluid -->
 </nav>
 <!-- Header -->
 <header>
