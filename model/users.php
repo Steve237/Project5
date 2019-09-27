@@ -53,13 +53,12 @@ private $_recovery_code;
 
 
     public function password()
-    {
+    {   
     
         return $this->_password;    
 
     }
 
-    
     public function email()
     {
     
@@ -115,6 +114,8 @@ private $_recovery_code;
 
 
     }    
+    
+    
     
     
     
