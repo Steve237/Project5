@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 24 août 2019 à 21:07
+-- Généré le :  ven. 27 sep. 2019 à 00:15
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -82,30 +82,71 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `password` varchar(255) NOT NULL,
   `email` char(100) NOT NULL,
   `date_inscription` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `recovery_code` varchar(255) DEFAULT NULL,
+  `admin` int(10) DEFAULT NULL,
   PRIMARY KEY (`id_membre`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `membres`
 --
 
-INSERT INTO `membres` (`id_membre`, `pseudo`, `password`, `email`, `date_inscription`) VALUES
-(8, 'hercule240', 'fb360f9c09ac8c5edb2f18be5de4e80ea4c430d0', 'adouessono@yahoo.fr', '2019-08-11 16:48:02'),
-(9, 'hulk', '7a85f4764bbd6daf1c3545efbbf0f279a6dc0beb', 'adouessono@yahoo.fr', '2019-08-11 16:51:20'),
-(10, 'hercule58', '$2y$10$LNQUHiI3A/4cW6BAd2aDiOYlQtByU78Bs3IoMAgqCmcQP076v2QUu', 'adouessono@yahoo.fr', '2019-08-11 16:57:12'),
-(11, 'hercule27', '$2y$10$t50Q/qhYpYrGnqWb6k6xmOiiW56rjK5FaUdgcfITm2uRV.T/PbYLC', 'adouessono@yahoo.fr', '2019-08-11 16:58:00'),
-(12, 'hercule', '$2y$10$8dJd2nIyE35JV8EJNRhSl.0CyC9yaw1ouZFSti0iu9OqiwyoASr/W', 'adouessono@yahoo.fr', '2019-08-11 22:11:22'),
-(13, 'hercule', '$2y$10$Rr7kMDqzDoU93uuLXrSWT.34DY9Ibm9Ke69p1wx8x80DP0WESdO3u', 'adouessono@yahoo.fr', '2019-08-11 22:13:13'),
-(14, 'hercule', '$2y$10$J11dRL5E2iF1oe0Pa9fL4eJ6ANIrYr.nkanTV0lnkigPgWcz/mwLa', 'adouessono@yahoo.fr', '2019-08-11 22:17:24'),
-(15, 'hercule', '$2y$10$3pKNEpHVQl7/pgigItTlHu3C0d1i4v1svc5w0zWg7jSqteTgsRJRq', 'adouessono@yahoo.fr', '2019-08-11 22:20:32'),
-(16, 'salut', '$2y$10$CJQMf3ZRVwpuTzbBbJlQhuaECHnfYlqeCqHBB3Sq9PDB64CxP7sKu', 'adouessono@yahoo.fr', '2019-08-11 22:24:10'),
-(17, 'hercule', '$2y$10$Ap9EfcYdIv6snG21sBVqEuPJ9gOe919x7QLefnu4LOrQqpVPWac.G', 'kkk@yahoo.com', '2019-08-11 22:26:01'),
-(18, 'herculedubled', '$2y$10$nx2IWrWFLoOPSmJTDhJw1.jGYrtBCwBkg7Zd2ebvK6NKH1ncy5Um.', 'essono456@gmail.com', '2019-08-13 20:01:25'),
-(19, 'christ77', '$2y$10$nMLjV6IZ3U0YvD/8qf7cQOH0Tndq1bataA/sjJZXtcdD1PyOuzW.K', 'christ77@dieu.com', '2019-08-14 02:48:16'),
-(20, 'hercule', '$2y$10$Z5BaXJ4zoM7le5Aakhqea.2wSvNFE9KVCu1slapR0XflIhtIVJ5FW', 'adouessono@yahoo.fr', '2019-08-24 04:31:46'),
-(21, 'hercule', '$2y$10$Ain5OW7Jz4RZ9qrH0CoWbuHzYRbHqhrfK5eyr7DVyeUFyjzNq8N66', 'adouessono@yahoo.fr', '2019-08-24 04:33:50'),
-(22, 'hercule', '$2y$10$btHt7Sboky7hX40K/3Uh4OPQNp.VNNU1yfrGwpv5FtSSmmiJl7mp6', 'adouessono@yahoo.fr', '2019-08-24 04:34:09'),
-(23, 'bleoulefou', '$2y$10$GhQCvzPAeuPTuYrqHHqzyu2HcQKJqcIu2FZ0eqP2aufC0L2E3InXi', 'roidubled98@gmail.com', '2019-08-24 04:35:53');
+INSERT INTO `membres` (`id_membre`, `pseudo`, `password`, `email`, `date_inscription`, `recovery_code`, `admin`) VALUES
+(8, 'hercule240', 'fb360f9c09ac8c5edb2f18be5de4e80ea4c430d0', 'adouessono@yahoo.fr', '2019-08-11 16:48:02', '', NULL),
+(9, 'hulk', '7a85f4764bbd6daf1c3545efbbf0f279a6dc0beb', 'adouessono@yahoo.fr', '2019-08-11 16:51:20', '', NULL),
+(10, 'hercule58', '$2y$10$LNQUHiI3A/4cW6BAd2aDiOYlQtByU78Bs3IoMAgqCmcQP076v2QUu', 'adouessono@yahoo.fr', '2019-08-11 16:57:12', '', NULL),
+(11, 'hercule27', '$2y$10$t50Q/qhYpYrGnqWb6k6xmOiiW56rjK5FaUdgcfITm2uRV.T/PbYLC', 'adouessono@yahoo.fr', '2019-08-11 16:58:00', '', NULL),
+(12, 'hercule', '$2y$10$8dJd2nIyE35JV8EJNRhSl.0CyC9yaw1ouZFSti0iu9OqiwyoASr/W', 'adouessono@yahoo.fr', '2019-08-11 22:11:22', '', NULL),
+(13, 'hercule', '$2y$10$Rr7kMDqzDoU93uuLXrSWT.34DY9Ibm9Ke69p1wx8x80DP0WESdO3u', 'adouessono@yahoo.fr', '2019-08-11 22:13:13', '', NULL),
+(14, 'hercule', '$2y$10$J11dRL5E2iF1oe0Pa9fL4eJ6ANIrYr.nkanTV0lnkigPgWcz/mwLa', 'adouessono@yahoo.fr', '2019-08-11 22:17:24', '', NULL),
+(15, 'hercule', '$2y$10$3pKNEpHVQl7/pgigItTlHu3C0d1i4v1svc5w0zWg7jSqteTgsRJRq', 'adouessono@yahoo.fr', '2019-08-11 22:20:32', '', NULL),
+(16, 'salut', '$2y$10$CJQMf3ZRVwpuTzbBbJlQhuaECHnfYlqeCqHBB3Sq9PDB64CxP7sKu', 'adouessono@yahoo.fr', '2019-08-11 22:24:10', '', NULL),
+(17, 'hercule', '$2y$10$Ap9EfcYdIv6snG21sBVqEuPJ9gOe919x7QLefnu4LOrQqpVPWac.G', 'kkk@yahoo.com', '2019-08-11 22:26:01', '', NULL),
+(18, 'herculedubled', '$2y$10$nx2IWrWFLoOPSmJTDhJw1.jGYrtBCwBkg7Zd2ebvK6NKH1ncy5Um.', 'essono456@gmail.com', '2019-08-13 20:01:25', '', NULL),
+(19, 'christ77', '$2y$10$nMLjV6IZ3U0YvD/8qf7cQOH0Tndq1bataA/sjJZXtcdD1PyOuzW.K', 'christ77@dieu.com', '2019-08-14 02:48:16', '', NULL),
+(20, 'hercule', '$2y$10$Z5BaXJ4zoM7le5Aakhqea.2wSvNFE9KVCu1slapR0XflIhtIVJ5FW', 'adouessono@yahoo.fr', '2019-08-24 04:31:46', '', NULL),
+(21, 'hercule', '$2y$10$Ain5OW7Jz4RZ9qrH0CoWbuHzYRbHqhrfK5eyr7DVyeUFyjzNq8N66', 'adouessono@yahoo.fr', '2019-08-24 04:33:50', '', NULL),
+(22, 'hercule', '$2y$10$btHt7Sboky7hX40K/3Uh4OPQNp.VNNU1yfrGwpv5FtSSmmiJl7mp6', 'adouessono@yahoo.fr', '2019-08-24 04:34:09', '', NULL),
+(23, 'bleoulefou', '$2y$10$GhQCvzPAeuPTuYrqHHqzyu2HcQKJqcIu2FZ0eqP2aufC0L2E3InXi', 'roidubled98@gmail.com', '2019-08-24 04:35:53', '', NULL),
+(24, 'Essamakamer257', 'yes', 'roidubled67@gmail.com', '2019-08-25 14:19:07', '', NULL),
+(25, 'jeromelebelge', 'franky', 'kinglion69@gmail.com', '2019-08-25 14:21:07', '', NULL),
+(26, 'kongobelge', '$2y$10$7Ljsintnfn5mv56j9YHA0.rxn8Fs3vHENEwo4ADqfcvNjW1m/DEsq', 'leroidukamer237@gmail.com', '2019-08-25 14:26:18', '', NULL),
+(27, 'jon', '$2y$10$VvDUhYDSI4gDqZBARSWF0enpl.8bsDh0UEYT2bRBMYQ2qSr6y6uKu', 'leroidukamer250@gmail.com', '2019-08-25 14:26:47', '', NULL),
+(28, 'kyle88', '$2y$10$KAnnHos6Wu.FqikYVCFTB.d53aai3EHnH18eSqRk0HZQ5sHfm1muG', 'adouessono756@yahoo.fr', '2019-08-25 14:31:04', '', NULL),
+(29, 'jon85', '$2y$10$UVjJAvmqaR5iNLNj0qI08OOYeRt2rsLaYZNEPvmV78VT2HVZvqw8O', 'lyon69@sfr.fr', '2019-08-25 14:31:41', '', NULL),
+(30, 'Kamer237!!!', '$2y$10$6nb/YkO4Tq8nikCVhFmjEuVHhad/dkKeZfisNPNaEjtWKRSsDZR1W', 'goal@msn.com', '2019-08-31 15:19:45', '', NULL),
+(31, 'kamerounais', '$2y$10$mwSJsKKN21i8pZZLkd9VHeTWsmYuTFgMGrIJvlmV7uamLfsEAcC4u', 'kamerounaisfou@gmail.com', '2019-08-31 15:24:41', '', NULL),
+(32, 'kamerounaisfort', '$2y$10$WCXbKMPlGJefct.DhZNU8..mzijpo35ZZK8U1N5jmKnxjbkoB4ekq', 'kamerounaisfou55@gmail.com', '2019-08-31 15:25:10', '', NULL),
+(33, 'kamerounais57', '$2y$10$iU15TMUVL/OpfxpYLUbvBOiH65Md.B64hu286dQEokwrBKZmJTiky', 'franckngba370@yahoo.com', '2019-08-31 15:34:03', '', NULL),
+(34, 'kamerounaisdukamer', '$2y$10$5aWhREQDtyCFzyGHjfrraOqkXHjMB/lDaOWig8u5QiypXqeXJAQoi', 'franckngba7783@yahoo.com', '2019-08-31 15:35:33', '', NULL),
+(35, 'hulk277', '$2y$10$Y42bCN09GRDqkx.LLszGz.L6KIdEOD/giS85VkBDohVFOS8onb5sO', 'roi@gmail.com', '2019-08-31 17:01:16', '', NULL),
+(36, 'hulk278', '$2y$10$VUyf5S2/Uj8xng1f4tC6t.c9HkobVwu9YafgihE9XfK9n/0pTr/qi', 'espiritokamer237@gmail.com', '2019-08-31 17:44:57', '', NULL),
+(37, 'steveessama237', '$2y$10$y/lVysSFV75aFcLoSy2N0e6LNlFitGvgPosNyIKiqdvYucXrS24y6', 'essonoadou@gmail.com', '2019-09-07 08:38:23', 'e1581f4670d6955740e0a67febd9f77ce29885c9', NULL),
+(38, 'steveessama240', '$2y$10$4QGOrlwSfuMW5NcIWtZQyue1OHe3UGoGhuHbRhg86PxrnrnNqknQa', 'adouessono958@yahoo.fr', '2019-09-07 11:33:02', '', NULL),
+(39, 'steveessama250', '$2y$10$DLWA5wgis9uGXHOaOY2euubK3og1p5XWOxL0/CuMc2og/G0rAql4K', 'adouessono7758@yahoo.fr', '2019-09-07 11:34:11', '', NULL),
+(41, 'micheldubled237', '$2y$10$zA.EN.0lVgCOOPaFThyKr.llvuVEsrnXTUB/cLJi8zdMGCztaN99O', 'essonodelyon55@gmail.com', '2019-09-10 19:20:32', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `recovery`
+--
+
+DROP TABLE IF EXISTS `recovery`;
+CREATE TABLE IF NOT EXISTS `recovery` (
+  `id_code` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `recovery_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `recovery`
+--
+
+INSERT INTO `recovery` (`id_code`, `email`, `recovery_code`) VALUES
+(2, 'essono456@gmail.com', '41187121'),
+(13, 'essonoadou@gmail.com', 'a4162c4d45ed02c483ffe165c11004ade9299a9e');
 
 --
 -- Contraintes pour les tables déchargées
