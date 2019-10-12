@@ -3,17 +3,72 @@
 require_once("Manager.php");
 
 class CommentManager extends Manager
-
 {
 
-public function getComments($id_post)
-{
-$db = $this->dbconnect();
-$comments = $db->prepare('SELECT id_commentaire, id_article, pseudo_auteur_commentaire, contenu_commentaire, date_creation_commentaire FROM commentaires 
-WHERE id_article = ?');
-$comments->execute(array($id_post));
-return $comments;
-}
+    //permet d'afficher la liste des commentaires
+    public function getListComment()
+    {
+        $db = $this->dbconnect();
+        $query = $db->query('SELECT id_commentaire, id_post, pseudo_auteur, contenu_commentaire, DATE_FORMAT(date_creation, "%d/%m/%Y %Hh%imin%ss") AS               date_creation, validation, titre_article FROM commentaires');
+        $query->execute();
+        
+        
+        $comments = $query->fetchAll(PDO::FETCH_ASSOC);        
+        
+        $listComments = array();
+        foreach ($comments as $donnees) 
+        {
+            // on instancie notre objet
+            $comments = new Comments();
+            // on hydrate notre objet avec les valeurs récupérées en bdd
+            $comments->hydrate($donnees);
+            // puis on le met dans notre tableau
+            $listComments[] = $comments;            
+        }
+        return $listComments;
+    }
+ 
+    
+    
+    
+    //permet d'ajouter un commentaire
+    public function add_comment()
+    {
+     
+        $db = $this->dbconnect();
+        $q = $db->prepare('INSERT INTO commentaires(id_post, contenu_commentaire, pseudo_auteur, date_creation, titre_article) 
+        VALUES(:id_post, :contenu_commentaire, :pseudo_auteur, NOW(), :titre_article)');
+    
+        $q->bindValue(':id_post', $_GET['id']);
+        $q->bindValue(':pseudo_auteur', $_POST['pseudo']);
+        $q->bindValue(':contenu_commentaire', $_POST['user_comment']);
+        $q->bindValue(':titre_article', $_GET['titre']);
+        $q->execute();
+    }
 
+
+    //permet de valider un commentaire
+    public function comment_Validation() 
+    {
+    
+        $db = $this->dbConnect();
+        $query = $db->prepare('UPDATE commentaires SET validation=:validation WHERE id_commentaire=:id_commentaire');
+        $query->bindValue(':validation', '1');
+        $query->bindValue(':id_commentaire', $_GET['id']);
+        $query->execute();
+    
+    }
+    
+
+
+    //permet de supprimer un commentaire
+    public function delete_Comment($commentId)
+    {
+        
+        $db = $this->dbconnect();
+        $q = $db->prepare('DELETE FROM commentaires WHERE id_commentaire = ?');
+        $q->execute(array($commentId));
+    
+    }
 
 }

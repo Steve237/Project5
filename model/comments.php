@@ -1,16 +1,15 @@
 <?php
 
-class News
+class Comments
 {
+    private $_id_commentaire;
     private $_id_post;
-    private $_titre_article;
     private $_pseudo_auteur;
-    private $_descriptif_article;
-    private $_contenu;
-    private $_date_modification;
-    private $_image_article;
-    
-    
+    private $_contenu_commentaire;
+    private $_date_creation;
+    private $_validation;
+    private $_titre_article;
+
     public function __construct($valeurs = [])
     {
         if (!empty($valeurs)) // Si on a spécifié des valeurs, alors on hydrate l'objet.
@@ -19,7 +18,6 @@ class News
         }
     }
 
-    
     public function hydrate(array $donnees)
     {
         foreach ($donnees as $key => $value) 
@@ -37,15 +35,15 @@ class News
     }
     
     
-    public function id_post()
+    public function id_commentaire()
     {
-        return $this->_id_post;
+        return $this->_id_commentaire;
         
     }
     
-    public function titre_article()
+    public function id_post()
     {
-        return $this->_titre_article;
+        return $this->_id_post;
         
     }
     
@@ -57,41 +55,42 @@ class News
     }
     
     
-    public function descriptif_article()
+    public function contenu_commentaire()
     {
-        return $this->_descriptif_article;
+        return $this->_contenu_commentaire;
         
     }
     
     
-    public function contenu()
+    public function date_creation()
     {
-        return $this->_contenu;
+        return $this->_date_creation;
         
     }
     
-    public function date_modification()
+    public function validation()
     {
-        return $this->_date_modification;
+        return $this->_validation;
         
     }
     
     
-    public function image_article()
+      public function titre_article()
     {
-        return $this->_image_article;
+        return $this->_titre_article;
         
     }
     
-    public function setId_Post($id_post)
+    
+    public function setId_Commentaire($id_commentaire)
     {
         
-        $id_post = (int) $id_post;
+        $id_commentaire = (int) $id_commentaire;
         
-        if ($id_post > 0) 
+        if ($id_commentaire > 0) 
         {
             
-        $this->_id_post = $id_post;
+        $this->_id_commentaire = $id_commentaire;
             
         }
         
@@ -99,12 +98,12 @@ class News
     }
     
     
-    public function setTitre_Article($titre_article)
+    public function setId_Post($id_post)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($titre_article)) 
+        $id_post = (int) $id_post;
         {
-            $this->_titre_article = $titre_article;
+            $this->_id_post = $id_post;
         }
     }
     
@@ -118,38 +117,36 @@ class News
     }
     
     
-    public function setDescriptif_Article($descriptif_article)
+    public function setContenu_Commentaire($contenu_commentaire)
     {
         
-        if (is_string($descriptif_article)) 
+        if (is_string($contenu_commentaire)) 
         {
-            $this->_descriptif_article = $descriptif_article;
+            $this->_contenu_commentaire = $contenu_commentaire;
         }
     }
     
     
-    public function setContenu($contenu)
+    public function setDate_Creation($date_creation)
     {
         
-        if (is_string($contenu)) 
-        {
-            $this->_contenu = $contenu;
-        }
-    }
-    
-    
-    public function setDate_Modification($date_modification)
-    {
-        
-        $this->_date_modification = $date_modification;
-    }
-    
-    public function setImage_Article($image_article)
-    {
-        
-        $this->_image_article = $image_article;
+        $this->_date_creation = $date_creation;
         
     }
     
     
+    public function setValidation($validation)
+    {
+        
+        $this->_validation = $validation;
+    }
+    
+
+    public function setTitre_Article($titre_article)
+    {
+        
+        $this->_titre_article = $titre_article;
+    }
+
 }
+

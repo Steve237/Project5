@@ -9,14 +9,27 @@
 
 <div class="container">
     
-    <?php if(array_key_exists('message', $_SESSION)): ?>
+    <?php if(array_key_exists('success', $_SESSION)): ?>
+    <div class="alert alert-success">
+        Ajout de l'article réussie!
+    </div>
+    <?php endif; ?>
+    
+     <?php if(array_key_exists('delete_post', $_SESSION)): ?>
     <div class="alert alert-success">
         Suppression de l'article réussie!
     </div>
     <?php endif; ?>
+    
+    <?php if(array_key_exists('success_update', $_SESSION)): ?>
+    <div class="alert alert-success">
+        Modification de l'article réussie!
+    </div>
+    <?php endif; ?
 
 
     <a href="index.php?action=add_article"><button type="button" class="btn btn-primary">Ajouter un article</button></a> 
+    <a href="index.php?action=manage_comment"><button type="button" class="btn btn-primary">Espace commentaire</button></a> 
 
     <?php
 
@@ -35,8 +48,8 @@
                     <?= $news->descriptif_article() ?>
                 </p>
     
-                <a href="index.php?action=update_post"><button type="button" class="btn btn-primary">Modifier</button></a>
-                <a href="index.php?action=delete_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary" data-toggle="modal" data-                 target="#confirm_delete">Supprimer</button></a>
+                <a href="index.php?action=update_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
+                <a href="index.php?action=delete_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Supprimer</button></a>
 
     
             </div>

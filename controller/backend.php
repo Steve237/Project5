@@ -2,6 +2,8 @@
 
 require_once ABSOLUTE_PATH."/model/UsersManager.php";
 require_once ABSOLUTE_PATH."/model/users.php";
+require_once ABSOLUTE_PATH."/model/CommentManager.php";
+require_once ABSOLUTE_PATH."/model/comments.php";
 
 
 
@@ -454,7 +456,6 @@ function Admin_space()
 
     require ABSOLUTE_PATH.'/view/view_admin_space.php';
 
-
 }
 
 
@@ -462,7 +463,8 @@ function Add_article()
 {
     if(isset($_POST['add_new']))
     {
-    
+        $_POST['post_title']  = htmlspecialchars($_POST['post_title']);
+        $_POST['post_author'] = htmlspecialchars($_POST['post_author']);
         $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
         $_POST['content'] = htmlspecialchars($_POST['content']);
         
@@ -586,7 +588,7 @@ function Add_article()
             $insertPost->add_post();
             
             $_SESSION['success'] = 1;
-            header('Location: index.php?action=add_article');
+            header('Location: index.php?action=admin_space');
         }
         }
 
@@ -602,11 +604,12 @@ function Add_article()
 function delete()
 {
     
-    if(isset($_GET['id'])) 
+    if(isset($_GET['id']) && $_GET['id'] > 0) 
     
     {
         $delete_post = new NewsManager();
         $delete_post->delete_new($_GET['id']);
+        $_SESSION['delete_post'] = 1;
     
         header('Location: index.php?action=admin_space');
 
@@ -618,12 +621,193 @@ function delete()
 
 }
     
+
+function update()
+{
+    
+    
+ $post = new NewsManager();
+    
+
+ $news = $post->getPostById($_GET['id']);
+    
+ if(isset($_POST['add_new']))
+    {
+    
+        $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
+        $_POST['content'] = htmlspecialchars($_POST['content']);
+        
+        if(!array_key_exists('post_author', $_POST) || empty($_POST['post_author']))
+        {
+            $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
+        }
+        
+        if(strlen($_POST['post_author'] > 30))
+        {
+            $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
+        }
+        
+        if(!array_key_exists('post_title', $_POST) || empty($_POST['post_title']))
+        {
+            $errors ['post_title'] = "veuillez saisir le titre de l'article";
+        }
+        
+        if(strlen($_POST['post_title'] > 30))
+        {
+            $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
+        }
+        
+        if(!array_key_exists('resume_post', $_POST) || $_POST['resume_post'] == "")
+        {
+            $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
+        }
+        
+        if(strlen($_POST['resume_post'] > 200))
+        {
+            $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
+        }
+        
+        if(!array_key_exists('content', $_POST) || $_POST['content'] == "")
+        {
+            $errors ['content'] = "veuillez saisir le contenu de votre article";
+        
+        }
+      
+        $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
+        $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
+        
+        
+        if (empty($_FILES['image_post']))
+        {
+            
+         $errors ['image_post'] = "vous n'avez ajouté aucune image";
+        }
+        
+        if ($_FILES['image_post']['error'] > 0)
+        {
+        
+         $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
+        
+        }
+            
+        if ($_FILES['image_post']['size'] > 2097152)
+        {
+            
+         $errors ['image_post'] = "l'image choisie est trop lourde";
+        
+        }
+        
+        
+            
+        
+        $imagePost = $_FILES['image_post']['name'];
+            
+        $ExtensionPresumee = explode('.', $imagePost);
+        $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+        if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg')
+        {
+            
+          $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
+        
+        }
+        
+         $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
+         if($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee])
+         {
+             
+            $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
+         
+         }
+         
+         if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) 
+         {
           
+            $errors ['image_post'] = "aucune image téléchargé"; 
+         
+         
+         }
+
+        
+        if(!empty($errors))
+        {
+            $_SESSION['errors'] = $errors;
+            header('Location: index.php?action=add_article');
+
+        }   
+    
+        
+        else
+        {
+        
+            $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+            $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+            $newImageWidth = 900;
+            $newImageHeight = 650;
+            $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+            imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+            imagedestroy($imageSelected);
+            
+            $imageSelectedName = explode('.', $imagePost);
+            $_POST['image_post'] = time();
+            imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+        
+            $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+            
+            $updatePost = new NewsManager();
+            $updatePost->update_New();
+            
+            $_SESSION['success_update'] = 1;
+            header('Location: index.php?action=admin_space');
+        }
+        }
+
+        else
+        {
+            require ABSOLUTE_PATH.'/view/view_update_post.php';  
+        }
+
+
+}
+
+
+
+function manage_comment()
+{
+    
+    $showcomment = new CommentManager();
+    
+    $showcomment->getListComment();
     
 
+    require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
+    
+}
+
+
+    
+function approve_comment()
+{
+
+    $valid_comment = new CommentManager();
+    $valid_comment->comment_Validation();
+    $_SESSION['comment_approved'] = 1;
+
+    header('Location: index.php?action=manage_comment');
+ 
+
+    require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
+}
     
 
-                               
+function delete_comment()
+{
+    $delete_comment = new CommentManager();
+    $delete_comment->delete_Comment($_GET['id']);
+    $_SESSION['comment_delete'] = 1;
+    header('Location: index.php?action=manage_comment');
+    
+    require ABSOLUTE_PATH.'/view/view_manage_comment.php'; 
+}
 
 
 

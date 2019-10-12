@@ -5,6 +5,8 @@ session_start();
 // Chargement des classes
 require_once ABSOLUTE_PATH."/model/NewsManager.php";
 require_once ABSOLUTE_PATH."/model/news.php";
+require_once ABSOLUTE_PATH."/model/CommentManager.php";
+require_once ABSOLUTE_PATH."/model/comments.php";
 
 
 function sendMail() 
@@ -75,14 +77,82 @@ function listPosts()
 
 function post()
 {
-    $post = new NewsManager();
     
-
+    
+    
+    if(!array_key_exists('success_connect', $_SESSION))
+    {
+        
+     $_SESSION['errors'] = "veuillez vous connecter pour poster un commentaire";   
+    
+    }
+    
+    
+    $post = new NewsManager();
     $news = $post->getPostById($_GET['id']);
     
+    
+    $listComment = new CommentManager();
+    $showlist = $listComment->getListComment();
+    
+    
+    
+    if(isset($_POST['submit_comment']))
+        
+    {
+        $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);
+        $_POST['user_comment'] = htmlspecialchars($_POST['user_comment']);
+        
+          
+      
+        
+        if(!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo']))
+        {
+            
+         $errors ['pseudo'] = "veuillez entrer un pseudo";   
+        
+        }
+        
+        if(!array_key_exists('user_comment', $_POST) || empty($_POST['user_comment']))
+        {
+            
+         $errors ['user_comment'] = "veuillez entrer un commentaire";   
+        
+        }
+        
+       
+        if(!empty($errors))
+        {
+        
+            $_SESSION['errors'] = $errors;
+            
+            
+        }
+        
+        else
+        {
+                
+                $_SESSION['success'] = 1;
+            
+                $insert_comment = new CommentManager();
+                $insert_comment->add_comment();
+                
+        }
+        
+ 
+        
+    }
+    
 
-    require ABSOLUTE_PATH.'/view/view_post.php';
+    
+        require ABSOLUTE_PATH.'/view/view_post.php';
+    
+
 }
+
+
+
+
 
 
 
