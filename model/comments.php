@@ -8,7 +8,7 @@ class Comments
     private $_contenu_commentaire;
     private $_date_creation;
     private $_validation;
-    private $_titre_article;
+  
 
     public function __construct($valeurs = [])
     {
@@ -75,11 +75,7 @@ class Comments
     }
     
     
-      public function titre_article()
-    {
-        return $this->_titre_article;
-        
-    }
+  
     
     
     public function setId_Commentaire($id_commentaire)
@@ -142,11 +138,18 @@ class Comments
     }
     
 
-    public function setTitre_Article($titre_article)
+ 
+    public function getTitreArticle()
     {
         
-        $this->_titre_article = $titre_article;
+        $newsManager = new NewsManager();
+        
+        $post = $newsManager->getPostById($this->_id_post);
+
+       return $post->titre_article();
+       
     }
+
 
 }
 

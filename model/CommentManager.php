@@ -9,7 +9,7 @@ class CommentManager extends Manager
     public function getListComment()
     {
         $db = $this->dbconnect();
-        $query = $db->query('SELECT id_commentaire, id_post, pseudo_auteur, contenu_commentaire, DATE_FORMAT(date_creation, "%d/%m/%Y %Hh%imin%ss") AS               date_creation, validation, titre_article FROM commentaires');
+        $query = $db->query('SELECT id_commentaire, id_post, pseudo_auteur, contenu_commentaire, DATE_FORMAT(date_creation, "%d/%m/%Y %Hh%imin%ss") AS               date_creation, validation FROM commentaires');
         $query->execute();
         
         
@@ -28,6 +28,29 @@ class CommentManager extends Manager
         return $listComments;
     }
  
+    //permet d'afficher la liste des commentaires
+    public function getListCommentById($idPost)
+    {
+         $db  = $this->dbconnect();
+        $query = $db->prepare('SELECT id_commentaire, id_post, pseudo_auteur, contenu_commentaire, DATE_FORMAT(date_creation, "%d/%m/%Y %Hh%imin%ss") AS             date_creation, validation FROM commentaires WHERE id_post = ? AND validation = 1');
+        $query->execute(array($idPost));
+        
+        
+        $comments = $query->fetchAll(PDO::FETCH_ASSOC);        
+        
+        $listComments = array();
+        foreach ($comments as $donnees) 
+        {
+            // on instancie notre objet
+            $comments = new Comments();
+            // on hydrate notre objet avec les valeurs récupérées en bdd
+            $comments->hydrate($donnees);
+            // puis on le met dans notre tableau
+            $listComments[] = $comments;            
+        }
+        return $listComments;
+    }
+    
     
     
     
@@ -36,13 +59,13 @@ class CommentManager extends Manager
     {
      
         $db = $this->dbconnect();
-        $q = $db->prepare('INSERT INTO commentaires(id_post, contenu_commentaire, pseudo_auteur, date_creation, titre_article) 
-        VALUES(:id_post, :contenu_commentaire, :pseudo_auteur, NOW(), :titre_article)');
+        $q = $db->prepare('INSERT INTO commentaires(id_post, contenu_commentaire, pseudo_auteur, date_creation) 
+        VALUES(:id_post, :contenu_commentaire, :pseudo_auteur, NOW())');
     
         $q->bindValue(':id_post', $_GET['id']);
         $q->bindValue(':pseudo_auteur', $_POST['pseudo']);
         $q->bindValue(':contenu_commentaire', $_POST['user_comment']);
-        $q->bindValue(':titre_article', $_GET['titre']);
+        
         $q->execute();
     }
 

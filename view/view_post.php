@@ -77,6 +77,7 @@
                                 <?= implode('<br>', $_SESSION['errors']); ?>
                             </div>
                             <?php endif; ?>
+                            
                             <h3>Laissez un commentaire </h3>
                             <form action="index.php?action=post&amp;id=<?= $news->id_post()?>&amp;titre=<?= $news->titre_article()?>" id="comment"                                       method="post">
                                 <div class="row control-group">

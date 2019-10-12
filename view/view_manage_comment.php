@@ -26,7 +26,7 @@
         
                     <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">
                     
-                    <h2 style="text-align:center"><?= $comment->titre_article() ?></h2>
+                    <h2> <?= $comment->getTitreArticle()?></h2>
 
                     <p><?= $comment->contenu_commentaire() ?></p>
                     

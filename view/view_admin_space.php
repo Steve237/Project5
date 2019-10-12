@@ -25,7 +25,7 @@
     <div class="alert alert-success">
         Modification de l'article réussie!
     </div>
-    <?php endif; ?
+    <?php endif; ?>
 
 
     <a href="index.php?action=add_article"><button type="button" class="btn btn-primary">Ajouter un article</button></a> 

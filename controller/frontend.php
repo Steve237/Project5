@@ -78,28 +78,30 @@ function listPosts()
 function post()
 {
     
+    $_SESSION['errors'] = array();  
     
-    
-    if(!array_key_exists('success_connect', $_SESSION))
-    {
-        
-     $_SESSION['errors'] = "veuillez vous connecter pour poster un commentaire";   
-    
-    }
-    
-    
+   
     $post = new NewsManager();
     $news = $post->getPostById($_GET['id']);
     
     
-    $listComment = new CommentManager();
-    $showlist = $listComment->getListComment();
-    
+    $commentManager = new CommentManager();
+    $listComments = $commentManager->getListCommentById($_GET['id']);
     
     
     if(isset($_POST['submit_comment']))
         
     {
+        
+        
+         if(!array_key_exists('success_connect', $_SESSION))
+        {
+        
+            $errors ['sucess_connect'] = "veuillez vous connecter pour poster un commentaire";   
+    
+        }
+        
+        
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);
         $_POST['user_comment'] = htmlspecialchars($_POST['user_comment']);
         
@@ -121,27 +123,22 @@ function post()
         }
         
        
-        if(!empty($errors))
-        {
-        
-            $_SESSION['errors'] = $errors;
-            
+       if(!empty($errors))
+        { // si erreur on renvoie vers la page précédente
+            $_SESSION['errors'] = $errors;//on stocke les erreurs
             
         }
+    
         
         else
-        {
-                
-                $_SESSION['success'] = 1;
+        {        
+        $_SESSION['success'] = 1;
             
-                $insert_comment = new CommentManager();
-                $insert_comment->add_comment();
-                
+        $insert_comment = new CommentManager();
+        $insert_comment->add_comment();
         }
         
- 
-        
-    }
+        }
     
 
     
