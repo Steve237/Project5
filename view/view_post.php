@@ -71,12 +71,12 @@
                             </ul>
                             
                             
+                         
                             <?php if(array_key_exists('errors', $_SESSION)): ?>
-                                <div class="alert alert-danger">
-                                    <?= implode('<br>', $_SESSION['errors']); ?>
-                                </div>
+                            <div class="alert alert-danger">
+                                <?= implode('<br>', $_SESSION['errors']); ?>
+                            </div>
                             <?php endif; ?>
-                            
                             <h3>Laissez un commentaire </h3>
                             <form action="index.php?action=post&amp;id=<?= $news->id_post()?>&amp;titre=<?= $news->titre_article()?>" id="comment"                                       method="post">
                                 <div class="row control-group">
@@ -102,8 +102,26 @@
                                 </div>
 
                             </form>
-                        
                             
+                            
+                            <?php
+                                foreach($listComments as $comments)
+                                {
+                                ?>
+                                    <h2><?= htmlspecialchars($comments->contenu_commentaire()) ?></h2>
+                        
+                                 <?php
+                                }
+                
+                                ?> 
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         </div>
                     </div>
                 </div>
