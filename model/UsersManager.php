@@ -19,7 +19,7 @@ class UsersManager extends Manager
         $q->execute();
 
     }    
-   
+
     //permet de vérifier si le pseudo existe en bdd    
     public function check_pseudo($pseudo)
     {
@@ -27,7 +27,7 @@ class UsersManager extends Manager
 
         $query = $db->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ?');
         $query->execute(array($pseudo));
-    
+
         // On récupère l'objet
         $check_data = $query->fetch(PDO::FETCH_ASSOC);
         // On crée notre instance
@@ -46,7 +46,7 @@ class UsersManager extends Manager
 
         $query = $db->prepare('SELECT COUNT(*) AS nb_email FROM membres WHERE email = ?');
         $query->execute(array($email));
-    
+
         // On récupère l'objet
         $check_data = $query->fetch(PDO::FETCH_ASSOC);
         // On crée notre instance
@@ -74,7 +74,7 @@ class UsersManager extends Manager
 
 
     //permet de vérifier si le pseudo de l'utilisateur est en bdd
-    
+
     public function check_Member()
     {
         $db = $this->dbConnect();
@@ -88,8 +88,8 @@ class UsersManager extends Manager
     }
 
 
-    
-    
+
+
     //permet de vérifier si le pseudo de l'administrateur est en bdd    
     public function check_Admin()
     {
@@ -106,7 +106,7 @@ class UsersManager extends Manager
 
     public function update_recovery(Users $recovery) 
     {
-    
+
         $db = $this->dbConnect();
         $query = $db->prepare('UPDATE membres SET recovery_code=:recovery_code WHERE email=:email');
         $query->bindValue(':recovery_code', $recovery->recovery_code());
@@ -118,12 +118,12 @@ class UsersManager extends Manager
 
 
     public function check_code($user_code)
-    
+
     {
         $db = $this->dbConnect();
         $query = $db->prepare('SELECT COUNT(*) AS nb_code FROM membres WHERE recovery_code = ?');
         $query->execute(array($user_code));
-    
+
         // On récupère l'objet
         $check_recovery_code = $query->fetch(PDO::FETCH_ASSOC);
         // On crée notre instance
@@ -138,7 +138,7 @@ class UsersManager extends Manager
 
     public function update_password(Users $user_pass) 
     {
-    
+
         $db = $this->dbConnect();
         $query = $db->prepare('UPDATE membres SET password=:password WHERE email=:email');
         $query->bindValue(':password', password_hash($_POST['new_pass'], PASSWORD_DEFAULT));

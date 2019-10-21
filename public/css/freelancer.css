@@ -537,3 +537,264 @@ fieldset[disabled] .btn-success.active {
   opacity: 0;
   display: none;
 }
+
+
+@media all and (max-width: 576px)
+{
+    .titre_portfolio
+    {
+        margin-top: 20px;
+        
+    }
+    
+    
+    
+    h6
+    {    
+        margin-top:-7px; 
+    }
+
+    
+    .description_text
+    {       
+    
+        font-size: 13px;
+        padding:2px;
+        margin-top:-6px;    
+    }
+    
+    
+
+    .titre
+    {
+    
+        font-size:13px;    
+    
+    }
+    
+
+    
+    .close-modal
+    {
+        margin-top: 25px;
+    }
+
+
+    .connect-sign
+    {
+        
+        position:absolute;
+        left: 10px;
+        top : 50px;
+        font-size:15px;
+    }
+
+    .button-disconnect
+    {
+        position:absolute;
+        top:50px;
+        left: 139px;
+    }
+    
+}
+
+
+
+@media all and (min-width: 577px) and (max-width: 767px)
+{   
+    
+    .connect-sign
+    {
+        
+        position:absolute;
+        left: 10px;
+        top : 50px;
+        font-size:15px;
+    }
+
+    .button-disconnect
+    {
+        position:absolute;
+        top:50px;
+        left: 139px;
+    }
+    
+    
+
+    .close-modal
+    {
+        margin-top: 50px;
+    }
+
+
+
+}
+
+
+
+@media all and (min-width: 768px) and (max-width: 991px)
+{
+
+    .description_text
+    {    
+        font-size: 20px;
+    }
+    
+    .titre
+    {    
+        font-size: 20px;
+    }
+    
+
+    .close-modal
+    {
+        
+        margin-top: 135px;
+        
+    }
+
+
+    .modal-body
+    {
+        
+        margin-top: 100px;        
+
+
+    }
+
+
+    .connection-form
+    {
+        
+        margin-top: 100px;
+
+    }
+
+    .titre_portfolio
+    {
+        
+        margin-top: 80px;
+
+    }
+
+}
+
+
+
+@media all and (min-width: 992px) and (max-width:1200px)
+{
+
+    .description_text
+    {    
+        font-size: 17px;
+    }
+    
+    .titre
+    {    
+        font-size: 17px;
+    }
+    
+
+    
+    .close-modal
+    {
+        
+        margin-top: 75px;
+        
+    }    
+    
+    
+    .modal-body
+    {
+        
+        margin-top: 70px;        
+
+
+    }
+
+    
+    .connection-form
+    {
+        
+        margin-top: 70px;
+
+    }
+
+    
+    .list_post
+    {
+        
+        margin-top: -120px;   
+        
+    }
+        
+        
+    .connect-sign
+    {
+        
+        position:absolute;
+        left: 10px;
+        top : 105px;
+        font-size:15px;
+    }
+
+    .button-disconnect
+    {
+        position:absolute;
+        top:105px;
+        left: 139px;
+    }
+
+}
+
+@media all and (min-width: 1201px)
+{
+
+    .close-modal
+    {
+        
+       position:absolute;
+        right: 10px;
+        top : 80px;
+        font-size:15px;
+        
+    }    
+    
+    
+    .modal-body
+    {
+        
+        margin-top: 60px;        
+
+    }
+
+    .connection-form
+    {
+        
+        margin-top: 70px;
+
+    }
+
+
+       .connect-sign
+    {
+        
+        position:absolute;
+        left: 10px;
+        top : 105px;
+        font-size:15px;
+    }
+
+    .button-disconnect
+    {
+        position:absolute;
+        top:105px;
+        left: 139px;
+    }
+
+
+}
+
+
+
+
