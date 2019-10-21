@@ -4,28 +4,53 @@ require_once("Manager.php");
 
 class NewsManager extends Manager
 {
-
-    public function add(News $news)
+    //permet d'insérer un article
+    public function add_post()
     {
         $db = $this->dbconnect();
-        $q = $db->prepare('INSERT INTO articles(id_article, titre_article, pseudo_auteur, descriptif_article, contenu, date_modification, image_article)                 VALUES(:id_article, :titre_article, :pseudo_auteur, :descriptif_article, :contenu, :date_modification, :image_article)');
-    
-        $q->bindValue(':id_article', $news->id_article());
-        $q->bindValue(':titre_article', $news->titre_article());
-        $q->bindValue(':titre_article', $news->titre_article());
-        $q->bindValue(':pseudo_auteur', $news->pseudo_auteur());
-        $q->bindValue(':descriptif_article', $news->descriptif_article());
-        $q->bindValue(':contenu', $news->contenu());
-        $q->bindValue(':date_modification', $news->date_modification());
-        $q->bindValue(':image_article', $news->image_article());
+        $q = $db->prepare('INSERT INTO articles(titre_article, pseudo_auteur, descriptif_article, contenu, date_modification, image_article, nom_image)                   VALUES(:titre_article, :pseudo_auteur, :descriptif_article, :contenu, NOW(), :image_article, :nom_image)');
+        $q->bindValue(':titre_article', $_POST['post_title']);
+        $q->bindValue(':pseudo_auteur', $_POST['post_author']);
+        $q->bindValue(':descriptif_article', $_POST['resume_post']);
+        $q->bindValue(':contenu', $_POST['content']);
+        $q->bindValue(':image_article', $_POST['MAX_FILE_SIZE']);
+        $q->bindValue(':nom_image', $_POST['image_post']);
         $q->execute();
     }
 
-  
+
+    //permet de supprimer un article
+    public function delete_new($newId)
+    {
+
+        $db = $this->dbconnect();
+        $q = $db->prepare('DELETE FROM articles WHERE id_post = ?');
+        $q->execute(array($newId));
+
+    }
+
+
+    public function update_New() 
+    {
+
+        $db = $this->dbConnect();
+        $query = $db->prepare('UPDATE articles SET pseudo_auteur=:pseudo_auteur, titre_article=:titre_article, descriptif_article=:descriptif_article,                     contenu=:contenu, date_modification=NOW(), image_article=:image_article, nom_image=:nom_image WHERE id_post=:id_post');
+        $query->bindValue(':pseudo_auteur', $_POST['post_author']);
+        $query->bindValue(':titre_article', $_POST['post_title']);
+        $query->bindValue(':descriptif_article', $_POST['resume_post']);
+        $query->bindValue(':contenu', $_POST['content']);
+        $query->bindValue(':image_article', $_POST['MAX_FILE_SIZE']);
+        $query->bindValue(':nom_image', $_POST['image_post']);
+        $query->bindValue(':id_post', $_GET['id']);
+        $query->execute();
+    }
+
+
+    //permet d'afficher la liste des articles
     public function getListPosts()
     {
         $db = $this->dbconnect();
-        $query = $db->query('SELECT id_post, titre_article, descriptif_article, DATE_FORMAT(date_modification, "%d/%m/%Y %Hh%imin%ss") AS date_modification,             image_article FROM articles');
+        $query = $db->query('SELECT id_post, titre_article, descriptif_article, contenu, DATE_FORMAT(date_modification, "%d/%m/%Y %Hh%imin%ss") AS                         date_modification, image_article FROM articles');
         $results = $query->fetchAll(PDO::FETCH_ASSOC);        
         // instanciation de notre tableau d'objets
         $listPost = array();
@@ -40,16 +65,16 @@ class NewsManager extends Manager
         }
         return $listPost;
     }
-    
-    
-    
+
+
+    //permet d'afficher le contenu d'un article
     public function getPostById($postId)
     {
         $db  = $this->dbconnect();
-        $query = $db->prepare('SELECT titre_article, pseudo_auteur, contenu, DATE_FORMAT(date_modification, "%d/%m/%Y %Hh%imin%ss") AS date_modification, id_post, descriptif_article, image_article FROM articles WHERE id_post = ?');
+        $query = $db->prepare('SELECT titre_article, pseudo_auteur, contenu, DATE_FORMAT(date_modification, "%d/%m/%Y %Hh%imin%ss") AS                                     date_modification, id_post, descriptif_article, image_article FROM articles WHERE id_post = ?');
         $query->execute(array($postId));
-        
-     // On récupère l'objet
+
+        // On récupère l'objet
         $resultDb = $query->fetch(PDO::FETCH_ASSOC);
         // On crée notre instance
         $post = new News();
@@ -58,5 +83,5 @@ class NewsManager extends Manager
         // On retourne l'objet
         return $post;
     }
-    
+
 }

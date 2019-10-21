@@ -1,5 +1,4 @@
 <?php $title = 'Mon blog'; ?>
-
 <?php ob_start(); ?>
 
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -8,7 +7,7 @@
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
-                Menu
+                Menu 
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="#page-top">Steve Essama</a>
@@ -19,9 +18,9 @@
 
             <?php if(array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
-                <?= $_SESSION['success_connect']; ?>
+                <?= $_SESSION['success_connect']; ?>               
             </div>
-            <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
+            <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px;                               top:40px;">
                 <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
             </form>
             <?php endif; ?>
@@ -61,73 +60,91 @@
     <form action="index.php?action=disconnected" method="post">
         <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                             name="disconnect">Déconnexion</button>
     </form>
-</section>
+</section>    
 <?php endif; ?>
 
-<h2 style="text-align:center">Espace administrateur</h2>
-<h3 style="text-align: center"> Liste des articles </h3>
 
 
-<div class="container">
-    
-    <?php if(array_key_exists('errors', $_SESSION)): ?>
-    <div class="alert alert-danger">
-        <?= implode('<br>', $_SESSION['errors']); ?>
+<!-- Contact Section -->
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Ajouter un article </h2>
+                <hr class="star-primary">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <?php if(array_key_exists('errors', $_SESSION)): ?>
+                <div class="alert alert-danger">
+                    <?= implode('<br>', $_SESSION['errors']); ?>
+                </div>
+                <?php endif; ?>
+
+                <?php if(array_key_exists('success', $_SESSION)): ?>
+                <div class="alert alert-success">
+                    Votre article a été ajouté!
+                </div>
+                <?php endif; ?>
+
+                <form action="index.php?action=add_article" id="add_post" method="post" enctype="multipart/form-data">
+                    <div class="row control-group">
+                        Entrez le nom de l'auteur    
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="author">Auteur de l'article</label>
+                            <input type="text" name="post_author" id="author" class="form-control">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        Entrez le titre de l'article    
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="title">Titre de l'article</label>
+                            <input type="text" name="post_title" id="title" class="form-control">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        Entrez le résumé l'article    
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="resume">Résumé de l'article</label>
+                            <textarea id="resume" name="resume_post" class="form-control"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        Entrez le contenu l'article    
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="content_post">Contenu de l'article</label>
+                            <textarea name="content" id="content_post" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row control-group">
+                        Ajouter une image
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="image">Ajouter une image</label>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="2097152" />
+                            <input type="file" name="image_post" id="image" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success btn-lg" name="add_new">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <?php endif; ?>
-    
-    <?php if(array_key_exists('insert_success', $_SESSION)): ?>
-    <div class="alert alert-success">
-        Ajout de l'article réussie!
-    </div>
-    <?php endif; ?>
-
-    <?php if(array_key_exists('delete_post', $_SESSION)): ?>
-    <div class="alert alert-success">
-        Suppression de l'article réussie!
-    </div>
-    <?php endif; ?>
-
-    <?php if(array_key_exists('success_update', $_SESSION)): ?>
-    <div class="alert alert-success">
-        Modification de l'article réussie!
-    </div>
-    <?php endif; ?>
-
-
-    <a href="index.php?action=add_article"><button type="button" class="btn btn-primary">Ajouter un article</button></a>
-    <a href="index.php?action=manage_comment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
-
-    <?php
-
-    foreach ($news_list->getListPosts() as $news)
-    {
-
-    ?>
-
-    <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">
-
-        <h3>
-            <?= $news->titre_article() ?>
-        </h3>
-
-        <p>
-            <?= $news->descriptif_article() ?>
-        </p>
-
-        <a href="index.php?action=update_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
-        <a href="index.php?action=delete_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Supprimer</button></a>
-
-
-    </div>
-
-    <?php
-
-    }
-
-    ?>
-
-</div>
+</section>
 
 <!-- Footer -->
 <footer class="text-center">
@@ -151,7 +168,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
+                                <i class="fa fa-fw fa-linkedin"></i>    
                             </a>
                         </li>
                     </ul>
@@ -159,6 +177,7 @@
                 <div class="footer-col col-md-4">
                     <h3>Administration du site</h3>
                     <p>
+
                         <a href="index.php?action=connect_admin"> Accédez à l'espace administrateur </a>
                     </p>
                 </div>
@@ -175,7 +194,6 @@
         </div>
     </div>
 </footer>
-
 
 
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
@@ -196,11 +214,11 @@
 <!-- Theme JavaScript -->
 <script src="public/js/freelancer.min.js"></script>
 
+
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>
 
 <?php
-unset($_SESSION['insert_success']);
-unset($_SESSION['delete_post']);
-unset($_SESSION['success_update']);
+unset($_SESSION['success']);
+unset($_SESSION['errors']);
 ?>

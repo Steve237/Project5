@@ -1,14 +1,12 @@
 <?php $title = 'Mon blog'; ?>
-
 <?php ob_start(); ?>
-
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
-                Menu
+                Menu 
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand" href="#page-top">Steve Essama</a>
@@ -19,7 +17,7 @@
 
             <?php if(array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
-                <?= $_SESSION['success_connect']; ?>
+                <?= $_SESSION['success_connect']; ?>    
             </div>
             <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
                 <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
@@ -55,80 +53,55 @@
 
 
 <?php if(array_key_exists('success_connect', $_SESSION)): ?>
-
 <section class="section_connection">
-    <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
+    <div class="connect-sign hidden-sm" style="color:red;">
+        <?= $_SESSION['success_connect']; ?>
+    </div>
     <form action="index.php?action=disconnected" method="post">
-        <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                             name="disconnect">Déconnexion</button>
+        <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                           name="disconnect">Déconnexion</button>
     </form>
-</section>
+</section>    
 <?php endif; ?>
 
-<h2 style="text-align:center">Espace administrateur</h2>
-<h3 style="text-align: center"> Liste des articles </h3>
 
-
+<h2 style="text-align:center">Gestion des commentaires</h2>
 <div class="container">
-    
-    <?php if(array_key_exists('errors', $_SESSION)): ?>
-    <div class="alert alert-danger">
-        <?= implode('<br>', $_SESSION['errors']); ?>
-    </div>
-    <?php endif; ?>
-    
-    <?php if(array_key_exists('insert_success', $_SESSION)): ?>
+    <?php if(array_key_exists('comment_approved', $_SESSION)): ?>
     <div class="alert alert-success">
-        Ajout de l'article réussie!
+        Le commentaire a été validé
     </div>
-    <?php endif; ?>
+    <?php endif; ?>    
 
-    <?php if(array_key_exists('delete_post', $_SESSION)): ?>
+    <?php if(array_key_exists('comment_delete', $_SESSION)): ?>
     <div class="alert alert-success">
-        Suppression de l'article réussie!
+        Le commentaire a été supprimé
     </div>
-    <?php endif; ?>
+    <?php endif; ?>    
 
-    <?php if(array_key_exists('success_update', $_SESSION)): ?>
-    <div class="alert alert-success">
-        Modification de l'article réussie!
+   <?php
+   foreach ($showcomment->getListComment() as $comment)
+   {
+   ?>
+   <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">
+                    
+        <h2> <?= $comment->getTitreArticle()?></h2>
+
+        <p><?= $comment->contenu_commentaire() ?></p>
+                    
+        <a href="index.php?action=approve&amp;id=<?= $comment->id_commentaire()?>"><button type="button" 
+        class="btn btn-primary">Approuver</button></a>
+        <a href="index.php?action=delete_comment&amp;id=<?= $comment->id_commentaire()?>"><button type="button" 
+        class="btn btn-primary">Supprimer</button></a>
     </div>
-    <?php endif; ?>
-
-
-    <a href="index.php?action=add_article"><button type="button" class="btn btn-primary">Ajouter un article</button></a>
-    <a href="index.php?action=manage_comment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
-
     <?php
-
-    foreach ($news_list->getListPosts() as $news)
-    {
-
-    ?>
-
-    <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">
-
-        <h3>
-            <?= $news->titre_article() ?>
-        </h3>
-
-        <p>
-            <?= $news->descriptif_article() ?>
-        </p>
-
-        <a href="index.php?action=update_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
-        <a href="index.php?action=delete_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Supprimer</button></a>
-
-
-    </div>
-
-    <?php
-
     }
-
     ?>
-
 </div>
 
+
+
+        
+        
 <!-- Footer -->
 <footer class="text-center">
     <div class="footer-above">
@@ -141,18 +114,14 @@
                         Villeurbanne, 69100
                     </p>
                 </div>
-
                 <div class="footer-col col-md-4">
                     <h3>Réseaux sociaux</h3>
                     <ul class="list-inline">
                         <li>
-                            <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline">
-                                <i class="fa fa-fw fa-facebook"></i>
-                            </a>
+                            <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw                                   fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i>
-                            </a>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -196,11 +165,13 @@
 <!-- Theme JavaScript -->
 <script src="public/js/freelancer.min.js"></script>
 
+
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>
-
 <?php
-unset($_SESSION['insert_success']);
-unset($_SESSION['delete_post']);
-unset($_SESSION['success_update']);
+unset($_SESSION['success']);  
+unset($_SESSION['errors']); 
+unset($_SESSION['comment_approved']);
+unset($_SESSION['comment_delete']); 
 ?>
+        

@@ -3,13 +3,13 @@
 class Users
 
 {
-    
-private $_id_membre;
-private $_pseudo;
-private $_password;
-private $_email;
-private $_date_inscription;
-private $_recovery_code;
+
+    private $_id_membre;
+    private $_pseudo;
+    private $_password;
+    private $_email;
+    private $_date_inscription;
+    private $_recovery_code;
 
     public function __construct($valeurs = [])
     {
@@ -18,14 +18,14 @@ private $_recovery_code;
             $this->hydrate($valeurs);
         }
     }
-    
+
     public function hydrate(array $donnees)
     {
         foreach ($donnees as $key => $value)
         {
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set'.ucfirst($key);
-        
+
             // Si le setter correspondant existe.
             if (method_exists($this, $method))
             {
@@ -38,7 +38,7 @@ private $_recovery_code;
 
     public function id_membre()
     {
-    
+
         return $this->_id_membre;    
 
     }
@@ -46,7 +46,7 @@ private $_recovery_code;
 
     public function pseudo()
     {
-    
+
         return $this->_pseudo;    
 
     }
@@ -54,14 +54,14 @@ private $_recovery_code;
 
     public function password()
     {   
-    
+
         return $this->_password;    
 
     }
 
     public function email()
     {
-    
+
         return $this->_email;    
 
     }
@@ -69,7 +69,7 @@ private $_recovery_code;
 
     public function date_inscription()
     {
-    
+
         return $this->_date_inscription;    
 
     }
@@ -93,67 +93,55 @@ private $_recovery_code;
     }
 
 
-    public function setPseudo($pseudo)
-    
-    
+    public function setPseudo($pseudo)  
     {
-    
+
         $this->_pseudo = $pseudo;    
 
-
     }
-    
-    
-    
+
+
+
     public function setPassword($password)
-    
-    
     {
-    
+
         $this->_password = $password;    
 
-
     }    
-    
-    
-    
-    
-    
+
+
     public function setEmail($email)
     {
-    
+
         $this->_email = $email;    
 
-
     }  
-    
+
 
     public function recovery_code()
     {
-    
+
         return $this->_recovery_code;    
 
     }    
-    
-    
+
+
     public function setDate_Inscription($date_inscription)
-    
-    
+
     {
-    
+
         $this->_date_inscription = $date_inscription;    
 
-
     }    
-    
-    
+
+
     public function setRecovery_Code($recovery_code)
     {
-    
-    
+
+
         $this->_recovery_code = $recovery_code;
 
 
     }
-    
+
 }
