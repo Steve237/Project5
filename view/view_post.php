@@ -141,7 +141,7 @@
                         ?>  
                             <div style="border: 0.3px solid black;background-color:cyan;">
                             
-                            <p><?= htmlspecialchars($comments->pseudo_auteur())?></p>
+                            <p>Auteur du commentaire : <?= htmlspecialchars($comments->pseudo_auteur())?></p>
                             <p><?= htmlspecialchars($comments->contenu_commentaire())?></p>
                             <p>Date du commentaire : <?= htmlspecialchars($comments->date_creation())?></p>
                             </div>
