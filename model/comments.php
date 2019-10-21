@@ -35,34 +35,34 @@ class Comments
     }
 
 
-    public function id_commentaire()
+    public function id_Commentaire()
     {
         return $this->_id_commentaire;
 
     }
 
-    public function id_post()
+    public function id_Post()
     {
         return $this->_id_post;
 
     }
 
 
-    public function pseudo_auteur()
+    public function pseudo_Auteur()
     {
         return $this->_pseudo_auteur;
 
     }
 
 
-    public function contenu_commentaire()
+    public function contenu_Commentaire()
     {
         return $this->_contenu_commentaire;
 
     }
 
 
-    public function date_creation()
+    public function date_Creation()
     {
         return $this->_date_creation;
 
@@ -75,18 +75,15 @@ class Comments
     }
 
 
-
-
-
-    public function setId_Commentaire($id_commentaire)
+    public function setId_Commentaire($idCommentaire)
     {
 
-        $id_commentaire = (int) $id_commentaire;
+        $idCommentaire = (int) $idCommentaire;
 
-        if ($id_commentaire > 0) 
+        if ($idCommentaire > 0) 
         {
 
-            $this->_id_commentaire = $id_commentaire;
+            $this->_id_Commentaire = $idCommentaire;
 
         }
 
@@ -94,47 +91,55 @@ class Comments
     }
 
 
-    public function setId_Post($id_post)
+    public function setId_Post($idPost)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        $id_post = (int) $id_post;
+        $idPost = (int) $idPost;
+        if ($idPost > 0) 
         {
-            $this->_id_post = $id_post;
+            $this->_id_Post = $idPost;
         }
     }
 
-    public function setPseudo_Auteur($pseudo_auteur)
+    public function setPseudo_Auteur($pseudoAuteur)
     {
 
-        if (is_string($pseudo_auteur)) 
+        if (is_string($pseudoAuteur)) 
         {
-            $this->_pseudo_auteur = $pseudo_auteur;
-        }
-    }
-
-
-    public function setContenu_Commentaire($contenu_commentaire)
-    {
-
-        if (is_string($contenu_commentaire)) 
-        {
-            $this->_contenu_commentaire = $contenu_commentaire;
+            $this->_pseudo_auteur = $pseudoAuteur;
         }
     }
 
 
-    public function setDate_Creation($date_creation)
+    public function setContenu_Commentaire($contenuCommentaire)
     {
 
-        $this->_date_creation = $date_creation;
+        if (is_string($contenuCommentaire)) 
+        {
+            $this->_contenu_commentaire = $contenuCommentaire;
+        }
+    }
+
+
+    public function setDate_Creation($dateCreation)
+    {
+
+        $this->_date_creation = $dateCreation;
 
     }
 
 
     public function setValidation($validation)
     {
-
-        $this->_validation = $validation;
+        $validation = (int) $validation
+        
+        if($validation > 0)
+        {
+        
+            $this->_validation = $validation;
+    
+        }
+    
     }
 
 

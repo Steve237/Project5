@@ -143,7 +143,7 @@
                             
                             <p>Auteur du commentaire : <?= htmlspecialchars($comments->pseudo_auteur())?></p>
                             <p><?= htmlspecialchars($comments->contenu_commentaire())?></p>
-                            <p>Date du commentaire : <?= htmlspecialchars($comments->date_creation())?></p>
+                            <p>Date du commentaire : <?= htmlspecialchars($comments->date_Creation())?></p>
                             </div>
 
                         <?php
