@@ -1,7 +1,7 @@
 <?php
 
 class Users
-
+         
 {
 
     private $_id_membre;
