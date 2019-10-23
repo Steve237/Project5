@@ -86,12 +86,12 @@
                 </div>
                 <?php endif;?>
                 
-                <form action="index.php?action=update_post&amp;id=<?= $news->id_post()?>" id="add_post" method="post" enctype="multipart/form-data">
+                <form action="index.php?action=update_post&amp;id=<?= $news->getIdPost()?>" id="add_post" method="post" enctype="multipart/form-data">
                     <div class="row control-group">
                         Modifiez le nom de l'auteur
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="author">Auteur de l'article</label>
-                            <input type="text" name="post_author" id="author" class="form-control" value="<?= $news->pseudo_auteur()?>">
+                            <input type="text" name="post_author" id="author" class="form-control" value="<?= $news->getPseudoAuteur()?>">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         Modifiez le titre de l'article
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="title">Titre de l'article</label>
-                            <input type="text" name="post_title" id="title" class="form-control" value="<?= $news->titre_article()?>">
+                            <input type="text" name="post_title" id="title" class="form-control" value="<?= $news->getTitreArticle()?>">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         Modifiez le résumé l'article
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="resume">Résumé de l'article</label>
-                            <textarea id="resume" name="resume_post" class="form-control"><?= $news->descriptif_article()?></textarea>
+                            <textarea id="resume" name="resume_post" class="form-control"><?= $news->getDescriptifArticle()?></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         Modifiez le contenu l'article
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="content_post">Contenu de l'article</label>
-                            <textarea name="content" id="content_post" class="form-control"><?= $news->contenu()?></textarea>
+                            <textarea name="content" id="content_post" class="form-control"><?= $news->getContenu()?></textarea>
                         </div>
                     </div>
 

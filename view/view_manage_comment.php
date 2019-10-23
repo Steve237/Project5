@@ -84,13 +84,15 @@
    ?>
    <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">
                     
-        <h2> <?= $comment->getTitreArticle()?></h2>
+        <h2><?= $comment->getTitreArticle()?></h2>
 
-        <p><?= $comment->contenu_commentaire() ?></p>
+        <p><?= $comment->getContenuCommentaire()?></p>
+       
+       <p>Auteur du commentaire : <?= $comment->getPseudoAuteur()?></p>
                     
-        <a href="index.php?action=approve&amp;id=<?= $comment->id_commentaire()?>"><button type="button" 
+        <a href="index.php?action=approve&amp;id=<?= $comment->getIdCommentaire()?>"><button type="button" 
         class="btn btn-primary">Approuver</button></a>
-        <a href="index.php?action=delete_comment&amp;id=<?= $comment->id_commentaire()?>"><button type="button" 
+        <a href="index.php?action=delete_comment&amp;id=<?= $comment->getIdCommentaire()?>"><button type="button" 
         class="btn btn-primary">Supprimer</button></a>
     </div>
     <?php

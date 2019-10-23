@@ -8,13 +8,13 @@ class NewsManager extends Manager
     public function add_post()
     {
         $db = $this->dbconnect();
-        $q = $db->prepare('INSERT INTO articles(titre_article, pseudo_auteur, descriptif_article, contenu, date_modification, image_article, nom_image)                   VALUES(:titre_article, :pseudo_auteur, :descriptif_article, :contenu, NOW(), :image_article, :nom_image)');
-        $q->bindValue(':titre_article', $_POST['post_title']);
-        $q->bindValue(':pseudo_auteur', $_POST['post_author']);
-        $q->bindValue(':descriptif_article', $_POST['resume_post']);
+        $q = $db->prepare('INSERT INTO articles(titreArticle, pseudoAuteur, descriptifArticle, contenu, dateModification, imageArticle, nomImage)                       VALUES(:titreArticle, :pseudoAuteur, :descriptifArticle, :contenu, NOW(), :imageArticle, :nomImage)');
+        $q->bindValue(':titreArticle', $_POST['post_title']);
+        $q->bindValue(':pseudoAuteur', $_POST['post_author']);
+        $q->bindValue(':descriptifArticle', $_POST['resume_post']);
         $q->bindValue(':contenu', $_POST['content']);
-        $q->bindValue(':image_article', $_POST['MAX_FILE_SIZE']);
-        $q->bindValue(':nom_image', $_POST['image_post']);
+        $q->bindValue(':imageArticle', $_POST['MAX_FILE_SIZE']);
+        $q->bindValue(':nomImage', $_POST['image_post']);
         $q->execute();
     }
 
@@ -24,7 +24,7 @@ class NewsManager extends Manager
     {
 
         $db = $this->dbconnect();
-        $q = $db->prepare('DELETE FROM articles WHERE id_post = ?');
+        $q = $db->prepare('DELETE FROM articles WHERE idPost = ?');
         $q->execute(array($newId));
 
     }
@@ -34,14 +34,14 @@ class NewsManager extends Manager
     {
 
         $db = $this->dbConnect();
-        $query = $db->prepare('UPDATE articles SET pseudo_auteur=:pseudo_auteur, titre_article=:titre_article, descriptif_article=:descriptif_article,                     contenu=:contenu, date_modification=NOW(), image_article=:image_article, nom_image=:nom_image WHERE id_post=:id_post');
-        $query->bindValue(':pseudo_auteur', $_POST['post_author']);
-        $query->bindValue(':titre_article', $_POST['post_title']);
-        $query->bindValue(':descriptif_article', $_POST['resume_post']);
+        $query = $db->prepare('UPDATE articles SET pseudoAuteur=:pseudoAuteur, titreArticle=:titreArticle, descriptifArticle=:descriptifArticle,                         contenu=:contenu, dateModification=NOW(), imageArticle=:imageArticle, nomImage=:nomImage WHERE idPost=:idPost');
+        $query->bindValue(':pseudoAuteur', $_POST['post_author']);
+        $query->bindValue(':titreArticle', $_POST['post_title']);
+        $query->bindValue(':descriptifArticle', $_POST['resume_post']);
         $query->bindValue(':contenu', $_POST['content']);
-        $query->bindValue(':image_article', $_POST['MAX_FILE_SIZE']);
-        $query->bindValue(':nom_image', $_POST['image_post']);
-        $query->bindValue(':id_post', $_GET['id']);
+        $query->bindValue(':imageArticle', $_POST['MAX_FILE_SIZE']);
+        $query->bindValue(':nomImage', $_POST['image_post']);
+        $query->bindValue(':idPost', $_GET['id']);
         $query->execute();
     }
 
@@ -50,7 +50,7 @@ class NewsManager extends Manager
     public function getListPosts()
     {
         $db = $this->dbconnect();
-        $query = $db->query('SELECT id_post, titre_article, descriptif_article, contenu, DATE_FORMAT(date_modification, "%d/%m/%Y %Hh%imin%ss") AS                         date_modification, image_article FROM articles');
+        $query = $db->query('SELECT idPost, titreArticle, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS                           dateModification, imageArticle FROM articles');
         $results = $query->fetchAll(PDO::FETCH_ASSOC);        
         // instanciation de notre tableau d'objets
         $listPost = array();
@@ -71,7 +71,7 @@ class NewsManager extends Manager
     public function getPostById($postId)
     {
         $db  = $this->dbconnect();
-        $query = $db->prepare('SELECT titre_article, pseudo_auteur, contenu, DATE_FORMAT(date_modification, "%d/%m/%Y %Hh%imin%ss") AS                                     date_modification, id_post, descriptif_article, image_article FROM articles WHERE id_post = ?');
+        $query = $db->prepare('SELECT titreArticle, pseudoAuteur, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS                                     dateModification, idPost, descriptifArticle, imageArticle FROM articles WHERE idPost = ?');
         $query->execute(array($postId));
 
         // On récupère l'objet

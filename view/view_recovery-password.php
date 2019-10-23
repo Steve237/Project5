@@ -170,7 +170,7 @@
                             <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw                                   fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw fa-                                 linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>

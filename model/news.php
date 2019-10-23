@@ -2,13 +2,14 @@
 
 class News
 {
-    private $_id_post;
-    private $_titre_article;
-    private $_pseudo_auteur;
-    private $_descriptif_article;
+    private $_idPost;
+    private $_titreArticle;
+    private $_pseudoAuteur;
+    private $_descriptifArticle;
     private $_contenu;
-    private $_date_modification;
-    private $_image_article;
+    private $_dateModification;
+    private $_imageArticle;
+    private $_nomImage;
 
 
     public function __construct($valeurs = [])
@@ -37,93 +38,100 @@ class News
     }
 
 
-    public function id_post()
+    public function getIdPost()
     {
-        return $this->_id_post;
+        return $this->_idPost;
 
     }
 
 
-    public function titre_article()
+    public function getTitreArticle()
     {
-        return $this->_titre_article;
+        return $this->_titreArticle;
 
     }
 
 
-    public function pseudo_auteur()
+    public function getPseudoAuteur()
     {
-        return $this->_pseudo_auteur;
+        return $this->_pseudoAuteur;
 
     }
 
 
-    public function descriptif_article()
+    public function getDescriptifArticle()
     {
-        return $this->_descriptif_article;
+        return $this->_descriptifArticle;
 
     }
 
 
-    public function contenu()
+    public function getContenu()
     {
         return $this->_contenu;
 
     }
 
-    public function date_modification()
+    public function getDateModification()
     {
-        return $this->_date_modification;
+        return $this->_dateModification;
 
     }
 
 
-    public function image_article()
+    public function getImageArticle()
     {
-        return $this->_image_article;
+        return $this->_imageArticle;
 
     }
 
-    public function setId_Post($id_post)
+    
+    public function getNomImage()
+    {
+        return $this->_nomImage;
+
+    }
+
+    public function setIdPost($idPost)
     {
 
-        $id_post = (int) $id_post;
+        $idPost = (int) $idPost;
 
-        if ($id_post > 0) 
+        if ($idPost > 0) 
         {
 
-            $this->_id_post = $id_post;
+            $this->_idPost = $idPost;
 
         }
 
     }
 
 
-    public function setTitre_Article($titre_article)
+    public function setTitreArticle($titreArticle)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($titre_article)) 
+        if (is_string($titreArticle)) 
         {
-            $this->_titre_article = $titre_article;
+            $this->_titreArticle = $titreArticle;
         }
     }
 
-    public function setPseudo_Auteur($pseudo_auteur)
+    public function setPseudoAuteur($pseudoAuteur)
     {
 
-        if (is_string($pseudo_auteur)) 
+        if (is_string($pseudoAuteur)) 
         {
-            $this->_pseudo_auteur = $pseudo_auteur;
+            $this->_pseudoAuteur = $pseudoAuteur;
         }
     }
 
 
-    public function setDescriptif_Article($descriptif_article)
+    public function setDescriptifArticle($descriptifArticle)
     {
 
-        if (is_string($descriptif_article)) 
+        if (is_string($descriptifArticle)) 
         {
-            $this->_descriptif_article = $descriptif_article;
+            $this->_descriptifArticle = $descriptifArticle;
         }
     }
 
@@ -138,18 +146,28 @@ class News
     }
 
 
-    public function setDate_Modification($date_modification)
+    public function setDateModification($dateModification)
     {
 
-        $this->_date_modification = $date_modification;
+        $this->_dateModification = $dateModification;
     }
 
-    public function setImage_Article($image_article)
+    
+    public function setImageArticle($imageArticle)
     {
 
-        $this->_image_article = $image_article;
+        $this->_imageArticle = $imageArticle;
 
     }
+
+    
+    public function setNomImage($nomImage)
+    {
+
+        $this->_nomImage = $nomImage;
+
+    }
+
 
 
 }

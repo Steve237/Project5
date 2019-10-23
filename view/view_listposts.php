@@ -81,31 +81,31 @@
             {
             ?>
             <div class="col-sm-6 col-md-4 col-lg-4 portfolio-item">
-                <a href="index.php?action=post&amp;id=<?= $news->id_post()?>&amp;titre=<?= $news->titre_article()?>" class="portfolio-link">
+                <a href="index.php?action=post&amp;id=<?= $news->getIdPost()?>&amp;titre=<?= $news->getTitreArticle()?>" class="portfolio-link">
                     <div class="caption">
                         <div class="caption-content">
                             <h6 class="hidden-sm hidden-md hidden-lg">
-                                <?= htmlspecialchars($news->titre_article())?>
+                                <?= htmlspecialchars($news->getTitreArticle())?>
                             </h6>
 
                             <h3 class="hidden-xs hidden-md hidden-lg">
-                                <?= htmlspecialchars($news->titre_article())?>
+                                <?= htmlspecialchars($news->getTitreArticle())?>
                             </h3>
 
                             <h4 class="hidden-xs hidden-sm">
-                                <?= htmlspecialchars($news->titre_article())?>
+                                <?= htmlspecialchars($news->getTitreArticle())?>
                             </h4>
 
                             <p class="description_text">
-                                <?= htmlspecialchars($news->descriptif_article())?>
+                                <?= htmlspecialchars($news->getDescriptifArticle())?>
                             </p>
 
                             <p class="titre">
-                                <?='Modifié le : ' . htmlspecialchars($news->date_modification())?>
+                                <?='Modifié le : ' . htmlspecialchars($news->getDateModification())?>
                             </p>
                         </div>
                     </div>
-                    <img src="<?= htmlspecialchars($news->image_article())?>" class="img-responsive" alt="image_article">
+                    <img src="<?= htmlspecialchars($news->getImageArticle())?>" class="img-responsive" alt="image_article">
 
                 </a>
             </div>
@@ -138,7 +138,7 @@
                             <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw                                   fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw fa-                                 linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>

@@ -79,17 +79,17 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="modal-body">
 
-                        <h2><?= htmlspecialchars($news->titre_article()) ?></h2>
+                        <h2><?= htmlspecialchars($news->getTitreArticle())?></h2>
                         <hr class="star-primary">
-                        <p><?= htmlspecialchars($news->descriptif_article())?></p>
-                        <img src="<?= htmlspecialchars($news->image_article()) ?>" class="img-responsive img-centered" alt="image_article">
-                        <p><?= nl2br(htmlspecialchars($news->contenu()))?></p>
+                        <p><?= htmlspecialchars($news->getDescriptifArticle())?></p>
+                        <img src="<?= htmlspecialchars($news->getImageArticle())?>" class="img-responsive img-centered" alt="image_article">
+                        <p><?= nl2br(htmlspecialchars($news->getContenu()))?></p>
                         <ul class="list-inline item-details">
                             <li>Auteur:
-                                <strong><?= htmlspecialchars($news->pseudo_auteur())?></strong>
+                                <strong><?= htmlspecialchars($news->getPseudoAuteur())?></strong>
                             </li>
                             <li>Date de mise à jour:
-                                <strong><?= htmlspecialchars($news->date_modification())?></strong>
+                                <strong><?= htmlspecialchars($news->getDateModification())?></strong>
                             </li>
                         </ul>
 
@@ -108,7 +108,7 @@
                         <?php endif;?>
 
                         <h3>Laissez un commentaire </h3>
-                        <form action="index.php?action=post&amp;id=<?= $news->id_post()?>" id="comment" method="post">
+                        <form action="index.php?action=post&amp;id=<?= $news->getIdPost()?>" id="comment" method="post">
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="pseudo_user">Votre pseudo</label>
@@ -141,9 +141,9 @@
                         ?>  
                             <div style="border: 0.3px solid black;background-color:cyan;">
                             
-                            <p>Auteur du commentaire : <?= htmlspecialchars($comments->pseudo_auteur())?></p>
-                            <p><?= htmlspecialchars($comments->contenu_commentaire())?></p>
-                            <p>Date du commentaire : <?= htmlspecialchars($comments->date_Creation())?></p>
+                            <p>Auteur du commentaire : <?= htmlspecialchars($comments->getPseudoAuteur())?></p>
+                            <p><?= htmlspecialchars($comments->getContenuCommentaire())?></p>
+                            <p>Date du commentaire : <?= htmlspecialchars($comments->getDateCreation())?></p>
                             </div>
 
                         <?php
@@ -176,7 +176,7 @@
                             <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw                                   fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw fa-                                 linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>

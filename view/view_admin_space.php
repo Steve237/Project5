@@ -59,7 +59,7 @@
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
     <form action="index.php?action=disconnected" method="post">
-        <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                             name="disconnect">Déconnexion</button>
+        <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                           name="disconnect">Déconnexion</button>
     </form>
 </section>
 <?php endif; ?>
@@ -108,15 +108,15 @@
     <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">
 
         <h3>
-            <?= $news->titre_article() ?>
+            <?= $news->getTitreArticle() ?>
         </h3>
 
         <p>
-            <?= $news->descriptif_article() ?>
+            <?= $news->getDescriptifArticle() ?>
         </p>
 
-        <a href="index.php?action=update_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
-        <a href="index.php?action=delete_post&amp;id=<?= $news->id_post()?>"><button type="button" class="btn btn-primary">Supprimer</button></a>
+        <a href="index.php?action=update_post&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
+        <a href="index.php?action=delete_post&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Supprimer</button></a>
 
 
     </div>
