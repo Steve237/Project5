@@ -1,6 +1,6 @@
 <?php
 
-require_once("Manager.php");
+require_once 'Manager.php';
 
 class CommentManager extends Manager
 {
@@ -52,7 +52,7 @@ class CommentManager extends Manager
 
 
     //permet d'ajouter un commentaire
-    public function add_comment()
+    public function addComment()
     {
 
         $db = $this->dbconnect();
@@ -67,7 +67,7 @@ class CommentManager extends Manager
 
 
     //permet de valider un commentaire
-    public function comment_Validation() 
+    public function commentValidation() 
     {
 
         $db = $this->dbConnect();
@@ -81,7 +81,7 @@ class CommentManager extends Manager
 
 
     //permet de supprimer un commentaire
-    public function delete_Comment($commentId)
+    public function deleteComment($commentId)
     {
 
         $db = $this->dbconnect();

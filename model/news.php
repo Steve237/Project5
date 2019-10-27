@@ -14,8 +14,8 @@ class News
 
     public function __construct($valeurs = [])
     {
-        if (!empty($valeurs)) // Si on a spécifié des valeurs, alors on hydrate l'objet.
-        {
+        if (!empty($valeurs)) {
+            
             $this->hydrate($valeurs);
         }
     }
@@ -23,14 +23,12 @@ class News
 
     public function hydrate(array $donnees)
     {
-        foreach ($donnees as $key => $value) 
-        {
+        foreach ($donnees as $key => $value) {
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set' . ucfirst($key);
 
             // Si le setter correspondant existe.
-            if (method_exists($this, $method)) 
-            {
+            if (method_exists($this, $method)) {
                 // On appelle le setter.
                 $this->$method($value);
             }
@@ -97,8 +95,7 @@ class News
 
         $idPost = (int) $idPost;
 
-        if ($idPost > 0) 
-        {
+        if ($idPost > 0) {
 
             $this->_idPost = $idPost;
 
@@ -110,8 +107,8 @@ class News
     public function setTitreArticle($titreArticle)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
-        if (is_string($titreArticle)) 
-        {
+        if (is_string($titreArticle)) {
+            
             $this->_titreArticle = $titreArticle;
         }
     }
@@ -119,8 +116,8 @@ class News
     public function setPseudoAuteur($pseudoAuteur)
     {
 
-        if (is_string($pseudoAuteur)) 
-        {
+        if (is_string($pseudoAuteur)) {
+            
             $this->_pseudoAuteur = $pseudoAuteur;
         }
     }
@@ -129,8 +126,8 @@ class News
     public function setDescriptifArticle($descriptifArticle)
     {
 
-        if (is_string($descriptifArticle)) 
-        {
+        if (is_string($descriptifArticle)) {
+            
             $this->_descriptifArticle = $descriptifArticle;
         }
     }
@@ -139,8 +136,8 @@ class News
     public function setContenu($contenu)
     {
 
-        if (is_string($contenu)) 
-        {
+        if (is_string($contenu)) {
+            
             $this->_contenu = $contenu;
         }
     }

@@ -1,11 +1,11 @@
 <?php
 
-require_once("Manager.php");
+require_once 'Manager.php';
 
 class NewsManager extends Manager
 {
     //permet d'insérer un article
-    public function add_post()
+    public function addPost()
     {
         $db = $this->dbconnect();
         $q = $db->prepare('INSERT INTO articles(titreArticle, pseudoAuteur, descriptifArticle, contenu, dateModification, imageArticle, nomImage)                       VALUES(:titreArticle, :pseudoAuteur, :descriptifArticle, :contenu, NOW(), :imageArticle, :nomImage)');
@@ -20,7 +20,7 @@ class NewsManager extends Manager
 
 
     //permet de supprimer un article
-    public function delete_new($newId)
+    public function deleteNew($newId)
     {
 
         $db = $this->dbconnect();
@@ -30,7 +30,7 @@ class NewsManager extends Manager
     }
 
 
-    public function update_New() 
+    public function updateNew() 
     {
 
         $db = $this->dbConnect();
