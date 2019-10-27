@@ -17,7 +17,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
                 <?= $_SESSION['success_connect']; ?></div>
             <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
@@ -25,7 +25,7 @@
             </form>
             <?php endif; ?>
 
-            <?php if(!array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -35,7 +35,7 @@
             </ul>
             <?php endif; ?>
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -52,7 +52,7 @@
 </nav>
 
 
-<?php if(array_key_exists('success_connect', $_SESSION)): ?>
+<?php if (array_key_exists('success_connect', $_SESSION)): ?>
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
     <form action="index.php?action=disconnected" method="post">
@@ -119,13 +119,13 @@
 
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <?php if(array_key_exists('errors', $_SESSION)): ?>
+                <?php if (array_key_exists('errors', $_SESSION)): ?>
                 <div class="alert alert-danger">
                     <?= implode('<br>', $_SESSION['errors']); ?>
                 </div>
                 <?php endif; ?>
 
-                <?php if(array_key_exists('success', $_SESSION)): ?>
+                <?php if (array_key_exists('success', $_SESSION)): ?>
                 <div class="alert alert-success">
                     Votre message à bien été transmis !
                 </div>
@@ -187,7 +187,7 @@
                             <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw                                   fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw fa-                                 linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -237,5 +237,5 @@
 <?php  
 unset($_SESSION['inputs']);  
 unset($_SESSION['success']);  
-unset($_SESSION['errors']);  
+unset($_SESSION['errors']); 
 ?>

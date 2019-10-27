@@ -17,14 +17,14 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;"><?= $_SESSION['success_connect']; ?></div>
             <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
                 <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
             </form>
             <?php endif; ?>
 
-            <?php if(!array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -34,7 +34,7 @@
             </ul>
             <?php endif; ?>
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -52,7 +52,7 @@
 
 
 
-<?php if(array_key_exists('success_connect', $_SESSION)): ?>
+<?php if (array_key_exists('success_connect', $_SESSION)): ?>
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
     <form action="index.php?action=disconnected" method="post">
@@ -74,24 +74,24 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
 
-                <?php if(array_key_exists('errors', $_SESSION)): ?>
+                <?php if (array_key_exists('errors', $_SESSION)): ?>
                 <div class="alert alert-danger">
                     <?= implode('<br>', $_SESSION['errors']); ?>
                 </div>
                 <?php endif; ?>
 
-                <?php if(array_key_exists('success', $_SESSION)): ?>
+                <?php if (array_key_exists('success', $_SESSION)): ?>
                 <div class="alert alert-success">
                     Votre article a été modifié
                 </div>
                 <?php endif;?>
                 
-                <form action="index.php?action=update_post&amp;id=<?= $news->id_post()?>" id="add_post" method="post" enctype="multipart/form-data">
+                <form action="index.php?action=update_post&amp;id=<?= $news->getIdPost()?>" id="add_post" method="post" enctype="multipart/form-data">
                     <div class="row control-group">
                         Modifiez le nom de l'auteur
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="author">Auteur de l'article</label>
-                            <input type="text" name="post_author" id="author" class="form-control" value="<?= $news->pseudo_auteur()?>">
+                            <input type="text" name="post_author" id="author" class="form-control" value="<?= $news->getPseudoAuteur()?>">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         Modifiez le titre de l'article
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="title">Titre de l'article</label>
-                            <input type="text" name="post_title" id="title" class="form-control" value="<?= $news->titre_article()?>">
+                            <input type="text" name="post_title" id="title" class="form-control" value="<?= $news->getTitreArticle()?>">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         Modifiez le résumé l'article
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="resume">Résumé de l'article</label>
-                            <textarea id="resume" name="resume_post" class="form-control"><?= $news->descriptif_article()?></textarea>
+                            <textarea id="resume" name="resume_post" class="form-control"><?= $news->getDescriptifArticle()?></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         Modifiez le contenu l'article
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="content_post">Contenu de l'article</label>
-                            <textarea name="content" id="content_post" class="form-control"><?= $news->contenu()?></textarea>
+                            <textarea name="content" id="content_post" class="form-control"><?= $news->getContenu()?></textarea>
                         </div>
                     </div>
 

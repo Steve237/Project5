@@ -1,6 +1,6 @@
 <?php
 
-require_once("Manager.php");
+require_once 'Manager.php';
 
 class CommentManager extends Manager
 {
@@ -9,7 +9,7 @@ class CommentManager extends Manager
     public function getListComment()
     {
         $db = $this->dbconnect();
-        $query = $db->query('SELECT id_commentaire, id_post, pseudo_auteur, contenu_commentaire, DATE_FORMAT(date_creation, "%d/%m/%Y %Hh%imin%ss") AS               date_creation, validation FROM commentaires');
+        $query = $db->query('SELECT idCommentaire, idPost, pseudoAuteur, contenuCommentaire, DATE_FORMAT(dateCreation, "%d/%m/%Y %Hh%imin%ss") AS                       dateCreation, validation FROM commentaires');
         $query->execute();
 
 
@@ -26,13 +26,13 @@ class CommentManager extends Manager
             $listComments[] = $comments;            
         }
         return $listComments;
-    }
+    }            
 
     //permet d'afficher la liste des commentaires
     public function getListCommentById($idPost)
     {
         $db  = $this->dbconnect();
-        $query = $db->prepare('SELECT id_commentaire, id_post, pseudo_auteur, contenu_commentaire, DATE_FORMAT(date_creation, "%d/%m/%Y %Hh%imin%ss") AS                   date_creation, validation FROM commentaires WHERE id_post = ? AND validation = 1  ');
+        $query = $db->prepare('SELECT idCommentaire, idPost, pseudoAuteur, contenuCommentaire, DATE_FORMAT(dateCreation, "%d/%m/%Y %Hh%imin%ss") AS                     dateCreation, validation FROM commentaires WHERE idPost = ? AND validation = 1  ');
         $query->execute(array($idPost));
         $comments = $query->fetchAll(PDO::FETCH_ASSOC);        
         $listComments = array();
@@ -52,28 +52,28 @@ class CommentManager extends Manager
 
 
     //permet d'ajouter un commentaire
-    public function add_comment()
+    public function addComment()
     {
 
         $db = $this->dbconnect();
-        $q = $db->prepare('INSERT INTO commentaires(id_post, contenu_commentaire, pseudo_auteur, date_creation) 
-        VALUES(:id_post, :contenu_commentaire, :pseudo_auteur, NOW())');
+        $q = $db->prepare('INSERT INTO commentaires(idPost, contenuCommentaire, pseudoAuteur, dateCreation) 
+        VALUES(:idPost, :contenuCommentaire, :pseudoAuteur, NOW())');
 
-        $q->bindValue(':id_post', $_GET['id']);
-        $q->bindValue(':pseudo_auteur', $_POST['pseudo']);
-        $q->bindValue(':contenu_commentaire', $_POST['user_comment']);
+        $q->bindValue(':idPost', $_GET['id']);
+        $q->bindValue(':pseudoAuteur', $_POST['pseudo']);
+        $q->bindValue(':contenuCommentaire', $_POST['user_comment']);
         $q->execute();
     }
 
 
     //permet de valider un commentaire
-    public function comment_Validation() 
+    public function commentValidation() 
     {
 
         $db = $this->dbConnect();
-        $query = $db->prepare('UPDATE commentaires SET validation=:validation WHERE id_commentaire=:id_commentaire');
+        $query = $db->prepare('UPDATE commentaires SET validation=:validation WHERE idCommentaire=:idCommentaire');
         $query->bindValue(':validation', '1');
-        $query->bindValue(':id_commentaire', $_GET['id']);
+        $query->bindValue(':idCommentaire', $_GET['id']);
         $query->execute();
 
     }
@@ -81,11 +81,11 @@ class CommentManager extends Manager
 
 
     //permet de supprimer un commentaire
-    public function delete_Comment($commentId)
+    public function deleteComment($commentId)
     {
 
         $db = $this->dbconnect();
-        $q = $db->prepare('DELETE FROM commentaires WHERE id_commentaire = ?');
+        $q = $db->prepare('DELETE FROM commentaires WHERE idCommentaire = ?');
         $q->execute(array($commentId));
 
     }

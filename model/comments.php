@@ -2,32 +2,32 @@
 
 class Comments
 {
-    private $_id_commentaire;
-    private $_id_post;
-    private $_pseudo_auteur;
-    private $_contenu_commentaire;
-    private $_date_creation;
+    private $_idCommentaire;
+    private $_idPost;
+    private $_pseudoAuteur;
+    private $_contenuCommentaire;
+    private $_dateCreation;
     private $_validation;
 
 
     public function __construct($valeurs = [])
     {
-        if (!empty($valeurs)) // Si on a spécifié des valeurs, alors on hydrate l'objet.
-        {
+        if (!empty($valeurs)) {
+        
             $this->hydrate($valeurs);
         }
     }
 
     public function hydrate(array $donnees)
     {   
-        foreach ($donnees as $key => $value) 
-        {
+        foreach ($donnees as $key => $value) {
+        
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set' . ucfirst($key);
 
             // Si le setter correspondant existe.
-            if (method_exists($this, $method)) 
-            {
+            if (method_exists($this, $method)) {
+            
                 // On appelle le setter.
                 $this->$method($value);
             }
@@ -35,36 +35,36 @@ class Comments
     }
 
 
-    public function id_Commentaire()
+    public function getIdCommentaire()
     {
-        return $this->_id_commentaire;
+        return $this->_idCommentaire;
 
     }
 
-    public function id_Post()
+    public function getIdPost()
     {
-        return $this->_id_post;
-
-    }
-
-
-    public function pseudo_Auteur()
-    {
-        return $this->_pseudo_auteur;
+        return $this->_idPost;
 
     }
 
 
-    public function contenu_Commentaire()
+    public function getPseudoAuteur()
     {
-        return $this->_contenu_commentaire;
+        return $this->_pseudoAuteur;
 
     }
 
 
-    public function date_Creation()
+    public function getContenuCommentaire()
     {
-        return $this->_date_creation;
+        return $this->_contenuCommentaire;
+
+    }
+
+
+    public function getDateCreation()
+    {
+        return $this->_dateCreation;
 
     }
 
@@ -75,15 +75,14 @@ class Comments
     }
 
 
-    public function setId_Commentaire($idCommentaire)
+    public function setIdCommentaire($idCommentaire)
     {
 
         $idCommentaire = (int) $idCommentaire;
 
-        if ($idCommentaire > 0) 
-        {
+        if ($idCommentaire > 0) {
 
-            $this->_id_Commentaire = $idCommentaire;
+            $this->_idCommentaire = $idCommentaire;
 
         }
 
@@ -91,50 +90,48 @@ class Comments
     }
 
 
-    public function setId_Post($idPost)
+    public function setIdPost($idPost)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
         $idPost = (int) $idPost;
-        if ($idPost > 0) 
-        {
-            $this->_id_Post = $idPost;
+        if ($idPost > 0) {
+            $this->_idPost = $idPost;
         }
     }
 
-    public function setPseudo_Auteur($pseudoAuteur)
+    public function setPseudoAuteur($pseudoAuteur)
     {
 
-        if (is_string($pseudoAuteur)) 
-        {
-            $this->_pseudo_auteur = $pseudoAuteur;
-        }
-    }
-
-
-    public function setContenu_Commentaire($contenuCommentaire)
-    {
-
-        if (is_string($contenuCommentaire)) 
-        {
-            $this->_contenu_commentaire = $contenuCommentaire;
+        if (is_string($pseudoAuteur)) {
+            
+            $this->_pseudoAuteur = $pseudoAuteur;
         }
     }
 
 
-    public function setDate_Creation($dateCreation)
+    public function setContenuCommentaire($contenuCommentaire)
     {
 
-        $this->_date_creation = $dateCreation;
+        if (is_string($contenuCommentaire)) {
+            
+            $this->_contenuCommentaire = $contenuCommentaire;
+        }
+    }
+
+
+    public function setDateCreation($dateCreation)
+    {
+
+        $this->_dateCreation = $dateCreation;
 
     }
 
 
     public function setValidation($validation)
     {
-        $validation = (int) $validation
+        $validation = (int) $validation;
         
-        if($validation > 0)
-        {
+        if ($validation > 0) {
         
             $this->_validation = $validation;
     
@@ -143,15 +140,14 @@ class Comments
     }
 
 
-
     public function getTitreArticle()
     {
 
         $newsManager = new NewsManager();
 
-        $post = $newsManager->getPostById($this->_id_post);
+        $post = $newsManager->getPostById($this->_idPost);
 
-        return $post->titre_article();
+        return $post->getTitreArticle();
 
     }
 

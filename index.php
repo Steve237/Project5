@@ -10,21 +10,20 @@ require ABSOLUTE_PATH.'/controller/backend.php';
 
 
 
-if (isset($_GET['action']))
-{
+if (isset($_GET['action'])) {
 
     $_GET['action'] = htmlspecialchars($_GET['action']);
     
-    if ($_GET['action'] == 'listposts') 
-    {
+    if ($_GET['action'] == 'listposts') {
+        
         listPosts();
 
     }
 
-    elseif ($_GET['action'] == 'post') 
-    {
-        if (isset($_GET['id']) && $_GET['id'] > 0) 
-        {
+    elseif ($_GET['action'] == 'post') {
+        
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
+            
             post();
 
         }    
@@ -32,75 +31,66 @@ if (isset($_GET['action']))
     }
 
 
-    elseif ($_GET['action'] == 'sendmail')
-    {
+    elseif ($_GET['action'] == 'sendmail') {
+        
         sendMail();
 
     }
 
 
 
-    elseif ($_GET['action'] == 'inscription')
-    {
+    elseif ($_GET['action'] == 'inscription') {
 
 
-        Inscription();
-
-    }
-
-
-    elseif ($_GET['action'] == 'connection')
-    {
-
-
-        Connection();
-
-    }
-
-    elseif ($_GET['action'] == 'recovery_pass')
-    {
-
-        Recovery();    
+        inscription();
 
     }
 
 
-    elseif ($_GET['action'] == 'disconnected')
-    {
+    elseif ($_GET['action'] == 'connection') {
 
-        Disconnect();    
+
+        connection();
+    
+    }
+
+    elseif ($_GET['action'] == 'recovery_pass') {
+
+        recovery();    
 
     }
 
 
-    elseif ($_GET['action'] == 'admin_space')
-    {
+    elseif ($_GET['action'] == 'disconnected') {
 
-        Admin_space();    
+        disconnect();    
+
+    }
+
+
+    elseif ($_GET['action'] == 'admin_space') {
+
+        adminSpace();    
 
     }    
 
-    elseif ($_GET['action'] == 'connect_admin')
-    {
+    elseif ($_GET['action'] == 'connect_admin') {
 
 
-        Connection_admin();
-
-    }
-
-    elseif ($_GET['action'] == 'add_article')
-    {
-
-        Add_article();   
+        connectionAdmin();
 
     }
 
+    elseif ($_GET['action'] == 'add_article') {
+
+        addArticle();   
+
+    }
 
 
-    elseif ($_GET['action'] == 'delete_post')
-    {
-        if (isset($_GET['id']) && $_GET['id'] > 0)
-        {
+    elseif ($_GET['action'] == 'delete_post') {
+        
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
 
             delete();
         
@@ -109,10 +99,9 @@ if (isset($_GET['action']))
     }
 
 
-    elseif ($_GET['action'] == 'update_post')
-    {
-        if (isset($_GET['id']) && $_GET['id'] > 0)
-        {
+    elseif ($_GET['action'] == 'update_post') {
+        
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
 
             update();
         
@@ -121,26 +110,21 @@ if (isset($_GET['action']))
     }
 
 
-
-    elseif ($_GET['action'] == 'manage_comment')
-    {
+    elseif ($_GET['action'] == 'manage_comment') {
 
 
-        manage_comment();
+        manageComment();
 
     }
 
 
 
-    elseif ($_GET['action'] == 'approve')
-    {
+    elseif ($_GET['action'] == 'approve') {
 
 
-        if (isset($_GET['id']) && $_GET['id'] > 0) 
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
 
-        {
-
-            approve_comment();   
+            approveComment();   
 
         }
 
@@ -148,14 +132,12 @@ if (isset($_GET['action']))
     }
 
 
-    elseif ($_GET['action'] == 'delete_comment')
-    {
+    elseif ($_GET['action'] == 'delete_comment') {
 
-        if (isset($_GET['id']) && $_GET['id'] > 0) 
-        {
+        if (isset($_GET['id']) && $_GET['id'] > 0) {
 
 
-            delete_comment();
+            deleteComment();
 
         }
 

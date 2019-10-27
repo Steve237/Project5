@@ -1,34 +1,32 @@
 <?php
 
 class Users
-
+         
 {
 
-    private $_id_membre;
+    private $_idMembre;
     private $_pseudo;
     private $_password;
     private $_email;
-    private $_date_inscription;
-    private $_recovery_code;
+    private $_dateInscription;
+    private $_recoveryCode;
+    private $_admin;
 
     public function __construct($valeurs = [])
     {
-        if (!empty($valeurs)) // Si on a spécifié des valeurs, alors on hydrate l'objet.
-        {
+        if (!empty($valeurs)) {
             $this->hydrate($valeurs);
         }
     }
 
     public function hydrate(array $donnees)
     {
-        foreach ($donnees as $key => $value)
-        {
+        foreach ($donnees as $key => $value) {
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set'.ucfirst($key);
 
             // Si le setter correspondant existe.
-            if (method_exists($this, $method))
-            {
+            if (method_exists($this, $method)) {
                 // On appelle le setter.
                 $this->$method($value);
             }
@@ -36,15 +34,15 @@ class Users
     }
 
 
-    public function id_membre()
+    public function getIdMembre()
     {
 
-        return $this->_id_membre;    
+        return $this->_idMembre;    
 
     }
 
 
-    public function pseudo()
+    public function getPseudo()
     {
 
         return $this->_pseudo;    
@@ -52,14 +50,14 @@ class Users
     }
 
 
-    public function password()
+    public function getPassword()
     {   
 
         return $this->_password;    
 
     }
 
-    public function email()
+    public function getEmail()
     {
 
         return $this->_email;    
@@ -67,81 +65,105 @@ class Users
     }
 
 
-    public function date_inscription()
+    public function getDateInscription()
     {
 
-        return $this->_date_inscription;    
+        return $this->_dateInscription;    
 
     }
 
 
-    public function setId_Membre($id_membre)
-
+    
+    public function getRecoveryCode()
     {
 
-        $id_membre = (int) $id_membre;
+        return $this->_recoveryCode;    
 
-        if ($id_membre > 0)
+    }    
+    
+    
+    public function getAdmin()
+    {
 
-        {
+        return $this->_admin;    
 
-            $this->_id_membre = $id_membre;
+    }  
+    
+    
+    public function setIdMembre($idMembre)
+    {
+        $idMembre = (int) $idMembre;
+
+        if ($idMembre > 0) {
+
+            $this->_idMembre = $idMembre;
 
         }
-
-
+    
     }
 
 
     public function setPseudo($pseudo)  
     {
-
-        $this->_pseudo = $pseudo;    
-
+        if (is_string($pseudo)) {
+        
+            $this->_pseudo = $pseudo;    
+        }
+    
     }
-
 
 
     public function setPassword($password)
     {
-
-        $this->_password = $password;    
-
+        if (is_string($password)) {
+            
+            $this->_password = $password;    
+        }
     }    
 
 
     public function setEmail($email)
     {
-
-        $this->_email = $email;    
-
+        if (is_string($email)) {
+            
+            $this->_email = $email;    
+            
+        }
+        
     }  
 
-
-    public function recovery_code()
+    
+    public function setDateInscription($dateInscription)
     {
 
-        return $this->_recovery_code;    
+        $this->_dateInscription = $dateInscription;    
 
     }    
 
 
-    public function setDate_Inscription($date_inscription)
-
+    public function setRecoveryCode($recoveryCode)
     {
 
-        $this->_date_inscription = $date_inscription;    
-
-    }    
-
-
-    public function setRecovery_Code($recovery_code)
-    {
-
-
-        $this->_recovery_code = $recovery_code;
-
-
+        if (is_string($recoveryCode)) {
+            
+            $this->_recoveryCode = $recoveryCode;
+        
+        }
+    
     }
+
+
+    public function setAdmin($admin)
+    {
+        $admin = (int) $admin;
+
+        if ($admin > 0) {
+
+            $this->_admin = $admin;
+
+        }
+    
+    }
+
 
 }
