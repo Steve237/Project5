@@ -1,3 +1,27 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Steve237 
+Learn Git and GitHub without any code!
+Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
+
+
+1
+00Steve237/Project5
+ Code Issues 0 Pull requests 0 Projects 0 Wiki Security Insights Settings
+Project5/public/css/freelancer.css
+@Steve237 Steve237 admin space with functions to manage comments and manage posts indent…
+e0019bf 6 days ago
+We found potential security vulnerabilities in your dependencies.
+Only the owner of this repository can see this message.
+
+801 lines (676 sloc)  13.2 KB
+  
 /*!
  * Start Bootstrap - Freelancer v3.3.7+1 (http://startbootstrap.com/template-overviews/freelancer)
  * Copyright 2013-2016 Start Bootstrap
@@ -695,6 +719,11 @@ fieldset[disabled] .btn-success.active {
     }
     
 
+    .titre_portfolio
+    {
+      margin-top: 150px;   
+        
+    }
     
     .close-modal
     {
@@ -753,10 +782,7 @@ fieldset[disabled] .btn-success.active {
     .close-modal
     {
         
-       position:absolute;
-        right: 10px;
-        top : 80px;
-        font-size:15px;
+       margin-top: 150px;
         
     }    
     
@@ -794,7 +820,4 @@ fieldset[disabled] .btn-success.active {
 
 
 }
-
-
-
 

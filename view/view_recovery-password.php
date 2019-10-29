@@ -215,7 +215,10 @@
 <script src="public/js/freelancer.min.js"></script>
 
 
-<?php $content = ob_get_clean(); ?>
-<?php require('template.php'); ?>
+<?php $content = ob_get_clean();?>
+<?php require('template.php');?>
+
+<?php
 unset($_SESSION['success']);  
-unset($_SESSION['errors']);  ?>
+unset($_SESSION['errors']);  
+?>
