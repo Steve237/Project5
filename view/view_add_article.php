@@ -1,3 +1,12 @@
+<?php
+
+$token = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
+
+$_SESSION['token'] = $token;
+
+?>
+
+
 <?php $title = 'Mon blog'; ?>
 <?php ob_start(); ?>
 
@@ -140,6 +149,7 @@
                             <button type="submit" class="btn btn-success btn-lg" name="add_new">Ajouter</button>
                         </div>
                     </div>
+                    <input type="hidden" name="token" id="token" value="<?php echo $token; ?>"/>
                 </form>
             </div>
         </div>
