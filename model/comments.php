@@ -12,22 +12,22 @@ class Comments
 
     public function __construct($valeurs = [])
     {
-        if (!empty($valeurs)) // Si on a spécifié des valeurs, alors on hydrate l'objet.
-        {
+        if (!empty($valeurs)) {
+        
             $this->hydrate($valeurs);
         }
     }
 
     public function hydrate(array $donnees)
     {   
-        foreach ($donnees as $key => $value) 
-        {
+        foreach ($donnees as $key => $value) {
+        
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set' . ucfirst($key);
 
             // Si le setter correspondant existe.
-            if (method_exists($this, $method)) 
-            {
+            if (method_exists($this, $method)) {
+            
                 // On appelle le setter.
                 $this->$method($value);
             }
@@ -80,8 +80,7 @@ class Comments
 
         $idCommentaire = (int) $idCommentaire;
 
-        if ($idCommentaire > 0) 
-        {
+        if ($idCommentaire > 0) {
 
             $this->_idCommentaire = $idCommentaire;
 
@@ -95,8 +94,7 @@ class Comments
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
         $idPost = (int) $idPost;
-        if ($idPost > 0) 
-        {
+        if ($idPost > 0) {
             $this->_idPost = $idPost;
         }
     }
@@ -104,8 +102,8 @@ class Comments
     public function setPseudoAuteur($pseudoAuteur)
     {
 
-        if (is_string($pseudoAuteur)) 
-        {
+        if (is_string($pseudoAuteur)) {
+            
             $this->_pseudoAuteur = $pseudoAuteur;
         }
     }
@@ -114,8 +112,8 @@ class Comments
     public function setContenuCommentaire($contenuCommentaire)
     {
 
-        if (is_string($contenuCommentaire)) 
-        {
+        if (is_string($contenuCommentaire)) {
+            
             $this->_contenuCommentaire = $contenuCommentaire;
         }
     }
@@ -133,15 +131,13 @@ class Comments
     {
         $validation = (int) $validation;
         
-        if ($validation > 0)
-        {
+        if ($validation > 0) {
         
             $this->_validation = $validation;
     
         }
     
     }
-
 
 
     public function getTitreArticle()
@@ -151,7 +147,7 @@ class Comments
 
         $post = $newsManager->getPostById($this->_idPost);
 
-        return $post->titre_article();
+        return $post->getTitreArticle();
 
     }
 

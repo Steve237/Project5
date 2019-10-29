@@ -17,7 +17,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
                 <?= $_SESSION['success_connect']; ?></div>
             <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
@@ -25,7 +25,7 @@
             </form>
             <?php endif; ?>
 
-            <?php if(!array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -35,7 +35,7 @@
             </ul>
             <?php endif; ?>
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -53,7 +53,7 @@
 
 
 
-<?php if(array_key_exists('success_connect', $_SESSION)): ?>
+<?php if (array_key_exists('success_connect', $_SESSION)): ?>
 
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>

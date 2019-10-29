@@ -1,17 +1,17 @@
 <?php
 
-require_once("Manager.php");
+require_once 'Manager.php';
 
 class UsersManager extends Manager
 {
 
 
     //permet d'ajouter un membre à la bdd    
-    public function add_Users()
+    public function addUsers()
     {
         $db = $this->dbConnect();
 
-        $q = $db->prepare('INSERT INTO membres(pseudo, password, email, date_inscription) VALUES(:pseudo, :password, :email, NOW())');
+        $q = $db->prepare('INSERT INTO membres(pseudo, password, email, dateInscription) VALUES(:pseudo, :password, :email, NOW())');
 
         $q->bindValue(':pseudo', $_POST['pseudo']);
         $q->bindValue(':password', password_hash($_POST['password'], PASSWORD_DEFAULT));
@@ -21,7 +21,7 @@ class UsersManager extends Manager
     }    
 
     //permet de vérifier si le pseudo existe en bdd    
-    public function check_pseudo($pseudo)
+    public function checkPseudo($pseudo)
     {
         $db = $this->dbConnect();
 
@@ -40,7 +40,7 @@ class UsersManager extends Manager
 
     //permet de vérifier si l'email existe en bdd
 
-    public function check_email($email)
+    public function checkEmail($email)
     {
         $db = $this->dbConnect();
 
@@ -59,11 +59,11 @@ class UsersManager extends Manager
 
 
     //permet de vérifier si le mot de passe de l'utilisateur renseigné est en bdd
-    public function connect_User()
+    public function connectUser()
     {
         $db = $this->dbConnect();
 
-        $req = $db->prepare('SELECT id_membre, password FROM membres WHERE pseudo = ?');
+        $req = $db->prepare('SELECT idMembre, password FROM membres WHERE pseudo = ?');
         $req->execute(array($_POST['pseudo']));
         $resultat = $req->fetch(PDO::FETCH_ASSOC);
         $check_user = new Users();
@@ -75,7 +75,7 @@ class UsersManager extends Manager
 
     //permet de vérifier si le pseudo de l'utilisateur est en bdd
 
-    public function check_Member()
+    public function checkMember()
     {
         $db = $this->dbConnect();
 
@@ -91,7 +91,7 @@ class UsersManager extends Manager
 
 
     //permet de vérifier si le pseudo de l'administrateur est en bdd    
-    public function check_Admin()
+    public function checkAdmin()
     {
         $db = $this->dbConnect();
 
@@ -104,24 +104,24 @@ class UsersManager extends Manager
     }
 
 
-    public function update_recovery(Users $recovery) 
+    public function updateRecovery(Users $recovery) 
     {
 
         $db = $this->dbConnect();
-        $query = $db->prepare('UPDATE membres SET recovery_code=:recovery_code WHERE email=:email');
-        $query->bindValue(':recovery_code', $recovery->recovery_code());
-        $query->bindValue(':email', $recovery->email());
+        $query = $db->prepare('UPDATE membres SET recoveryCode=:recoveryCode WHERE email=:email');
+        $query->bindValue(':recoveryCode', $recovery->getRecoveryCode());
+        $query->bindValue(':email', $recovery->getEmail());
 
         $query->execute();
 
     }
 
 
-    public function check_code($user_code)
+    public function checkCode($user_code)
 
     {
         $db = $this->dbConnect();
-        $query = $db->prepare('SELECT COUNT(*) AS nb_code FROM membres WHERE recovery_code = ?');
+        $query = $db->prepare('SELECT COUNT(*) AS nb_code FROM membres WHERE recoveryCode = ?');
         $query->execute(array($user_code));
 
         // On récupère l'objet
@@ -136,13 +136,13 @@ class UsersManager extends Manager
     }
 
 
-    public function update_password(Users $user_pass) 
+    public function updatePassword(Users $user_pass) 
     {
 
         $db = $this->dbConnect();
         $query = $db->prepare('UPDATE membres SET password=:password WHERE email=:email');
         $query->bindValue(':password', password_hash($_POST['new_pass'], PASSWORD_DEFAULT));
-        $query->bindValue(':email', $user_pass->email());
+        $query->bindValue(':email', $user_pass->getEmail());
         $query->execute();
 
     }

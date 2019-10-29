@@ -1,13 +1,11 @@
 <?php
-
 require_once ABSOLUTE_PATH."/model/UsersManager.php";
 require_once ABSOLUTE_PATH."/model/users.php";
 require_once ABSOLUTE_PATH."/model/CommentManager.php";
 require_once ABSOLUTE_PATH."/model/comments.php";
-
 function inscription()
 {
-    if (isset($_POST['inscription'])) {    
+    if(isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
@@ -58,13 +56,10 @@ function inscription()
             header('Location: index.php?action=inscription#formInscription');
         }
     } 
-    
     else {
-        
         require ABSOLUTE_PATH.'/view/view_inscription.php';
     }
 }
-
 
 function connection()
 {
@@ -125,7 +120,6 @@ function recovery()
         
         $section = htmlspecialchars($_GET['section']);   
     }
-    
     else {
         
         $section=""; 
@@ -244,23 +238,21 @@ function recovery()
     }
     
     else {
+        
         require ABSOLUTE_PATH.'/view/view_recovery-password.php';
     }
 }
-
 
 function disconnect()
 {
     if (isset($_POST['disconnect'])) {
         $_POST['disconnect'] = htmlspecialchars($_POST['disconnect']); 
-        
         unset($_SESSION['success_connect']);
         // On redirige le visiteur vers la page désirée :
         header('Location: index.php');
         exit();
     }
 }
-
 
 function connectionAdmin()
 {
@@ -278,7 +270,6 @@ function connectionAdmin()
             
             $errors ['password'] = "veuillez entrer votre mot de passe";  
         }
-        
         $connectAdmin = new UsersManager();
         $nbPseudoAdmin = $connectAdmin->checkAdmin();
         
@@ -307,6 +298,7 @@ function connectionAdmin()
     }
     
     else {
+        
         require ABSOLUTE_PATH.'/view/view_connection_admin.php';
     }
 }
@@ -323,7 +315,6 @@ function adminSpace()
     require ABSOLUTE_PATH.'/view/view_admin_space.php';
 }
 
-
 function addArticle()
 {
     if (!array_key_exists('success_connect', $_SESSION)) {
@@ -338,7 +329,7 @@ function addArticle()
         $_POST['post_author'] = htmlspecialchars($_POST['post_author']);
         $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
         $_POST['content'] = htmlspecialchars($_POST['content']);
-        
+        $_FILES['image_post'] = htmlspecialchars($_FILES['image_post']);
         
         if (!array_key_exists('post_author', $_POST) || empty($_POST['post_author'])) {
             
@@ -414,30 +405,23 @@ function addArticle()
             header('Location: index.php?action=add_article');
         }   
         
-        if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
-            
-            $_POST['token'] = htmlspecialchars($_POST['token']);
-            
-            if ($_SESSION['token'] == $_POST['token']) {
-
-                $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
-                $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
-                $newImageWidth = 900;
-                $newImageHeight = 650;
-                $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
-                imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
-                imagedestroy($imageSelected);
-                $imageSelectedName = explode('.', $imagePost);
-                $_POST['image_post'] = time();
-                imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
-                $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
-                $insertPost = new NewsManager();
-                $insertPost->addPost();
-                $_SESSION['insert_success'] = 1;
-                header('Location: index.php?action=admin_space');
-            }
+        else {
+            $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+            $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+            $newImageWidth = 900;
+            $newImageHeight = 650;
+            $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+            imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+            imagedestroy($imageSelected);
+            $imageSelectedName = explode('.', $imagePost);
+            $_POST['image_post'] = time();
+            imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+            $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+            $insertPost = new NewsManager();
+            $insertPost->addPost();
+            $_SESSION['insert_success'] = 1;
+            header('Location: index.php?action=admin_space');
         }
-        
     }
     
     else {    
@@ -469,7 +453,6 @@ function update()
     $_GET['id'] = htmlspecialchars($_GET['id']);
     $post = new NewsManager();
     $news = $post->getPostById($_GET['id']);
-    
     if (isset($_POST['add_new'])) {
         
         $_POST['add_new'] = htmlspecialchars($_POST['add_new']);
@@ -555,7 +538,6 @@ function update()
         }   
         
         else {
-            
             $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
             $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
             $newImageWidth = 900;
@@ -573,7 +555,6 @@ function update()
             header('Location: index.php?action=admin_space');
         }
     }
-    
     else {
         
         require ABSOLUTE_PATH.'/view/view_update_post.php';  
@@ -613,4 +594,3 @@ function deleteComment()
     header('Location: index.php?action=manage_comment');
     require ABSOLUTE_PATH.'/view/view_manage_comment.php'; 
 }
-

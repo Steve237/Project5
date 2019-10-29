@@ -15,7 +15,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
                 <?= $_SESSION['success_connect']; ?>    
             </div>
@@ -24,7 +24,7 @@
             </form>
             <?php endif; ?>
 
-            <?php if(!array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -34,7 +34,7 @@
             </ul>
             <?php endif; ?>
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -52,7 +52,7 @@
 
 
 
-<?php if(array_key_exists('success_connect', $_SESSION)): ?>
+<?php if (array_key_exists('success_connect', $_SESSION)): ?>
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;">
         <?= $_SESSION['success_connect']; ?>
@@ -66,20 +66,20 @@
 
 <h2 style="text-align:center">Gestion des commentaires</h2>
 <div class="container">
-    <?php if(array_key_exists('comment_approved', $_SESSION)): ?>
+    <?php if (array_key_exists('comment_approved', $_SESSION)): ?>
     <div class="alert alert-success">
         Le commentaire a été validé
     </div>
     <?php endif; ?>    
 
-    <?php if(array_key_exists('comment_delete', $_SESSION)): ?>
+    <?php if (array_key_exists('comment_delete', $_SESSION)): ?>
     <div class="alert alert-success">
         Le commentaire a été supprimé
     </div>
     <?php endif; ?>    
 
    <?php
-   foreach ($showcomment->getListComment() as $comment)
+   foreach ($showComment->getListComment() as $comment)
    {
    ?>
    <div style="border: 2px solid black;margin-bottom:15px;background-color:cyan;padding:10px;">

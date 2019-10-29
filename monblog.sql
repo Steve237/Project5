@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 12 oct. 2019 à 10:46
+-- Généré le :  Dim 27 oct. 2019 à 13:49
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -30,23 +30,23 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
-  `id_post` int(11) NOT NULL AUTO_INCREMENT,
-  `titre_article` char(50) NOT NULL,
-  `pseudo_auteur` char(30) NOT NULL,
-  `descriptif_article` char(200) NOT NULL,
+  `idPost` int(11) NOT NULL AUTO_INCREMENT,
+  `titreArticle` char(50) NOT NULL,
+  `pseudoAuteur` char(30) NOT NULL,
+  `descriptifArticle` char(200) NOT NULL,
   `contenu` text NOT NULL,
-  `date_modification` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `image_article` char(50) NOT NULL,
-  `nom_image` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_post`)
+  `dateModification` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `imageArticle` char(50) NOT NULL,
+  `nomImage` varchar(255) NOT NULL,
+  PRIMARY KEY (`idPost`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `articles`
 --
 
-INSERT INTO `articles` (`id_post`, `titre_article`, `pseudo_auteur`, `descriptif_article`, `contenu`, `date_modification`, `image_article`, `nom_image`) VALUES
-(1, 'Martin Luther King', 'Essama237', 'Martin Luther King Jr, né à Atlanta le 15 janvier 1929 et mort assassiné le 4 avril 1968 à Memphis, est un pasteur baptiste afro-américain, militant non-violent pour les droits civiques des Noirs.', 'Il organise et dirige des actions telles que le boycott des bus de Montgomery pour défendre le droit de vote, la déségrégation et l\'emploi des minorités ethniques. Il prononce un discours célèbre le 28 août 1963 devant le Lincoln Memorial à Washington durant la marche pour l\'emploi et la liberté : « I have a dream ». Il est soutenu par John Kennedy dans la lutte contre la ségrégation raciale aux États-Unis ; la plupart de ces droits seront promus par le Civil Rights Act et le Voting Rights Act sous la présidence de Lyndon B. Johnson.\r\n\r\nMartin Luther King devient le plus jeune lauréat du prix Nobel de la paix en 1964 pour sa lutte non-violente contre la ségrégation raciale et pour la paix. Il commence alors une campagne contre la guerre du Viêt Nam et la pauvreté, qui prend fin en 1968 avec son assassinat officiellement attribué à James Earl Ray, dont la culpabilité et la participation à un complot sont toujours débattues.\r\n\r\nIl se voit décerner à titre posthume la médaille présidentielle de la Liberté par Jimmy Carter en 1977, le prix des droits de l\'homme des Nations unies en 1978, la médaille d\'or du Congrès en 2004, et est considéré comme l\'un des plus grands orateurs américains1. Depuis 1986, le Martin Luther King Day est un jour férié aux États-Unis.', '2019-07-28 15:29:44', 'public/img/portfolio/martin_luther_king.jpeg', ''),
+INSERT INTO `articles` (`idPost`, `titreArticle`, `pseudoAuteur`, `descriptifArticle`, `contenu`, `dateModification`, `imageArticle`, `nomImage`) VALUES
+(1, 'Martin Luther King', 'Essama237', 'Martin Luther King Jr, né à Atlanta le 15 janvier 1929 et mort assassiné le 4 avril 1968 à Memphis, est un pasteur baptiste afro-américain, militant non-violent pour les droits civiques des Noirs.', 'Il organise et dirige des actions telles que le boycott des bus de Montgomery pour défendre le droit de vote, la déségrégation et l\'emploi des minorités ethniques. Il prononce un discours célèbre le 28 août 1963 devant le Lincoln Memorial à Washington durant la marche pour l\'emploi et la liberté : « I have a dream ». Il est soutenu par John Kennedy dans la lutte contre la ségrégation raciale aux États-Unis ; la plupart de ces droits seront promus par le Civil Rights Act et le Voting Rights Act sous la présidence de Lyndon B. Johnson.\r\n\r\nMartin Luther King devient le plus jeune lauréat du prix Nobel de la paix en 1964 pour sa lutte non-violente contre la ségrégation raciale et pour la paix. Il commence alors une campagne contre la guerre du Viêt Nam et la pauvreté, qui prend fin en 1968 avec son assassinat officiellement attribué à James Earl Ray, dont la culpabilité et la participation à un complot sont toujours débattues.\r\n\r\nIl se voit décerner à titre posthume la médaille présidentielle de la Liberté par Jimmy Carter en 1977, le prix des droits de l\'homme des Nations unies en 1978, la médaille d\'or du Congrès en 2004, et est considéré comme l\'un des plus grands orateurs américains1. Depuis 1986, le Martin Luther King Day est un jour férié aux États-Unis.', '2019-10-25 21:01:58', 'public/img/portfolio/1572030118.jpeg', '1572030118'),
 (5, 'Malcolm X', 'Essama237', 'Malcolm X, né Malcolm Little le 19 mai 1925 à Omaha (Nebraska) et mort assassiné le 21 février 1965 à Harlem, est un prêcheur musulman afro-américain.', 'Aux yeux de ses supporteurs, il est un défenseur impliqué des droits des Afro-Américains ayant mis en accusation le gouvernement fédéral des États-Unis pour sa ségrégation de la communauté noire6. En revanche, ses détracteurs l\'accusent d\'avoir alimenté une forme de racisme, le suprémacisme noir et la violence7,8,9,10,11.\r\n\r\nNé Malcolm Little, il adopte le pseudonyme de Malcolm X lors de son passage en 1952 au sein du mouvement Nation of Islam. Il s\'éloigne finalement de celui-ci en 1964, principalement en raison de désaccords sur la passivité de l\'organisation dans le combat contre la ségrégation raciale. Il évolue alors, peu avant sa mort, vers des positions socialistes et internationalistes. Il est assassiné le 21 février 1965 par trois militants de Nation of Islam mais une possible implication du FBI est évoquée12.', '2019-07-30 19:44:19', 'public/img/portfolio/malcolm.jpg', ''),
 (6, 'Nelson Mandela', 'Essama237', 'Nelson Rolihlahla Mandela, né le 18 juillet 1918 à Mvezo (province du Cap) et mort le 5 décembre 2013 à Johannesburg, est un homme d\'État sud-africain', ' il a été l\'un des dirigeants historiques de la lutte contre le système politique institutionnel de ségrégation raciale (apartheid) avant de devenir président de la République d\'Afrique du Sud de 1994 à 1999, à la suite des premières élections nationales non ségrégationnistes de l\'histoire du pays.\r\n\r\nNelson Mandela entre au Congrès national africain (ANC) en 19434, afin de lutter contre la domination politique de la minorité blanche et la ségrégation raciale imposée par celle-ci. Devenu avocat, il participe à la lutte non-violente contre les lois de l\'Apartheid, mises en place par le gouvernement du Parti national à partir de 1948. L\'ANC est interdit en 1960 et, comme la lutte pacifique ne donne pas de résultats tangibles, Mandela fonde et dirige la branche militaire de l\'ANC, Umkhonto we Sizwe, en 1961, qui mène une campagne de sabotage contre des installations publiques et militaires. Le 5 août 1962, il est arrêté par la police sud-africaine sur indication de la CIA, puis est condamné à la prison et aux travaux forcés à perpétuité lors du procès de Rivonia. Dès lors, il devient un symbole de la lutte pour l\'égalité raciale et bénéficie d\'un soutien international croissant.\r\n\r\nAprès vingt-sept années d\'emprisonnement dans des conditions souvent très dures[réf. souhaitée], et après avoir refusé d\'être libéré pour rester en cohérence avec ses convictions, Mandela est relâché le 11 février 1990. S\'inspirant alors de la pensée ubuntu dans laquelle il a été élevé, il soutient la réconciliation et la négociation avec le gouvernement du président Frederik de Klerk. En 1993, il reçoit avec ce dernier le prix Nobel de la paix pour avoir conjointement et pacifiquement mis fin au régime de l\'apartheid et jeté les bases d\'une nouvelle Afrique du Sud démocratiqueN 1.\r\n\r\nAprès une transition difficile où de Klerk et lui évitent une guerre civile entre les partisans de l\'apartheid, ceux de l\'ANC et ceux de l\'Inkhata à dominante zoulou, Nelson Mandela devient le premier président noir d\'Afrique du Sud en 1994. Il mène une politique de réconciliation nationale entre Noirs et Blancs ; il lutte contre les inégalités économiques, mais néglige le combat contre le sida, en pleine expansion en Afrique du Sud. Après un unique mandat, il se retire de la vie politique active, mais continue à soutenir publiquement le Congrès national africain tout en condamnant ses dérives.\r\n\r\nImpliqué par la suite dans plusieurs associations de lutte contre la pauvreté ou contre le sida, il demeure une personnalité mondialement reconnue en faveur de la défense des droits de l\'homme. Il est salué comme le père d\'une Afrique du Sud multiethnique et pleinement démocratique, qualifiée de « nation arc-en-ciel », même si le pays souffre d\'inégalités économiques, de tensions sociales et de replis communautaires.', '2019-07-30 19:50:49', 'public/img/portfolio/nelson_mandela.jpg', ''),
 (7, 'Patrice Lumumba', 'Essama237', 'D\'employé des postes à Premier ministre du Congo indépendant en quelques années  : Patrice Lumumba a mis toute ses forces dans la lutte contre le colonialisme, ne reculant devant aucun sacrifice', 'Autodidacte, charismatique et idéaliste, Patrice Lumumba a su fédérer les aspirations indépendantistes des Congolais. Son combat à mort contre le colonialisme lui a valu une reconnaissance bien au-delà des frontières de son pays, fondant un véritable mythe Lumumba.\r\n\r\nLe 30 janvier 1960, les images de son discours lors des cérémonies d\'indépendance font le tour du monde. \"Nul Congolais ne pourra oublier que l\'[indépendance] a été conquise par la lutte, une lutte qui fut de larmes, de feu et de sang \", déclare-t-il, avant de détailler en présence du roi des Belges Baudouin les injustices subies par les Congolais pendant la période coloniale.\r\n\r\nLumumba a rédigé, tout au long de sa vie, articles, essais et discours qui précisent sa pensée politique, s\'attaquant aussi bien à des sujets de société qu\'aux destins du Congo et de l\'Afrique. Ses écrits et sa personnalité ont inspiré des générations d\'intellectuels et activistes anti-impérialistes d\'Afrique et d\'ailleurs, dont son contemporain Aimé Césaire (Une saison au Congo, 1966).', '2019-07-30 20:10:49', 'public/img/portfolio/patrice-lumumba.jpg', ''),
@@ -62,28 +62,23 @@ INSERT INTO `articles` (`id_post`, `titre_article`, `pseudo_auteur`, `descriptif
 
 DROP TABLE IF EXISTS `commentaires`;
 CREATE TABLE IF NOT EXISTS `commentaires` (
-  `id_commentaire` int(11) NOT NULL AUTO_INCREMENT,
-  `id_post` int(11) NOT NULL,
-  `pseudo_auteur` char(50) NOT NULL,
-  `contenu_commentaire` text NOT NULL,
-  `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idCommentaire` int(11) NOT NULL AUTO_INCREMENT,
+  `idPost` int(11) NOT NULL,
+  `pseudoAuteur` char(50) NOT NULL,
+  `contenuCommentaire` text NOT NULL,
+  `dateCreation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `validation` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id_commentaire`),
-  KEY `id_article` (`id_post`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idCommentaire`),
+  KEY `id_article` (`idPost`)
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaires`
 --
 
-INSERT INTO `commentaires` (`id_commentaire`, `id_post`, `pseudo_auteur`, `contenu_commentaire`, `date_creation`, `validation`) VALUES
-(35, 1, 'okbro', 'Entrez votre commentaire', '2019-10-10 06:11:58', 1),
-(41, 1, 'okbro', 'Entrez votre commentaire', '2019-10-10 06:11:58', 1),
-(42, 1, 'salut', 'Entrez votre commentaire', '2019-10-12 11:58:36', NULL),
-(43, 1, 'salut', 'Entrez votre commentaire', '2019-10-12 12:05:29', NULL),
-(44, 1, 'salut', 'Entrez votre commentaire', '2019-10-12 12:05:48', NULL),
-(45, 1, 'salut', 'Entrez votre commentaire', '2019-10-12 12:09:16', NULL),
-(46, 1, 'salut', 'Entrez votre commentaire', '2019-10-12 12:15:46', NULL);
+INSERT INTO `commentaires` (`idCommentaire`, `idPost`, `pseudoAuteur`, `contenuCommentaire`, `dateCreation`, `validation`) VALUES
+(58, 1, 'micheldubled240', 'martin inoubliable!', '2019-10-25 05:21:39', NULL),
+(62, 1, 'steveessama237', 'OK c\'est vrai!', '2019-10-25 20:27:53', 1);
 
 -- --------------------------------------------------------
 
@@ -93,21 +88,21 @@ INSERT INTO `commentaires` (`id_commentaire`, `id_post`, `pseudo_auteur`, `conte
 
 DROP TABLE IF EXISTS `membres`;
 CREATE TABLE IF NOT EXISTS `membres` (
-  `id_membre` int(11) NOT NULL AUTO_INCREMENT,
+  `idMembre` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` char(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` char(100) NOT NULL,
-  `date_inscription` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `recovery_code` varchar(255) DEFAULT NULL,
+  `dateInscription` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `recoveryCode` varchar(255) DEFAULT NULL,
   `admin` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id_membre`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idMembre`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `membres`
 --
 
-INSERT INTO `membres` (`id_membre`, `pseudo`, `password`, `email`, `date_inscription`, `recovery_code`, `admin`) VALUES
+INSERT INTO `membres` (`idMembre`, `pseudo`, `password`, `email`, `dateInscription`, `recoveryCode`, `admin`) VALUES
 (8, 'hercule240', 'fb360f9c09ac8c5edb2f18be5de4e80ea4c430d0', 'adouessono@yahoo.fr', '2019-08-11 16:48:02', '', NULL),
 (9, 'hulk', '7a85f4764bbd6daf1c3545efbbf0f279a6dc0beb', 'adouessono@yahoo.fr', '2019-08-11 16:51:20', '', NULL),
 (10, 'hercule58', '$2y$10$LNQUHiI3A/4cW6BAd2aDiOYlQtByU78Bs3IoMAgqCmcQP076v2QUu', 'adouessono@yahoo.fr', '2019-08-11 16:57:12', '', NULL),
@@ -140,29 +135,8 @@ INSERT INTO `membres` (`id_membre`, `pseudo`, `password`, `email`, `date_inscrip
 (37, 'steveessama237', '$2y$10$y/lVysSFV75aFcLoSy2N0e6LNlFitGvgPosNyIKiqdvYucXrS24y6', 'essonoadou@gmail.com', '2019-09-07 08:38:23', 'e1581f4670d6955740e0a67febd9f77ce29885c9', NULL),
 (38, 'steveessama240', '$2y$10$4QGOrlwSfuMW5NcIWtZQyue1OHe3UGoGhuHbRhg86PxrnrnNqknQa', 'adouessono958@yahoo.fr', '2019-09-07 11:33:02', '', NULL),
 (39, 'steveessama250', '$2y$10$DLWA5wgis9uGXHOaOY2euubK3og1p5XWOxL0/CuMc2og/G0rAql4K', 'adouessono7758@yahoo.fr', '2019-09-07 11:34:11', '', NULL),
-(41, 'micheldubled237', '$2y$10$zA.EN.0lVgCOOPaFThyKr.llvuVEsrnXTUB/cLJi8zdMGCztaN99O', 'essonodelyon55@gmail.com', '2019-09-10 19:20:32', NULL, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `recovery`
---
-
-DROP TABLE IF EXISTS `recovery`;
-CREATE TABLE IF NOT EXISTS `recovery` (
-  `id_code` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `recovery_code` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `recovery`
---
-
-INSERT INTO `recovery` (`id_code`, `email`, `recovery_code`) VALUES
-(2, 'essono456@gmail.com', '41187121'),
-(13, 'essonoadou@gmail.com', 'a4162c4d45ed02c483ffe165c11004ade9299a9e');
+(41, 'micheldubled237', '$2y$10$zA.EN.0lVgCOOPaFThyKr.llvuVEsrnXTUB/cLJi8zdMGCztaN99O', 'essonodelyon55@gmail.com', '2019-09-10 19:20:32', NULL, 1),
+(42, 'philoudubled45', '$2y$10$sVkeVL81q0Jo1vgzBGGs9eJJDxu/OL/mGGEcG7K7rUiun4JPaCK46', 'philoudubled35@gmail.com', '2019-10-23 13:59:38', NULL, NULL);
 
 --
 -- Contraintes pour les tables déchargées
@@ -172,7 +146,7 @@ INSERT INTO `recovery` (`id_code`, `email`, `recovery_code`) VALUES
 -- Contraintes pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  ADD CONSTRAINT `id_article` FOREIGN KEY (`id_post`) REFERENCES `articles` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `id_article` FOREIGN KEY (`idPost`) REFERENCES `articles` (`idPost`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -17,14 +17,14 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;"><?= $_SESSION['success_connect']; ?></div>
             <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px; top:40px;">
                 <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
             </form>
             <?php endif; ?>
 
-            <?php if(!array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -34,7 +34,7 @@
             </ul>
             <?php endif; ?>
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -52,7 +52,7 @@
 
 
 
-<?php if(array_key_exists('success_connect', $_SESSION)): ?>
+<?php if (array_key_exists('success_connect', $_SESSION)): ?>
 
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
@@ -74,22 +74,22 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <?php if($section == 'update_password') 
-                { 
+                <?php if ($section == 'update_password') { 
                     ?>
 
-                    <?php if(array_key_exists('errors', $_SESSION)): ?>
+                    <?php if (array_key_exists('errors', $_SESSION)): ?>
                     <div class="alert alert-danger">
                         <?= implode('<br>', $_SESSION['errors']); ?>
                     </div>
                     <?php endif; ?>
-                    <?php if(array_key_exists('success', $_SESSION)): ?>
+                
+                    <?php if (array_key_exists('success', $_SESSION)): ?>
                     <div class="alert alert-success">
                         Votre mot de passe a été mis à jour
                     </div>
                     <?php endif; ?>
 
-                <form action="index.php?action=recovery_pass" id="form_recovery" method="post">
+                    <form action="index.php?action=recovery_pass" id="form_recovery" method="post">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="password">Votre nouveau mot de passe </label>
@@ -106,44 +106,45 @@
                         </div>
                     </div>
 
-                </form>
+                    </form>
 
-                <?php 
+                    <?php 
                 }
 
                 else { 
-                        ?>
-
-                        <?php if(array_key_exists('errors', $_SESSION)): ?>
-                        <div class="alert alert-danger">
-                            <?= implode('<br>', $_SESSION['errors']); ?>
-                        </div>
-                        <?php endif; ?>
                 
-                        <?php if(array_key_exists('success', $_SESSION)): ?>
-                            <div class="alert alert-success">
-                                Vous avez reçu un lien pour rénitialiser votre mot de passe sur votre boite mail
-                            </div>
-                        <?php endif; ?>
+                    ?>
 
-                        <form action="index.php?action=recovery_pass" id="form_recovery" method="post">
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label for="email">Votre adresse email</label>
-                                    <input required placeholder="Entrez votre adresse email" type="email" name="email" class="form-control">
-                                </div>
-                            </div>
-                            <br>
-                        
-                        <div id="success"></div>
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-success btn-lg" name="recovery_submit">Envoyer</button>
-                                </div>
-                            </div>
-                        </form>
-                        <?php 
-                    } 
+                    <?php if (array_key_exists('errors', $_SESSION)): ?>
+                    <div class="alert alert-danger">
+                        <?= implode('<br>', $_SESSION['errors']); ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if (array_key_exists('success', $_SESSION)): ?>
+                    <div class="alert alert-success">
+                        Vous avez reçu un lien pour rénitialiser votre mot de passe sur votre boite mail
+                    </div>
+                    <?php endif; ?>
+
+                    <form action="index.php?action=recovery_pass" id="form_recovery" method="post">
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label for="email">Votre adresse email</label>
+                            <input required placeholder="Entrez votre adresse email" type="email" name="email" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success btn-lg" name="recovery_submit">Envoyer</button>
+                        </div>
+                    </div>
+                    </form>
+                    <?php 
+                } 
                 ?>
             </div>
         </div>

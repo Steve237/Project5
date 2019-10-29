@@ -17,7 +17,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
                 <?= $_SESSION['success_connect']; ?>
             </div>
@@ -26,7 +26,7 @@
             </form>
             <?php endif; ?>
 
-            <?php if(!array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -36,7 +36,7 @@
             </ul>
             <?php endif; ?>
 
-            <?php if(array_key_exists('success_connect', $_SESSION)): ?>
+            <?php if (array_key_exists('success_connect', $_SESSION)): ?>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden"><a href="#page-top"></a></li>
                 <li><a href="index.php">Accueil</a></li>
@@ -54,7 +54,7 @@
 
 
 
-<?php if(array_key_exists('success_connect', $_SESSION)): ?>
+<?php if (array_key_exists('success_connect', $_SESSION)): ?>
 
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
@@ -70,25 +70,25 @@
 
 <div class="container">
     
-    <?php if(array_key_exists('errors', $_SESSION)): ?>
+    <?php if (array_key_exists('errors', $_SESSION)): ?>
     <div class="alert alert-danger">
         <?= implode('<br>', $_SESSION['errors']); ?>
     </div>
     <?php endif; ?>
     
-    <?php if(array_key_exists('insert_success', $_SESSION)): ?>
+    <?php if (array_key_exists('insert_success', $_SESSION)): ?>
     <div class="alert alert-success">
         Ajout de l'article réussie!
     </div>
     <?php endif; ?>
 
-    <?php if(array_key_exists('delete_post', $_SESSION)): ?>
+    <?php if (array_key_exists('delete_post', $_SESSION)): ?>
     <div class="alert alert-success">
         Suppression de l'article réussie!
     </div>
     <?php endif; ?>
 
-    <?php if(array_key_exists('success_update', $_SESSION)): ?>
+    <?php if (array_key_exists('success_update', $_SESSION)): ?>
     <div class="alert alert-success">
         Modification de l'article réussie!
     </div>
@@ -100,7 +100,7 @@
 
     <?php
 
-    foreach ($news_list->getListPosts() as $news)
+    foreach ($newsList->getListPosts() as $news)
     {
 
     ?>
