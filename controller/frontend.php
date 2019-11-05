@@ -27,7 +27,7 @@ function sendMail()
     if (!empty($errors)) { 
         
         $_SESSION['errors'] = $errors;//on stocke les erreurs
-        $_SESSION['inputs'] = $_POST;
+        
         header('Location: index.php#formContact');
     }
     
@@ -62,6 +62,7 @@ function sendMail()
 
 function listPosts()
 {
+
     $newsList = new NewsManager(); // Création d'un objet
     $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
     require ABSOLUTE_PATH.'/view/view_listposts.php';
@@ -69,7 +70,12 @@ function listPosts()
 
 function post()
 {
+
     $post = new NewsManager();
+
+          
+   $post = new NewsManager();
+
     $news = $post->getPostById($_GET['id']);
     $commentManager = new CommentManager();
     $listComments = $commentManager->getListCommentById($_GET['id']);
@@ -111,6 +117,7 @@ function post()
 
 function homePage() 
 {
-    
+
     require ABSOLUTE_PATH.'/view/view_homepage.php';    
+
 }

@@ -100,24 +100,23 @@ $_SESSION['ticket'] = $ticket;
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="name">Votre nom</label>
-                            <input required placeholder="Entrez votre nom" type="text" name="name" class="form-control" id="inputname" 
-                            value="<?php echo isset($_session['inputs']['name'])? $_session['inputs']['name'] : ''; ?>">
-                            <p class="help-block text-danger"></p>
+                            <input required placeholder="Entrez votre nom" type="text" name="name" class="form-control" id="inputname">
+                            
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="email">Votre adresse email</label>
-                            <input required type="email" placeholder="Entrez votre adresse email" name="email" class="form-control" id="email"                                               value="<?php echo isset($_session['inputs']['email'])? $_session['inputs']['email'] : ''; ?>">
-                            <p class="help-block text-danger"></p>
+                            <input required type="email" placeholder="Entrez votre adresse email" name="email" class="form-control" id="email">
+                            
                         </div>
                     </div>
 
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="message">Votre message</label>
-                            <textarea id="inputmessage" name="message" class="form-control"><?php echo isset($_SESSION['inputs']['message'])?                                               $_SESSION['inputs']['message'] : ''; ?></textarea>
-                            <p class="help-block text-danger"></p>
+                            <textarea id="inputmessage" name="message" class="form-control"></textarea>
+                            
                         </div>
                     </div><br>
                     <div id="success"></div>

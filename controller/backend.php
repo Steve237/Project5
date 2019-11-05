@@ -1,9 +1,9 @@
 <?php
-
 function inscription()
 {
-          
-   if(isset($_POST['inscription'])) {    
+   
+    
+    if(isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
@@ -98,6 +98,7 @@ function connection()
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php');
+            session_regenerate_id();
         }
         
         if (array_key_exists("success-connect", $_SESSION)) {
@@ -117,12 +118,11 @@ function connection()
 
 function recovery()
 {
-         
+   
     if (isset($_GET['section'])) {
         
         $section = htmlspecialchars($_GET['section']);   
     }
-    
     else {
         
         $section=""; 
@@ -250,16 +250,19 @@ function recovery()
 function disconnect()
 {
     if (isset($_POST['disconnect'])) {
+        
         $_POST['disconnect'] = htmlspecialchars($_POST['disconnect']); 
-        unset($_SESSION['success_connect']);
-        // On redirige le visiteur vers la page désirée :
+        
+        $_SESSION = array();
+        session_destroy();
         header('Location: index.php');
-        exit();
+    
     }
 }
 
 function connectionAdmin()
 {
+    
     if (isset($_POST['connect_admin'])) {
         
         sleep(1); 
@@ -294,6 +297,8 @@ function connectionAdmin()
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
+            
+            session_regenerate_id();
         }
         
         if (!empty($errors)) {
@@ -311,7 +316,8 @@ function connectionAdmin()
 
 function adminSpace()
 {
-    if (!array_key_exists('success_connect', $_SESSION)) {
+       
+   if (!array_key_exists('success_connect', $_SESSION)) {
         header('Location: index.php');
     
     }
@@ -319,13 +325,11 @@ function adminSpace()
     $newsList = new NewsManager(); // Création d'un objet
     $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
     require ABSOLUTE_PATH.'/view/view_admin_space.php';
-
 }
-
 
 function addArticle()
 {
-    
+   
     if (isset($_POST['add_new'])) {
             
         if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
@@ -456,7 +460,6 @@ function addArticle()
     require ABSOLUTE_PATH.'/view/view_add_article.php';
 }
 
-
 function delete()
 {
        
@@ -485,13 +488,11 @@ function delete()
         header('Location:index.php');
         
     }
-
 }
-
 
 function update()
 {
-  
+   
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
@@ -628,14 +629,13 @@ function update()
     }
     
     require ABSOLUTE_PATH.'/view/view_update_post.php';  
-
 }
-
 
 function manageComment()
 {
+   
+    
     if (!array_key_exists('success_connect', $_SESSION)) {
-        
         header('Location: index.php');
     }
         
@@ -643,8 +643,6 @@ function manageComment()
     $showComment->getListComment();
     require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
 }
-
-
 function approveComment()
 {
     $_GET['id'] = htmlspecialchars($_GET['id']);
@@ -664,13 +662,11 @@ function approveComment()
         }
     
     }
-
     else {
             
         header('Location:index.php');
         
     }
-
 }
         
         
@@ -694,11 +690,9 @@ function deleteComment()
         }
         
     }
-
     else {
             
         header('Location:index.php');
     
     }
-
 }
