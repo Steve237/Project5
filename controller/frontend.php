@@ -27,7 +27,7 @@ function sendMail()
     if (!empty($errors)) { 
         
         $_SESSION['errors'] = $errors;//on stocke les erreurs
-        $_SESSION['inputs'] = $_POST;
+        
         header('Location: index.php#formContact');
     }
     

@@ -100,7 +100,7 @@ $_SESSION['token'] = $token;
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="author">Auteur de l'article</label>
                             <input type="text" name="post_author" id="author" class="form-control" value="<?= $news->getPseudoAuteur()?>">
-                            <p class="help-block text-danger"></p>
+                            
                         </div>
                     </div>
 
@@ -109,7 +109,6 @@ $_SESSION['token'] = $token;
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="title">Titre de l'article</label>
                             <input type="text" name="post_title" id="title" class="form-control" value="<?= $news->getTitreArticle()?>">
-                            <p class="help-block text-danger"></p>
                         </div>
                     </div>
 
@@ -118,7 +117,6 @@ $_SESSION['token'] = $token;
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="resume">Résumé de l'article</label>
                             <textarea id="resume" name="resume_post" class="form-control"><?= $news->getDescriptifArticle()?></textarea>
-                            <p class="help-block text-danger"></p>
                         </div>
                     </div>
 
