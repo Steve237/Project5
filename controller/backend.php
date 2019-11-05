@@ -2,23 +2,7 @@
 
 function inscription()
 {
-          
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
+   
     
     if(isset($_POST['inscription'])) {    
         
@@ -78,23 +62,6 @@ function inscription()
 
 function connection()
 {
-          
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
     
     if (isset($_POST['connection'])) {
         
@@ -151,24 +118,7 @@ function connection()
 
 function recovery()
 {
-         
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    } 
-    
+   
     if (isset($_GET['section'])) {
         
         $section = htmlspecialchars($_GET['section']);   
@@ -311,23 +261,6 @@ function disconnect()
 function connectionAdmin()
 {
     
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
-    
     if (isset($_POST['connect_admin'])) {
         
         sleep(1); 
@@ -380,24 +313,7 @@ function connectionAdmin()
 function adminSpace()
 {
        
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
-    
-    if (!array_key_exists('success_connect', $_SESSION)) {
+   if (!array_key_exists('success_connect', $_SESSION)) {
         header('Location: index.php');
     
     }
@@ -411,24 +327,7 @@ function adminSpace()
 
 function addArticle()
 {
-    
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
-    
+   
     if (isset($_POST['add_new'])) {
             
         if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
@@ -594,23 +493,7 @@ function delete()
 
 function update()
 {
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
-    
+   
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
@@ -753,23 +636,7 @@ function update()
 
 function manageComment()
 {
-          
-    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
-    
-        $ticket = session_id().microtime().rand(0,9999999999);
-        $ticket = hash('sha512', $ticket);
-        $_COOKIE['ticket'] = $ticket;
-        $_SESSION['ticket'] = $ticket;
-    
-    }
-
-    else {
-    
-        $_SESSION = array();
-        session_destroy();
-        header('location:index.php');
-    
-    }
+   
     
     if (!array_key_exists('success_connect', $_SESSION)) {
         header('Location: index.php');
