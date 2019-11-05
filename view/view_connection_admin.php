@@ -1,3 +1,17 @@
+<?php
+
+$cookie_name = "ticket";
+// On génère quelque chose d'aléatoire
+$ticket = session_id().microtime().rand(0,9999999999);
+// on hash pour avoir quelque chose de propre qui aura toujours la même forme
+$ticket = hash('sha512', $ticket);
+
+// On enregistre des deux cotés
+setcookie($cookie_name, $ticket); // Expire au bout de 20 min
+$_SESSION['ticket'] = $ticket;
+
+?>
+
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
