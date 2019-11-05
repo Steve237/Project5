@@ -99,6 +99,7 @@ function connection()
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php');
+            session_regenerate_id();
         }
         
         if (array_key_exists("success-connect", $_SESSION)) {
@@ -250,11 +251,13 @@ function recovery()
 function disconnect()
 {
     if (isset($_POST['disconnect'])) {
+        
         $_POST['disconnect'] = htmlspecialchars($_POST['disconnect']); 
-        unset($_SESSION['success_connect']);
-        // On redirige le visiteur vers la page désirée :
+        
+        $_SESSION = array();
+        session_destroy();
         header('Location: index.php');
-        exit();
+    
     }
 }
 
@@ -295,6 +298,8 @@ function connectionAdmin()
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
+            
+            session_regenerate_id();
         }
         
         if (!empty($errors)) {
