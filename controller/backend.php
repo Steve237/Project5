@@ -1,10 +1,25 @@
 <?php
-require_once ABSOLUTE_PATH."/model/UsersManager.php";
-require_once ABSOLUTE_PATH."/model/users.php";
-require_once ABSOLUTE_PATH."/model/CommentManager.php";
-require_once ABSOLUTE_PATH."/model/comments.php";
+
 function inscription()
 {
+          
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     if(isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
@@ -63,7 +78,27 @@ function inscription()
 
 function connection()
 {
+          
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     if (isset($_POST['connection'])) {
+        
+        sleep(1); 
         
         $_POST['connection'] = htmlspecialchars($_POST['connection']);
         
@@ -116,6 +151,24 @@ function connection()
 
 function recovery()
 {
+         
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    } 
+    
     if (isset($_GET['section'])) {
         
         $section = htmlspecialchars($_GET['section']);   
@@ -204,6 +257,7 @@ function recovery()
     
     if (isset($_POST['pass_submit'])) {
         
+        sleep(1); 
         $_POST['pass_submit'] = htmlspecialchars($_POST['pass_submit']); 
         
         if (isset($_POST['new_pass'], $_POST['confirm_pass'])) {
@@ -256,7 +310,27 @@ function disconnect()
 
 function connectionAdmin()
 {
+    
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     if (isset($_POST['connect_admin'])) {
+        
+        sleep(1); 
         $_POST['connect_admin'] = htmlspecialchars($_POST['connect_admin']); 
         
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);  
@@ -285,7 +359,7 @@ function connectionAdmin()
         }
         
         if ($verifPass == true) {
-            $_SESSION['success_connect'] = "vous êtes connecté";
+            $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
         }
@@ -305,6 +379,24 @@ function connectionAdmin()
 
 function adminSpace()
 {
+       
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     if (!array_key_exists('success_connect', $_SESSION)) {
         header('Location: index.php');
     
@@ -313,137 +405,212 @@ function adminSpace()
     $newsList = new NewsManager(); // Création d'un objet
     $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
     require ABSOLUTE_PATH.'/view/view_admin_space.php';
+
 }
+
 
 function addArticle()
 {
-    if (!array_key_exists('success_connect', $_SESSION)) {
-        
-        header('Location: index.php');
+    
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
     }
     
     if (isset($_POST['add_new'])) {
-        
-        $_POST['add_new'] = htmlspecialchars($_POST['add_new']);
-        $_POST['post_title'] = htmlspecialchars($_POST['post_title']);
-        $_POST['post_author'] = htmlspecialchars($_POST['post_author']);
-        $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
-        $_POST['content'] = htmlspecialchars($_POST['content']);
-        $_FILES['image_post'] = htmlspecialchars($_FILES['image_post']);
-        
-        if (!array_key_exists('post_author', $_POST) || empty($_POST['post_author'])) {
             
-            $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
-        }
+        if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
         
-        if (strlen($_POST['post_author'] > 30)) {
+            if ($_SESSION['token'] == $_POST['token']) {    
+        
+        
+                $_POST['add_new'] = htmlspecialchars($_POST['add_new']);
+                $_POST['post_title'] = htmlspecialchars($_POST['post_title']);
+                $_POST['post_author'] = htmlspecialchars($_POST['post_author']);
+                $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
+                $_POST['content'] = htmlspecialchars($_POST['content']);
+                $_POST['token'] = htmlspecialchars($_POST['token']);
+        
+        
+                if (!array_key_exists('post_author', $_POST) || empty($_POST['post_author'])) {
             
-            $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
-        }
+                    $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
+                }
         
-        if (!array_key_exists('post_title', $_POST) || empty($_POST['post_title'])) {
+                if (strlen($_POST['post_author'] > 30)) {
             
-            $errors ['post_title'] = "veuillez saisir le titre de l'article";
-        }
+                    $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
+                }
         
-        if (strlen($_POST['post_title'] > 30)) {
+                if (!array_key_exists('post_title', $_POST) || empty($_POST['post_title'])) {
             
-            $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
-        }
+                    $errors ['post_title'] = "veuillez saisir le titre de l'article";
+                }
         
-        if (!array_key_exists('resume_post', $_POST) || $_POST['resume_post'] == "") {
+                if (strlen($_POST['post_title'] > 30)) {
             
-            $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
-        }
+                    $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
+                }
         
-        if (strlen($_POST['resume_post'] > 200)) {
+                if (!array_key_exists('resume_post', $_POST) || $_POST['resume_post'] == "") {
             
-            $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
-        }
+                    $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
+                }
         
-        if (!array_key_exists('content', $_POST) || $_POST['content'] == "") {
+                if (strlen($_POST['resume_post'] > 200)) {
             
-            $errors ['content'] = "veuillez saisir le contenu de votre article";
-        }
+                    $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
+                }
         
-        $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
-        $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
-        
-        if (empty($_FILES['image_post'])) {
-            $errors ['image_post'] = "vous n'avez ajouté aucune image";
-        }
-        
-        if ($_FILES['image_post']['error'] > 0) {
-            $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
-        }
-        
-        if ($_FILES['image_post']['size'] > 2097152) {
-            $errors ['image_post'] = "l'image choisie est trop lourde";
-        }
-        
-        $imagePost = $_FILES['image_post']['name'];
-        $ExtensionPresumee = explode('.', $imagePost);
-        $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
-        
-        if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
-            $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
-        }
-        
-        $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
-        
-        if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
-            $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
-        }
-        
-        if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
-            $errors ['image_post'] = "aucune image téléchargé"; 
-        }
-        
-        if (!empty($errors)) {
+                if (!array_key_exists('content', $_POST) || $_POST['content'] == "") {
             
-            $_SESSION['errors'] = $errors;
-            header('Location: index.php?action=add_article');
-        }   
+                    $errors ['content'] = "veuillez saisir le contenu de votre article";
+                }
         
-        else {
-            $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
-            $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
-            $newImageWidth = 900;
-            $newImageHeight = 650;
-            $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
-            imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
-            imagedestroy($imageSelected);
-            $imageSelectedName = explode('.', $imagePost);
-            $_POST['image_post'] = time();
-            imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
-            $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
-            $insertPost = new NewsManager();
-            $insertPost->addPost();
-            $_SESSION['insert_success'] = 1;
-            header('Location: index.php?action=admin_space');
+                $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
+                $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
+        
+                if (empty($_FILES['image_post'])) {
+                    
+                    $errors ['image_post'] = "vous n'avez ajouté aucune image";
+                
+                }
+        
+                if ($_FILES['image_post']['error'] > 0) {
+                    
+                    $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
+                }
+        
+                if ($_FILES['image_post']['size'] > 2097152) {
+            
+                    $errors ['image_post'] = "l'image choisie est trop lourde";
+                }
+        
+                $imagePost = $_FILES['image_post']['name'];
+                $ExtensionPresumee = explode('.', $imagePost);
+                $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+        
+                if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
+            
+                    $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
+                }
+        
+                $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
+        
+                if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
+            
+                    $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
+                }
+        
+                if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
+            
+                    $errors ['image_post'] = "aucune image téléchargé"; 
+                }
+        
+                if (!empty($errors)) {
+            
+                    $_SESSION['errors'] = $errors;
+                    header('Location: index.php?action=add_article');
+                }   
+        
+                else {
+            
+                    $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+                    $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+                    $newImageWidth = 900;
+                    $newImageHeight = 650;
+                    $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+                    imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+                    imagedestroy($imageSelected);
+                    $imageSelectedName = explode('.', $imagePost);
+                    $_POST['image_post'] = time();
+                    imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+                    $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+                    $insertPost = new NewsManager();
+                    $insertPost->addPost();
+                    $_SESSION['insert_success'] = 1;
+                    header('Location: index.php?action=admin_space');
+                }
+            }
+    
+    
         }
+          
+        else {  
+    
+            header('Location:index.php');
+    
+        }
+    
     }
     
-    else {    
-        
-        require ABSOLUTE_PATH.'/view/view_add_article.php';
-    }
+    require ABSOLUTE_PATH.'/view/view_add_article.php';
 }
+
 
 function delete()
 {
-        
+       
+    
     $_GET['id'] = htmlspecialchars($_GET['id']);
+   
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+    
+        $_POST['token'] = htmlspecialchars($_POST['token']);
         
-    $deletePost = new NewsManager();
-    $deletePost->deleteNew($_GET['id']);
-    $_SESSION['delete_post'] = 1;
-    header('Location: index.php?action=admin_space');
-    require ABSOLUTE_PATH.'/view/view_admin_space.php';  
+        
+        if ($_SESSION['token'] == $_POST['token']) {
+        
+            $deletePost = new NewsManager();
+            $deletePost->deleteNew($_GET['id']);
+            $_SESSION['delete_post'] = 1;
+            header('Location: index.php?action=admin_space');
+            require ABSOLUTE_PATH.'/view/view_admin_space.php'; 
+        
+        }
+    
+    }
+    
+    else {
+        
+        header('Location:index.php');
+        
+    }
+
 }
+
 
 function update()
 {
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
@@ -453,116 +620,157 @@ function update()
     $_GET['id'] = htmlspecialchars($_GET['id']);
     $post = new NewsManager();
     $news = $post->getPostById($_GET['id']);
+    
     if (isset($_POST['add_new'])) {
         
-        $_POST['add_new'] = htmlspecialchars($_POST['add_new']);
-        $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
-        $_POST['content'] = htmlspecialchars($_POST['content']);
-        $_POST['post_author'] = htmlspecialchars($_POST['post_author']);
-        $_POST['post_title'] = htmlspecialchars($_POST['post_title']);
+        if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+        
+            if ($_SESSION['token'] == $_POST['token']) {
+        
+                $_POST['add_new'] = htmlspecialchars($_POST['add_new']);
+                $_POST['resume_post'] = htmlspecialchars($_POST['resume_post']);
+                $_POST['content'] = htmlspecialchars($_POST['content']);
+                $_POST['post_author'] = htmlspecialchars($_POST['post_author']);
+                $_POST['post_title'] = htmlspecialchars($_POST['post_title']);
+                $_POST['token'] = htmlspecialchars($_POST['token']);
         
         
         
-        if (!array_key_exists('post_author', $_POST) || empty($_POST['post_author'])) {
+                if (!array_key_exists('post_author', $_POST) || empty($_POST['post_author'])) {
             
-            $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
-        }
+                    $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
+                }
         
-        if (strlen($_POST['post_author'] > 30)) {
+                if (strlen($_POST['post_author'] > 30)) {
             
-            $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
-        }
+                    $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
+                }
         
-        if (!array_key_exists('post_title', $_POST) || empty($_POST['post_title'])) {
+                if (!array_key_exists('post_title', $_POST) || empty($_POST['post_title'])) {
             
-            $errors ['post_title'] = "veuillez saisir le titre de l'article";
-        }
+                    $errors ['post_title'] = "veuillez saisir le titre de l'article";
+                }
         
-        if (strlen($_POST['post_title'] > 30)) {
+                if (strlen($_POST['post_title'] > 30)) {
             
-            $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
-        }
+                    $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
+                }
         
-        if (!array_key_exists('resume_post', $_POST) || $_POST['resume_post'] == "") {
+                if (!array_key_exists('resume_post', $_POST) || $_POST['resume_post'] == "") {
             
-            $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
-        }
+                    $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
+                }
         
-        if (strlen($_POST['resume_post'] > 200)) {
+                if (strlen($_POST['resume_post'] > 200)) {
             
-            $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
-        }
+                    $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
+                }
         
-        if (!array_key_exists('content', $_POST) || $_POST['content'] == "") {
+                if (!array_key_exists('content', $_POST) || $_POST['content'] == "") {
             
-            $errors ['content'] = "veuillez saisir le contenu de votre article";
-        }
+                    $errors ['content'] = "veuillez saisir le contenu de votre article";
+                }
         
-        $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
-        $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
+                $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
+                $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
         
-        if (empty($_FILES['image_post'])) {
-            $errors ['image_post'] = "vous n'avez ajouté aucune image";
-        }
-        
-        if ($_FILES['image_post']['error'] > 0) {
-            $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
-        }
-        
-        if ($_FILES['image_post']['size'] > 2097152) {
-            $errors ['image_post'] = "l'image choisie est trop lourde";
-        }
-        
-        $imagePost = $_FILES['image_post']['name'];
-        $ExtensionPresumee = explode('.', $imagePost);
-        $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
-        
-        if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
-            $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
-        }
-        
-        $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
-        
-        if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
-            $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
-        }
-        
-        if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
-            $errors ['image_post'] = "aucune image téléchargé"; 
-        }
-        
-        if (!empty($errors)) {
+                if (empty($_FILES['image_post'])) {
             
-            $_SESSION['errors'] = $errors;
-            header('Location: index.php?action=update_post&id='.$_GET['id']);
-        }   
+                    $errors ['image_post'] = "vous n'avez ajouté aucune image";
+                }
         
+                if ($_FILES['image_post']['error'] > 0) {
+            
+                    $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
+                }
+        
+                if ($_FILES['image_post']['size'] > 2097152) {
+            
+                    $errors ['image_post'] = "l'image choisie est trop lourde";
+                }
+        
+                $imagePost = $_FILES['image_post']['name'];
+                $ExtensionPresumee = explode('.', $imagePost);
+                $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+        
+                if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
+            
+                    $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
+                }
+        
+                $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
+        
+                if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
+            
+                    $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
+                }
+        
+                if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
+            
+                    $errors ['image_post'] = "aucune image téléchargé"; 
+                }
+        
+                if (!empty($errors)) {
+            
+                    $_SESSION['errors'] = $errors;
+                    header('Location: index.php?action=update_post&id='.$_GET['id']);
+                }   
+        
+                else {
+            
+                    $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+                    $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+                    $newImageWidth = 900;
+                    $newImageHeight = 650;
+                    $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+                    imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+                    imagedestroy($imageSelected);
+                    $imageSelectedName = explode('.', $imagePost);
+                    $_POST['image_post'] = time();
+                    imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+                    $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+                    $updatePost = new NewsManager();
+                    $updatePost->updateNew();
+                    $_SESSION['success_update'] = 1;
+                    header('Location: index.php?action=admin_space');
+                }
+            }
+        }
+    
         else {
-            $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
-            $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
-            $newImageWidth = 900;
-            $newImageHeight = 650;
-            $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
-            imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
-            imagedestroy($imageSelected);
-            $imageSelectedName = explode('.', $imagePost);
-            $_POST['image_post'] = time();
-            imagejpeg($newImage , 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
-            $_POST['MAX_FILE_SIZE'] = 'public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
-            $updatePost = new NewsManager();
-            $updatePost->updateNew();
-            $_SESSION['success_update'] = 1;
-            header('Location: index.php?action=admin_space');
-        }
-    }
-    else {
+            
+            header('Location:index.php');
         
-        require ABSOLUTE_PATH.'/view/view_update_post.php';  
+        }
+    
+    
     }
+    
+    require ABSOLUTE_PATH.'/view/view_update_post.php';  
+
 }
+
 
 function manageComment()
 {
+          
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     if (!array_key_exists('success_connect', $_SESSION)) {
         header('Location: index.php');
     }
@@ -572,25 +780,61 @@ function manageComment()
     require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
 }
 
+
 function approveComment()
 {
     $_GET['id'] = htmlspecialchars($_GET['id']);
+    
+    
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
         
-    $validComment = new CommentManager();
-    $validComment->commentValidation();
-    $_SESSION['comment_approved'] = 1;
-    header('Location: index.php?action=manage_comment');
-    require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
-}
+        $_POST['token'] = htmlspecialchars($_POST['token']);
+        
+        if ($_SESSION['token'] == $_POST['token']) {
+        
+            $validComment = new CommentManager();
+            $validComment->commentValidation();
+            $_SESSION['comment_approved'] = 1;
+            header('Location: index.php?action=manage_comment');
+            require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
+        }
+    
+    }
 
+    else {
+            
+        header('Location:index.php');
+        
+    }
+
+}
+        
+        
 function deleteComment()
 {
         
     $_GET['id'] = htmlspecialchars($_GET['id']);
+   
+    
+    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
         
-    $deleteComment = new CommentManager();
-    $deleteComment->deleteComment($_GET['id']);
-    $_SESSION['comment_delete'] = 1;
-    header('Location: index.php?action=manage_comment');
-    require ABSOLUTE_PATH.'/view/view_manage_comment.php'; 
+        $_POST['token'] = htmlspecialchars($_POST['token']);    
+        
+        if ($_SESSION['token'] == $_POST['token']) {
+        
+            $deleteComment = new CommentManager();
+            $deleteComment->deleteComment($_GET['id']);
+            $_SESSION['comment_delete'] = 1;
+            header('Location: index.php?action=manage_comment');
+            require ABSOLUTE_PATH.'/view/view_manage_comment.php'; 
+        }
+        
+    }
+
+    else {
+            
+        header('Location:index.php');
+    
+    }
+
 }

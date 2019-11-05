@@ -1,11 +1,10 @@
 <?php
 
-$token = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
-
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+    
 $_SESSION['token'] = $token;
 
 ?>
-
 
 <?php $title = 'Mon blog'; ?>
 <?php ob_start(); ?>
@@ -143,13 +142,13 @@ $_SESSION['token'] = $token;
                         </div>
                     </div>
                     <br>
+                    <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
                             <button type="submit" class="btn btn-success btn-lg" name="add_new">Ajouter</button>
                         </div>
                     </div>
-                    <input type="hidden" name="token" id="token" value="<?php echo $token; ?>"/>
                 </form>
             </div>
         </div>

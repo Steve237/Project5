@@ -1,3 +1,11 @@
+<?php
+
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+    
+$_SESSION['token'] = $token;
+
+?>
+
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
@@ -130,6 +138,7 @@
                             <input type="file" name="image_post" id="image" class="form-control">
                         </div>
                     </div>
+                    <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
                     <br>
                     <div id="success"></div>
                     <div class="row">
@@ -160,11 +169,13 @@
                     <ul class="list-inline">
                         <li>
                             <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline">
-                                <i class="fa fa-fw fa-facebook"></i></a>
+                                <i class="fa fa-fw fa-facebook"></i>
+                            </a>
                         </li>
                         <li>
                             <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
-                                <i class="fa fa-fw fa-linkedin"></i></a>
+                                <i class="fa fa-fw fa-linkedin"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>

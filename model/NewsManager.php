@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Manager.php';
-
 class NewsManager extends Manager
 {
     //permet d'insérer un article

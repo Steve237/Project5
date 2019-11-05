@@ -1,3 +1,10 @@
+<?php
+
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+    
+$_SESSION['token'] = $token;
+
+?>
 <?php $title = 'Mon blog'; ?>
 <?php ob_start(); ?>
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -90,20 +97,20 @@
        
        <p>Auteur du commentaire : <?= $comment->getPseudoAuteur()?></p>
                     
-        <a href="index.php?action=approve&amp;id=<?= $comment->getIdCommentaire()?>"><button type="button" 
-        class="btn btn-primary">Approuver</button></a>
-        <a href="index.php?action=delete_comment&amp;id=<?= $comment->getIdCommentaire()?>"><button type="button" 
-        class="btn btn-primary">Supprimer</button></a>
+        <form action="index.php?action=approve&amp;id=<?= $comment->getIdCommentaire()?>" method="post">
+            <input type="submit" class="btn btn-primary" value="Approuver">
+            <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
+       </form>
+        <form action="index.php?action=delete_comment&amp;id=<?= $comment->getIdCommentaire()?>" method="post">
+            <input type="submit" class="btn btn-primary" value="Supprimer" style="margin-top:2px">
+            <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
+       </form>
     </div>
     <?php
     }
     ?>
 </div>
 
-
-
-        
-        
 <!-- Footer -->
 <footer class="text-center">
     <div class="footer-above">
@@ -120,10 +127,14 @@
                     <h3>Réseaux sociaux</h3>
                     <ul class="list-inline">
                         <li>
-                            <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline"><i class="fa fa-fw                                   fa-facebook"></i></a>
+                            <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline">
+                                <i class="fa fa-fw fa-facebook"></i>
+                            </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i></a>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
+                                <i class="fa fa-fw fa-linkedin"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>

@@ -1,3 +1,11 @@
+<?php
+
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+    
+$_SESSION['token'] = $token;
+
+?>
+
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
@@ -59,13 +67,13 @@
 <section class="section_connection">
     <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
     <form action="index.php?action=disconnected" method="post">
-        <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                           name="disconnect">Déconnexion</button>
+        <button style="color:white;height:35px;margin-left:5px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                           name="disconnect">Déconnexion</button>
     </form>
 </section>
 <?php endif; ?>
 
 <h2 style="text-align:center">Espace administrateur</h2>
-<h3 style="text-align: center"> Liste des articles </h3>
+<h3 style="text-align:center"> Liste des articles </h3>
 
 
 <div class="container">
@@ -116,9 +124,10 @@
         </p>
 
         <a href="index.php?action=update_post&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
-        <a href="index.php?action=delete_post&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Supprimer</button></a>
-
-
+        <form action="index.php?action=delete_post&amp;id=<?= $news->getIdPost()?>" method="post">
+            <input type="submit" style="margin-top:3px" value="Supprimer" class="btn btn-primary">
+            <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
+        </form>
     </div>
 
     <?php
@@ -151,7 +160,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline"><i class="fa fa-fw                                     fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
+                                <i class="fa fa-fw fa-linkedin"></i>
                             </a>
                         </li>
                     </ul>

@@ -818,6 +818,22 @@ fieldset[disabled] .btn-success.active {
         left: 139px;
     }
 
+    
+    .titre_portfolio
+    {
+      margin-top: 70px;   
+        
+    }
+
+    
+    .list_post
+    {
+        
+        margin-top: -20px;   
+        
+    }
+
+
 
 }
 

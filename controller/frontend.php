@@ -1,13 +1,8 @@
 <?php
-session_start();
-// Chargement des classes
-require_once ABSOLUTE_PATH."/model/NewsManager.php";
-require_once ABSOLUTE_PATH."/model/news.php";
-require_once ABSOLUTE_PATH."/model/CommentManager.php";
-require_once ABSOLUTE_PATH."/model/comments.php";
+
 function sendMail() 
 {
-    // $errors = [];
+    
     $errors = array(); // on crée une vérif de champs
     
     $_POST['name'] = htmlspecialchars($_POST['name']);
@@ -67,6 +62,24 @@ function sendMail()
 
 function listPosts()
 {
+    
+          
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     $newsList = new NewsManager(); // Création d'un objet
     $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
     require ABSOLUTE_PATH.'/view/view_listposts.php';
@@ -74,6 +87,24 @@ function listPosts()
 
 function post()
 {
+          
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     $post = new NewsManager();
     $news = $post->getPostById($_GET['id']);
     $commentManager = new CommentManager();
@@ -116,5 +147,22 @@ function post()
 
 function homePage() 
 {
+    if ($_COOKIE['ticket'] == $_SESSION['ticket']) {
+    
+        $ticket = session_id().microtime().rand(0,9999999999);
+        $ticket = hash('sha512', $ticket);
+        $_COOKIE['ticket'] = $ticket;
+        $_SESSION['ticket'] = $ticket;
+    
+    }
+
+    else {
+    
+        $_SESSION = array();
+        session_destroy();
+        header('location:index.php');
+    
+    }
+    
     require ABSOLUTE_PATH.'/view/view_homepage.php';    
 }
