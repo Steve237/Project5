@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@Steve237 
-Learn Git and GitHub without any code!
-Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
-
-
-1
-00Steve237/Project5
- Code Issues 0 Pull requests 0 Projects 0 Wiki Security Insights Settings
-Project5/public/css/freelancer.css
-@Steve237 Steve237 admin space with functions to manage comments and manage posts indent…
-e0019bf 6 days ago
-We found potential security vulnerabilities in your dependencies.
-Only the owner of this repository can see this message.
-
-801 lines (676 sloc)  13.2 KB
-  
-/*!
- * Start Bootstrap - Freelancer v3.3.7+1 (http://startbootstrap.com/template-overviews/freelancer)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
 body {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow-x: hidden;
@@ -611,6 +582,7 @@ fieldset[disabled] .btn-success.active {
         left: 10px;
         top : 50px;
         font-size:15px;
+        color:red;
     }
 
     .button-disconnect
@@ -618,8 +590,26 @@ fieldset[disabled] .btn-success.active {
         position:absolute;
         top:50px;
         left: 139px;
+        color:white;
+        height:35px;
+        margin-left:5px;
     }
     
+    
+    .post{
+        
+        margin-top: -140px;
+        
+        }
+
+
+    .close_post
+    {
+        
+        margin-top : -85px;    
+        
+    }
+
 }
 
 
@@ -634,6 +624,7 @@ fieldset[disabled] .btn-success.active {
         left: 10px;
         top : 50px;
         font-size:15px;
+        color:red;
     }
 
     .button-disconnect
@@ -641,16 +632,33 @@ fieldset[disabled] .btn-success.active {
         position:absolute;
         top:50px;
         left: 139px;
+        color:white;
+        height:35px;
+        margin-left:5px;
     }
     
     
-
     .close-modal
     {
         margin-top: 50px;
     }
 
+    
+    
+    .post
+    {
+        
+        margin-top: -140px;
+        
+    }
 
+
+     .close_post
+    {
+        
+        margin-top : -85px;    
+        
+    }
 
 }
 
@@ -700,6 +708,24 @@ fieldset[disabled] .btn-success.active {
         margin-top: 80px;
 
     }
+
+    
+    
+      .post
+    {
+        
+        margin-top: -180px;
+        
+    }
+
+
+     .close_post
+    {
+        
+        margin-top : -70px;    
+        
+    }
+
 
 }
 
@@ -765,6 +791,7 @@ fieldset[disabled] .btn-success.active {
         left: 10px;
         top : 105px;
         font-size:15px;
+        color:red;
     }
 
     .button-disconnect
@@ -772,9 +799,31 @@ fieldset[disabled] .btn-success.active {
         position:absolute;
         top:105px;
         left: 139px;
+        color:white;
+        height:35px;
+        margin-left:5px;
+    
+    
+    }
+
+
+       .post
+    {
+        
+        margin-top: -190px;
+        
+    }
+
+
+     .close_post
+    {
+        
+        margin-top : -70px;    
+        
     }
 
 }
+
 
 @media all and (min-width: 1201px)
 {
@@ -782,15 +831,14 @@ fieldset[disabled] .btn-success.active {
     .close-modal
     {
         
-       margin-top: 150px;
+       margin-top: 75px;
         
     }    
     
     
     .modal-body
     {
-        
-        margin-top: 60px;        
+        margin-top: 20px;   
 
     }
 
@@ -809,19 +857,26 @@ fieldset[disabled] .btn-success.active {
         left: 10px;
         top : 105px;
         font-size:15px;
+        color: red;
+        
+    
     }
 
     .button-disconnect
     {
         position:absolute;
-        top:105px;
+        top: 105px;
         left: 139px;
+        color: white;
+        height: 35px;
+        margin-left:5px;
+    
     }
 
     
     .titre_portfolio
     {
-      margin-top: 70px;   
+        margin-top: 70px;   
         
     }
 
@@ -832,8 +887,76 @@ fieldset[disabled] .btn-success.active {
         margin-top: -20px;   
         
     }
+    
+    .post
+    {
+        
+        margin-top:-170px;
+        
+    }
 
 
+     .close_post
+    {
+        
+        margin-top : -70px;    
+        
+    }
 
 }
+
+.footer{
+    
+position: absolute;
+bottom: 0px;
+left: 0px;
+right: 0px;
+
+    
+    
+}
+
+
+.list_comments{
+    
+border: 0.3px solid black;
+background-color: cyan;
+margin-bottom: 15px;   
+    
+}
+
+
+
+
+.list_news{
+    
+border: 2px solid black;
+margin-bottom:15px;
+background-color:cyan;padding:10px;
+    
+}
+
+
+.admin_title{
+    
+text-align: center;
+    
+}
+
+
+.delete_post{
+
+margin-top:3px;
+    
+}
+
+
+.comments_list{
+ 
+border: 2px solid black;
+margin-bottom: 15px;
+background-color:cyan;padding: 10px;    
+    
+}
+
 

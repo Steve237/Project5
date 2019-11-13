@@ -4,7 +4,9 @@ class UsersManager extends Manager
 {
 
 
-    //permet d'ajouter un membre à la bdd    
+    /** 
+    * permet d'ajouter un membre en base de données
+    */   
     public function addUsers()
     {
         $db = $this->dbConnect();
@@ -18,7 +20,9 @@ class UsersManager extends Manager
 
     }    
 
-    //permet de vérifier si le pseudo existe en bdd    
+    /** 
+    * permet de vérifier si le pseudo existe en base de données
+    */ 
     public function checkPseudo($pseudo)
     {
         $db = $this->dbConnect();
@@ -36,8 +40,9 @@ class UsersManager extends Manager
         return $check_data['nb_pseudo'];
     }
 
-    //permet de vérifier si l'email existe en bdd
-
+    /** 
+    * permet de vérifier si le commentaire existe en base de données
+    */
     public function checkEmail($email)
     {
         $db = $this->dbConnect();
@@ -56,7 +61,9 @@ class UsersManager extends Manager
     }   
 
 
-    //permet de vérifier si le mot de passe de l'utilisateur renseigné est en bdd
+    /** 
+    * permet de vérifier si le mot de passe est correct
+    */
     public function connectUser()
     {
         $db = $this->dbConnect();
@@ -71,8 +78,9 @@ class UsersManager extends Manager
     }
 
 
-    //permet de vérifier si le pseudo de l'utilisateur est en bdd
-
+    /** 
+    * permet de vérifier si le pseudo du membre est en base de données
+    */
     public function checkMember()
     {
         $db = $this->dbConnect();
@@ -85,10 +93,10 @@ class UsersManager extends Manager
         return $nb_pseudo['nb_pseudo'];
     }
 
-
-
-
-    //permet de vérifier si le pseudo de l'administrateur est en bdd    
+    
+    /** 
+    * permet de vérifier si le pseudo de l'administrateur est en base de données
+    */    
     public function checkAdmin()
     {
         $db = $this->dbConnect();
@@ -101,7 +109,9 @@ class UsersManager extends Manager
         return $nb_pseudo['nb_pseudo'];
     }
 
-
+    /** 
+    * permet d'insérer code de récupération du mot de passe en base de données
+    */
     public function updateRecovery(Users $recovery) 
     {
 
@@ -114,7 +124,9 @@ class UsersManager extends Manager
 
     }
 
-
+    /** 
+    * permet de vérifier si le code de récupération est en base de données
+    */
     public function checkCode($user_code)
 
     {
@@ -133,7 +145,9 @@ class UsersManager extends Manager
 
     }
 
-
+    /** 
+    * permet la mise à jour du nouveau mot de passe
+    */
     public function updatePassword(Users $user_pass) 
     {
 

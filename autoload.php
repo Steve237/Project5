@@ -1,9 +1,10 @@
-  
+
 <?php
 
 // autoloader, chargement automatique des classes
-function __autoload($className) {
-    $invalidChars = array(
+function __autoload($className) 
+{
+    $invalidChars = array (
         '.', '\\', '/', ':', '*', '?', '"', '<', '>', "'", '|'
     );    
     $className = str_replace($invalidChars, '', $className);
