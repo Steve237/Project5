@@ -1,11 +1,11 @@
 <?php
 
-require_once 'Manager.php';
-
 class CommentManager extends Manager
 {
 
-    //permet d'afficher la liste des commentaires
+    /**
+    * permet d'afficher la liste des commentaires
+    */
     public function getListComment()
     {
         $db = $this->dbconnect();
@@ -28,7 +28,9 @@ class CommentManager extends Manager
         return $listComments;
     }            
 
-    //permet d'afficher la liste des commentaires
+    /** 
+    * permet d'afficher la liste des commentaires sur chaque article
+    */
     public function getListCommentById($idPost)
     {
         $db  = $this->dbconnect();
@@ -48,10 +50,9 @@ class CommentManager extends Manager
         return $listComments;
     }
 
-
-
-
-    //permet d'ajouter un commentaire
+    /** 
+    * permet l'ajout d'un commentaire
+    */
     public function addComment()
     {
 
@@ -66,7 +67,9 @@ class CommentManager extends Manager
     }
 
 
-    //permet de valider un commentaire
+    /** 
+    * permet d'approuver un commentaire
+    */
     public function commentValidation() 
     {
 
@@ -80,7 +83,9 @@ class CommentManager extends Manager
 
 
 
-    //permet de supprimer un commentaire
+    /** 
+    * permet de supprimer un commentaire
+    */
     public function deleteComment($commentId)
     {
 

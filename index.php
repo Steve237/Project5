@@ -1,13 +1,13 @@
 <?php 
 
+session_start();
+
 // Definition du chemin absolu
 define("ABSOLUTE_PATH", dirname(__FILE__));
 
-
-
+require ABSOLUTE_PATH.'/autoload.php';
 require ABSOLUTE_PATH.'/controller/frontend.php';
 require ABSOLUTE_PATH.'/controller/backend.php';
-
 
 
 if (isset($_GET['action'])) {

@@ -1,10 +1,10 @@
 <?php
 
-require_once 'Manager.php';
-
 class NewsManager extends Manager
 {
-    //permet d'insérer un article
+    /** 
+    * permet d'ajouter un article
+    */
     public function addPost()
     {
         $db = $this->dbconnect();
@@ -19,7 +19,9 @@ class NewsManager extends Manager
     }
 
 
-    //permet de supprimer un article
+    /** 
+    * permet de supprimer un article
+    */
     public function deleteNew($newId)
     {
 
@@ -28,8 +30,10 @@ class NewsManager extends Manager
         $q->execute(array($newId));
 
     }
-
-
+    
+    /** 
+    * permet de modifier un article
+    */
     public function updateNew() 
     {
 
@@ -46,7 +50,9 @@ class NewsManager extends Manager
     }
 
 
-    //permet d'afficher la liste des articles
+    /** 
+    * permet d'afficher la liste des articles
+    */
     public function getListPosts()
     {
         $db = $this->dbconnect();
@@ -67,7 +73,9 @@ class NewsManager extends Manager
     }
 
 
-    //permet d'afficher le contenu d'un article
+    /** 
+    * permet d'afficher le contenu d'un article
+    */
     public function getPostById($postId)
     {
         $db  = $this->dbconnect();

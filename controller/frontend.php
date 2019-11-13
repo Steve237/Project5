@@ -1,17 +1,8 @@
 <?php
 
-session_start();
-
-// Chargement des classes
-require_once ABSOLUTE_PATH."/model/NewsManager.php";
-require_once ABSOLUTE_PATH."/model/news.php";
-require_once ABSOLUTE_PATH."/model/CommentManager.php";
-require_once ABSOLUTE_PATH."/model/comments.php";
-
-
 function sendMail() 
 {
-    // $errors = [];
+    
     $errors = array(); // on crée une vérif de champs
     
     $_POST['name'] = htmlspecialchars($_POST['name']);
@@ -22,25 +13,25 @@ function sendMail()
         
         $errors ['name'] = "vous n'avez pas renseigné votre nom";
     }
-
+    
     if (!array_key_exists('email', $_POST) || empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         
         $errors ['email'] = "vous n'avez pas renseigné votre email";
     }
-
+    
     if (!array_key_exists('message', $_POST) || empty($_POST['message'])) {
         
         $errors ['message'] = "vous n'avez pas renseigné votre message";
     }
-
     //On check les infos transmises lors de la validation
     if (!empty($errors)) { 
         
         $_SESSION['errors'] = $errors;//on stocke les erreurs
-        $_SESSION['inputs'] = $_POST;
+        
         header('Location: index.php#formContact');
+        exit();
     }
-
+    
     else {
         
         $_SESSION['success'] = 1;
@@ -67,83 +58,62 @@ function sendMail()
             ';
         mail($to, $subject, $message_content, $headers);
         header('Location: index.php#formContact');
+        exit();
     }
 }
 
-
 function listPosts()
 {
+
     $newsList = new NewsManager(); // Création d'un objet
     $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
-
     require ABSOLUTE_PATH.'/view/view_listposts.php';
-
 }
 
 function post()
 {
 
     $post = new NewsManager();
+    $post = new NewsManager();
+
     $news = $post->getPostById($_GET['id']);
-
-
     $commentManager = new CommentManager();
     $listComments = $commentManager->getListCommentById($_GET['id']);
     
-
     if (isset($_POST['submit_comment'])) {
         
         $_POST['submit_comment'] = htmlspecialchars($_POST['submit_comment']);
        
-
-
         if (!array_key_exists('success_connect', $_SESSION)) {
-
             $errors ['sucess_connect'] = "Veuillez vous connecter pour poster un commentaire";   
-
         }
-
-
+        
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);
         $_POST['user_comment'] = htmlspecialchars($_POST['user_comment']);
-
+        
         if (!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) {
-
             $errors ['pseudo'] = "Veuillez entrer un pseudo";   
-
         }
-
+        
         if (!array_key_exists('user_comment', $_POST) || empty($_POST['user_comment'])) {
-
             $errors ['user_comment'] = "Veuillez entrer un commentaire";   
-
         }
-
+        
         if (!empty($errors)) { 
             
             $_SESSION['errors'] = $errors;
-
         }
-
-
+        
         else {        
             
             $_SESSION['success'] = 1;
-
             $insertComment = new CommentManager();
             $insertComment->addComment();
         }
-
     }
-
-
-
+    
     require ABSOLUTE_PATH.'/view/view_post.php';
-
-
 }
-
-
 
 function homePage() 
 {
@@ -151,5 +121,3 @@ function homePage()
     require ABSOLUTE_PATH.'/view/view_homepage.php';    
 
 }
-
-
