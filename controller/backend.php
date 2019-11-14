@@ -36,7 +36,7 @@ function inscription()
             $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                       empty($_POST['password_confirm'])) {
+        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) || empty($_POST['password_confirm'])) {
             
             $errors ['password'] = "veuillez entrer votre mot de passe";
         }
