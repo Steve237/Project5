@@ -29,7 +29,7 @@ function sendMail()
         $_SESSION['errors'] = $errors;//on stocke les erreurs
         
         header('Location: index.php#formContact');
-        exit();
+        
     }
     
     else {
@@ -58,7 +58,7 @@ function sendMail()
             ';
         mail($to, $subject, $message_content, $headers);
         header('Location: index.php#formContact');
-        exit();
+        
     }
 }
 

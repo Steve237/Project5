@@ -36,7 +36,7 @@ function inscription()
             $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                       empty($_POST['password_confirm'])) {
+        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                     empty($_POST['password_confirm'])) {
             
             $errors ['password'] = "veuillez entrer votre mot de passe";
         }
@@ -50,7 +50,7 @@ function inscription()
             
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=inscription#formInscription');
-            exit();
+            
         }
         
         else {
@@ -59,7 +59,7 @@ function inscription()
             $inscription = new UsersManager();
             $inscription->addUsers();
             header('Location: index.php?action=inscription#formInscription');
-            exit();
+            
         }
     } 
     
@@ -73,7 +73,7 @@ function connection()
     if (array_key_exists("success_connect", $_SESSION)) {
         
         header('Location: index.php');
-        exit();
+        
     }
     
     if (isset($_POST['connection'])) {
@@ -113,14 +113,14 @@ function connection()
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php');
-            exit();
+            
            
         }
         
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=connection#formInscription');
-            exit();
+            
         
         }    
     }
@@ -153,7 +153,7 @@ function recovery()
         if (!array_key_exists('email', $_POST) || empty($_POST['email']) || !$nbEmail || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $errors ['email'] = "adresse email non renseigné ou inconnu du système";
             header('Location: index.php?action=recovery_pass');
-            exit();
+            
         }
         
         if ($nbEmail > 0) {
@@ -235,13 +235,13 @@ function recovery()
                     $updatePass = new UsersManager();
                     $updatePass->updatePassword($updateUser);
                     header('Location: index.php?action=connection');
-                    exit();
+                    
                 }
                 
                 else {
                     $errors ['new_pass'] = "Les deux mots de passe ne correspondent pas";
                     header('Location: index.php?action=recovery_pass&section=update_password');
-                    exit();
+                    
                 }
             }
             
@@ -249,7 +249,7 @@ function recovery()
                 
                 $errors ['new_pass'] = "veuillez remplir les champs";
                 header('Location: index.php?action=recovery_pass&section=update_password');
-                exit();
+                
             }
         }
         
@@ -275,8 +275,6 @@ function disconnect()
         session_destroy();
         
         header('Location: index.php');
-        exit();
-    
     }
 }
 
@@ -286,7 +284,7 @@ function connectionAdmin()
     if (array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php?action=admin_space');
-        exit();
+        
     }
     
     
@@ -325,14 +323,14 @@ function connectionAdmin()
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
-            exit();
+            
         }
         
         if (!empty($errors)) {
             
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=connect_admin#form_admin');
-            exit();
+            
         }          
     }
     
@@ -348,7 +346,7 @@ function adminSpace()
    if (!array_key_exists('success_connect', $_SESSION)) {
         
        header('Location: index.php');
-       exit();
+       
     }
     
     $newsList = new NewsManager(); // Création d'un objet
@@ -361,8 +359,6 @@ function addArticle()
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
-        exit();
-    
     }
     
     if (isset($_POST['add_new'])) {
@@ -460,7 +456,7 @@ function addArticle()
                     $_SESSION['errors'] = $errors;
                     
                     header('Location: index.php?action=add_article');
-                    exit();
+                    
                 }   
         
                 else {
@@ -481,7 +477,7 @@ function addArticle()
                     $_SESSION['insert_success'] = 1;
                     
                     header('Location: index.php?action=admin_space');
-                    exit();
+                    
                 }
             }
     
@@ -491,8 +487,6 @@ function addArticle()
         else {  
     
             header('Location:index.php');
-            exit();
-    
         }
     
     }
@@ -515,7 +509,7 @@ function delete()
             $deletePost->deleteNew($_GET['id']);
             $_SESSION['delete_post'] = 1;
             header('Location: index.php?action=admin_space');
-            exit();
+            
             
             require ABSOLUTE_PATH.'/view/view_admin_space.php'; 
         }
@@ -524,7 +518,7 @@ function delete()
     else {
         
         header('Location:index.php');
-        exit();
+        
         
     }
 }
@@ -535,7 +529,7 @@ function update()
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
-        exit();
+        
     }
     
     
@@ -635,7 +629,7 @@ function update()
                     $_SESSION['errors'] = $errors;
                     
                     header('Location: index.php?action=update_post&id='.$_GET['id']);
-                    exit();
+                    
                 }   
         
                 else {
@@ -656,7 +650,7 @@ function update()
                     $_SESSION['success_update'] = 1;
                     
                     header('Location: index.php?action=admin_space');
-                    exit();
+                    
                 }
             }
         }
@@ -664,7 +658,7 @@ function update()
         else {
             
             header('Location:index.php');
-            exit();
+            
         
         }
     
@@ -678,7 +672,7 @@ function manageComment()
 {
    if (!array_key_exists('success_connect', $_SESSION)) {
         header('Location: index.php');
-        exit();
+        
     }
         
     $showComment = new CommentManager();
@@ -701,7 +695,7 @@ function approveComment()
             $validComment->commentValidation();
             $_SESSION['comment_approved'] = 1;
             header('Location: index.php?action=manage_comment');
-            exit();
+            
             
             require ABSOLUTE_PATH.'/view/view_manage_comment.php';  
         }
@@ -710,7 +704,7 @@ function approveComment()
     else {
             
         header('Location:index.php');
-        exit();
+        
         
     }
 }
@@ -742,7 +736,6 @@ function deleteComment()
     else {
             
         header('Location:index.php');
-        exit();
-    
+        
     }
 }

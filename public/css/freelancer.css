@@ -534,24 +534,23 @@ fieldset[disabled] .btn-success.active {
 }
 
 
-@media all and (max-width: 576px)
-{
-    .titre_portfolio
-    {
+@media all and (max-width: 576px) {
+    
+    .titre_portfolio {
+        
         margin-top: 20px;
         
     }
     
     
     
-    h6
-    {    
+    h6 {    
+        
         margin-top:-7px; 
     }
 
     
-    .description_text
-    {       
+    .description_text {       
     
         font-size: 13px;
         padding:2px;
@@ -560,23 +559,19 @@ fieldset[disabled] .btn-success.active {
     
     
 
-    .titre
-    {
+    .titre {
     
         font-size:13px;    
     
     }
     
-
-    
-    .close-modal
-    {
+    .close-modal {
+        
         margin-top: 25px;
     }
 
 
-    .connect-sign
-    {
+    .connect-sign {
         
         position:absolute;
         left: 10px;
@@ -585,8 +580,8 @@ fieldset[disabled] .btn-success.active {
         color:red;
     }
 
-    .button-disconnect
-    {
+    .button-disconnect {
+        
         position:absolute;
         top:50px;
         left: 139px;
@@ -596,15 +591,14 @@ fieldset[disabled] .btn-success.active {
     }
     
     
-    .post{
+    .post {
         
         margin-top: -140px;
         
         }
 
 
-    .close_post
-    {
+    .close_post {
         
         margin-top : -85px;    
         
@@ -614,11 +608,9 @@ fieldset[disabled] .btn-success.active {
 
 
 
-@media all and (min-width: 577px) and (max-width: 767px)
-{   
+@media all and (min-width: 577px) and (max-width: 767px) {   
     
-    .connect-sign
-    {
+    .connect-sign {
         
         position:absolute;
         left: 10px;
@@ -627,8 +619,7 @@ fieldset[disabled] .btn-success.active {
         color:red;
     }
 
-    .button-disconnect
-    {
+    .button-disconnect {
         position:absolute;
         top:50px;
         left: 139px;
@@ -638,23 +629,19 @@ fieldset[disabled] .btn-success.active {
     }
     
     
-    .close-modal
-    {
+    .close-modal {
+        
         margin-top: 50px;
     }
 
-    
-    
-    .post
-    {
+    .post {
         
         margin-top: -140px;
         
     }
 
 
-     .close_post
-    {
+     .close_post {
         
         margin-top : -85px;    
         
@@ -664,30 +651,27 @@ fieldset[disabled] .btn-success.active {
 
 
 
-@media all and (min-width: 768px) and (max-width: 991px)
-{
+@media all and (min-width: 768px) and (max-width: 991px) {
 
-    .description_text
-    {    
+    .description_text {    
+        
         font-size: 20px;
     }
     
-    .titre
-    {    
+    .titre {    
+        
         font-size: 20px;
     }
     
 
-    .close-modal
-    {
+    .close-modal {
         
         margin-top: 135px;
         
     }
 
 
-    .modal-body
-    {
+    .modal-body {
         
         margin-top: 100px;        
 
@@ -695,32 +679,27 @@ fieldset[disabled] .btn-success.active {
     }
 
 
-    .connection-form
-    {
+    .connection-form {
         
         margin-top: 100px;
 
     }
 
-    .titre_portfolio
-    {
+    .titre_portfolio {
         
         margin-top: 80px;
 
     }
 
     
-    
-      .post
-    {
+    .post {
         
         margin-top: -180px;
         
     }
 
 
-     .close_post
-    {
+    .close_post {
         
         margin-top : -70px;    
         
@@ -731,36 +710,33 @@ fieldset[disabled] .btn-success.active {
 
 
 
-@media all and (min-width: 992px) and (max-width:1200px)
-{
+@media all and (min-width: 992px) and (max-width:1200px) {
 
-    .description_text
-    {    
+    .description_text {    
+        
         font-size: 17px;
     }
     
-    .titre
-    {    
+    .titre {    
+        
         font-size: 17px;
     }
     
 
-    .titre_portfolio
-    {
-      margin-top: 150px;   
+    .titre_portfolio {
+      
+        margin-top: 150px;   
         
     }
     
-    .close-modal
-    {
+    .close-modal {
         
         margin-top: 75px;
         
     }    
     
     
-    .modal-body
-    {
+    .modal-body {
         
         margin-top: 70px;        
 
@@ -768,24 +744,21 @@ fieldset[disabled] .btn-success.active {
     }
 
     
-    .connection-form
-    {
+    .connection-form {
         
         margin-top: 70px;
 
     }
 
     
-    .list_post
-    {
+    .list_post {
         
         margin-top: -120px;   
         
     }
         
         
-    .connect-sign
-    {
+    .connect-sign {
         
         position:absolute;
         left: 10px;
@@ -794,8 +767,8 @@ fieldset[disabled] .btn-success.active {
         color:red;
     }
 
-    .button-disconnect
-    {
+    .button-disconnect {
+        
         position:absolute;
         top:105px;
         left: 139px;
@@ -807,16 +780,14 @@ fieldset[disabled] .btn-success.active {
     }
 
 
-       .post
-    {
+    .post {
         
         margin-top: -190px;
         
     }
 
 
-     .close_post
-    {
+     .close_post {
         
         margin-top : -70px;    
         
@@ -825,33 +796,29 @@ fieldset[disabled] .btn-success.active {
 }
 
 
-@media all and (min-width: 1201px)
-{
+@media all and (min-width: 1201px) {
 
-    .close-modal
-    {
+    .close-modal {
         
        margin-top: 75px;
         
     }    
     
     
-    .modal-body
-    {
+    .modal-body {
+        
         margin-top: 20px;   
 
     }
 
-    .connection-form
-    {
+    .connection-form {
         
         margin-top: 70px;
 
     }
 
 
-       .connect-sign
-    {
+       .connect-sign {
         
         position:absolute;
         left: 10px;
@@ -862,8 +829,8 @@ fieldset[disabled] .btn-success.active {
     
     }
 
-    .button-disconnect
-    {
+    .button-disconnect {
+        
         position:absolute;
         top: 105px;
         left: 139px;
@@ -874,30 +841,27 @@ fieldset[disabled] .btn-success.active {
     }
 
     
-    .titre_portfolio
-    {
+    .titre_portfolio {
+        
         margin-top: 70px;   
         
     }
 
     
-    .list_post
-    {
+    .list_post {
         
         margin-top: -20px;   
         
     }
     
-    .post
-    {
+    .post {
         
         margin-top:-170px;
         
     }
 
 
-     .close_post
-    {
+     .close_post {
         
         margin-top : -70px;    
         
@@ -905,19 +869,17 @@ fieldset[disabled] .btn-success.active {
 
 }
 
-.footer{
+.footer {
     
 position: absolute;
 bottom: 0px;
 left: 0px;
 right: 0px;
 
-    
-    
 }
 
 
-.list_comments{
+.list_comments {
     
 border: 0.3px solid black;
 background-color: cyan;
@@ -928,7 +890,7 @@ margin-bottom: 15px;
 
 
 
-.list_news{
+.list_news {
     
 border: 2px solid black;
 margin-bottom:15px;
@@ -937,21 +899,21 @@ background-color:cyan;padding:10px;
 }
 
 
-.admin_title{
+.admin_title {
     
 text-align: center;
     
 }
 
 
-.delete_post{
+.delete_post {
 
 margin-top:3px;
     
 }
 
 
-.comments_list{
+.comments_list {
  
 border: 2px solid black;
 margin-bottom: 15px;
