@@ -644,7 +644,7 @@ function update()
                     $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
                     $newImageWidth = 900;
                     $newImageHeight = 650;
-                    $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+                    $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight);
                     imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
                     imagedestroy($imageSelected);
                     $imageSelectedName = explode('.', $imagePost);
