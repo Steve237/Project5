@@ -3,7 +3,7 @@ function inscription()
 {
    
     
-    if (isset($_POST['inscription'])) {    
+    if(isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
@@ -677,7 +677,8 @@ function update()
 function manageComment()
 {
    if (!array_key_exists('success_connect', $_SESSION)) {
-        header('Location: index.php');
+        
+       header('Location: index.php');
         
     }
         
