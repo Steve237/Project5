@@ -3,7 +3,7 @@ function inscription()
 {
    
     
-    if(isset($_POST['inscription'])) {    
+    if (isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
@@ -64,6 +64,7 @@ function inscription()
     } 
     
     else {
+        
         require ABSOLUTE_PATH.'/view/view_inscription.php';
     }
 }
@@ -275,6 +276,8 @@ function disconnect()
         session_destroy();
         
         header('Location: index.php');
+        
+    
     }
 }
 
@@ -359,6 +362,8 @@ function addArticle()
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
+        
+    
     }
     
     if (isset($_POST['add_new'])) {
@@ -487,6 +492,8 @@ function addArticle()
         else {  
     
             header('Location:index.php');
+            
+    
         }
     
     }
@@ -638,7 +645,7 @@ function update()
                     $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
                     $newImageWidth = 900;
                     $newImageHeight = 650;
-                    $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+                    $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight);
                     imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
                     imagedestroy($imageSelected);
                     $imageSelectedName = explode('.', $imagePost);
@@ -658,7 +665,6 @@ function update()
         else {
             
             header('Location:index.php');
-            
         
         }
     
@@ -701,6 +707,7 @@ function approveComment()
         }
     
     }
+    
     else {
             
         header('Location:index.php');
@@ -726,7 +733,7 @@ function deleteComment()
             $deleteComment->deleteComment($_GET['id']);
             $_SESSION['comment_delete'] = 1;
             header('Location: index.php?action=manage_comment');
-            exit();
+            
             
             require ABSOLUTE_PATH.'/view/view_manage_comment.php'; 
         }
