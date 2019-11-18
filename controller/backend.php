@@ -36,7 +36,7 @@ function inscription()
             $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) || empty($_POST['password_confirm'])) {
+        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                     empty($_POST['password_confirm'])) {
             
             $errors ['password'] = "veuillez entrer votre mot de passe";
         }
@@ -64,6 +64,7 @@ function inscription()
     } 
     
     else {
+        
         require ABSOLUTE_PATH.'/view/view_inscription.php';
     }
 }
@@ -676,7 +677,8 @@ function update()
 function manageComment()
 {
    if (!array_key_exists('success_connect', $_SESSION)) {
-        header('Location: index.php');
+        
+       header('Location: index.php');
         
     }
         
