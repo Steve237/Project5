@@ -9,14 +9,14 @@ class UsersManager extends Manager
      */   
     public function addUsers()
     {
-        $db = $this->dbConnect();
+        $dtb = $this->dbConnect();
 
-        $q = $db->prepare('INSERT INTO membres(pseudo, password, email, dateInscription) VALUES(:pseudo, :password, :email, NOW())');
+        $query = $dtb->prepare('INSERT INTO membres(pseudo, password, email, dateInscription) VALUES(:pseudo, :password, :email, NOW())');
 
-        $q->bindValue(':pseudo', $_POST['pseudo']);
-        $q->bindValue(':password', password_hash($_POST['password'], PASSWORD_DEFAULT));
-        $q->bindValue(':email', $_POST['email']);
-        $q->execute();
+        $query->bindValue(':pseudo', $_POST['pseudo']);
+        $query->bindValue(':password', password_hash($_POST['password'], PASSWORD_DEFAULT));
+        $query->bindValue(':email', $_POST['email']);
+        $query->execute();
 
     }    
 
@@ -25,9 +25,9 @@ class UsersManager extends Manager
      */ 
     public function checkPseudo($pseudo)
     {
-        $db = $this->dbConnect();
+        $dtb = $this->dbConnect();
 
-        $query = $db->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ?');
+        $query = $dtb->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ?');
         $query->execute(array($pseudo));
 
         // On récupère l'objet
@@ -45,9 +45,9 @@ class UsersManager extends Manager
      */
     public function checkEmail($email)
     {
-        $db = $this->dbConnect();
+        $dtb = $this->dbConnect();
 
-        $query = $db->prepare('SELECT COUNT(*) AS nb_email FROM membres WHERE email = ?');
+        $query = $dtb->prepare('SELECT COUNT(*) AS nb_email FROM membres WHERE email = ?');
         $query->execute(array($email));
 
         // On récupère l'objet
@@ -66,9 +66,9 @@ class UsersManager extends Manager
      */
     public function connectUser()
     {
-        $db = $this->dbConnect();
+        $dtb = $this->dbConnect();
 
-        $req = $db->prepare('SELECT idMembre, password FROM membres WHERE pseudo = ?');
+        $req = $dtb->prepare('SELECT idMembre, password FROM membres WHERE pseudo = ?');
         $req->execute(array($_POST['pseudo']));
         $resultat = $req->fetch(PDO::FETCH_ASSOC);
         $check_user = new Users();
@@ -83,9 +83,8 @@ class UsersManager extends Manager
      */
     public function checkMember()
     {
-        $db = $this->dbConnect();
-
-        $req = $db->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ?');
+        $dtb = $this->dbConnect();
+        $req = $dtb->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ?');
         $req->execute(array($_POST['pseudo']));
         $nb_pseudo = $req->fetch(PDO::FETCH_ASSOC);
         $verif_pseudo = new Users();
@@ -99,9 +98,9 @@ class UsersManager extends Manager
      */    
     public function checkAdmin()
     {
-        $db = $this->dbConnect();
+        $dtb = $this->dbConnect();
 
-        $req = $db->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ? AND admin = 1');
+        $req = $dtb->prepare('SELECT COUNT(*) AS nb_pseudo FROM membres WHERE pseudo = ? AND admin = 1');
         $req->execute(array($_POST['pseudo']));
         $nb_pseudo = $req->fetch(PDO::FETCH_ASSOC);
         $verif_pseudo = new Users();
@@ -115,8 +114,8 @@ class UsersManager extends Manager
     public function updateRecovery(Users $recovery) 
     {
 
-        $db = $this->dbConnect();
-        $query = $db->prepare('UPDATE membres SET recoveryCode=:recoveryCode WHERE email=:email');
+        $dtb = $this->dbConnect();
+        $query = $dtb->prepare('UPDATE membres SET recoveryCode=:recoveryCode WHERE email=:email');
         $query->bindValue(':recoveryCode', $recovery->getRecoveryCode());
         $query->bindValue(':email', $recovery->getEmail());
 
@@ -128,10 +127,9 @@ class UsersManager extends Manager
      * permet de vérifier si le code de récupération est en base de données
      */
     public function checkCode($user_code)
-
     {
-        $db = $this->dbConnect();
-        $query = $db->prepare('SELECT COUNT(*) AS nb_code FROM membres WHERE recoveryCode = ?');
+        $dtb = $this->dbConnect();
+        $query = $dtb->prepare('SELECT COUNT(*) AS nb_code FROM membres WHERE recoveryCode = ?');
         $query->execute(array($user_code));
 
         // On récupère l'objet
@@ -142,7 +140,6 @@ class UsersManager extends Manager
         $user_recovery_code->hydrate($check_recovery_code);
         // On retourne l'objet
         return $check_recovery_code['nb_code'];
-
     }
 
     /** 
@@ -151,15 +148,13 @@ class UsersManager extends Manager
     public function updatePassword(Users $user_pass) 
     {
 
-        $db = $this->dbConnect();
-        $query = $db->prepare('UPDATE membres SET password=:password WHERE email=:email');
+        $dtb = $this->dbConnect();
+        $query = $dtb->prepare('UPDATE membres SET password=:password WHERE email=:email');
         $query->bindValue(':password', password_hash($_POST['new_pass'], PASSWORD_DEFAULT));
         $query->bindValue(':email', $user_pass->getEmail());
         $query->execute();
 
     }
-
-
 }
 
 
