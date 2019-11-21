@@ -127,6 +127,7 @@ function connection()
     }
     
     else {
+        
         require ABSOLUTE_PATH.'/view/view_connection.php';
     }
 }

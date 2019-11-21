@@ -67,7 +67,7 @@ $_SESSION['token'] = $token;
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="resume">Résumé de l'article</label>
                             <textarea id="resume" name="resume_post" class="form-control"></textarea>
-                        s</div>
+                        </div>
                     </div>
 
                     <div class="row control-group">

@@ -85,6 +85,7 @@ function post()
         $_POST['submit_comment'] = htmlspecialchars($_POST['submit_comment']);
        
         if (!array_key_exists('success_connect', $_SESSION)) {
+            
             $errors ['sucess_connect'] = "Veuillez vous connecter pour poster un commentaire";   
         }
         
@@ -92,10 +93,12 @@ function post()
         $_POST['user_comment'] = htmlspecialchars($_POST['user_comment']);
         
         if (!array_key_exists('pseudo', $_POST) || empty($_POST['pseudo'])) {
+            
             $errors ['pseudo'] = "Veuillez entrer un pseudo";   
         }
         
         if (!array_key_exists('user_comment', $_POST) || empty($_POST['user_comment'])) {
+            
             $errors ['user_comment'] = "Veuillez entrer un commentaire";   
         }
         
@@ -114,6 +117,14 @@ function post()
     
     require ABSOLUTE_PATH.'/view/view_post.php';
 }
+
+
+function error()
+{
+    require ABSOLUTE_PATH.'/view/view_errorpage.php';        
+   
+}
+
 
 function homePage() 
 {

@@ -8,10 +8,10 @@ class Manager
 
         try
         {
-            $db = new PDO('mysql:host=localhost;dbname=monblog;charset=utf8', 'root', '');
+            $dtb = new PDO('mysql:host=localhost;dbname=monblog;charset=utf8', 'root', '');
 
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $db;
+            $dtb->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $dtb;
         }
 
         catch(Exception $e)
