@@ -4,9 +4,9 @@
 
 <?php if (array_key_exists('success_connect', $_SESSION)): ?>
 <section class="section_connection">
-    <div class="connect-sign hidden-sm" style="color:red;"><?= $_SESSION['success_connect']; ?></div>
+    <div class="connect-sign hidden-sm"><?= $_SESSION['success_connect']; ?></div>
     <form action="index.php?action=disconnected" method="post">
-        <button style="color:white;height:35px" type="submit" class="btn btn-success btn-default button-disconnect hidden-sm"                                           name="disconnect">Déconnexion</button>
+        <button type="submit" class="btn btn-success btn-default button-disconnect hidden-sm" name="disconnect">Déconnexion</button>
     </form>
 </section>    
 <?php endif; ?>
@@ -120,7 +120,6 @@
 <?php $content = ob_get_clean(); ?>
 <?php require('template.php'); ?>
 <?php  
-unset($_SESSION['inputs']);  
 unset($_SESSION['success']);  
 unset($_SESSION['errors']); 
 ?>

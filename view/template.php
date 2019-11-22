@@ -47,13 +47,14 @@
 
                     <?php if (array_key_exists('success_connect', $_SESSION)): ?>
                     <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
-                        <?= $_SESSION['success_connect']; ?></div>
+                        <?= $_SESSION['success_connect']; ?>
+                    </div>
                     <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px;                             top:40px;">
                         <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
                     </form>
                     <?php endif; ?>
-
-                    <?php if (!array_key_exists('success_connect', $_SESSION)): ?>
+                    
+                    
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden"><a href="#page-top"></a></li>
                         <li><a href="index.php">Accueil</a></li>
@@ -61,18 +62,9 @@
                         <li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
                         <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
                     </ul>
-                    <?php endif; ?>
+                    
 
-                    <?php if (array_key_exists('success_connect', $_SESSION)): ?>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="hidden"><a href="#page-top"></a></li>
-                        <li><a href="index.php">Accueil</a></li>
-                        <li class="page-scroll"><a href="index.php?action=listposts"> Nos articles </a></li>
-                        <li class="page_scroll"><a href="index.php"> Espace membres </a></li>
-                        <li class="page_scroll"><a href="index.php?action=admin_space"> Espace administrateur </a></li>
-                    </ul>
-                    <?php endif; ?>
-                </div>
+                    
                 <!-- /.navbar-collapse -->
 
             </div>
