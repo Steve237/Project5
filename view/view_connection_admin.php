@@ -19,7 +19,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Connectez vous </h2>
+                <h2 class="titre_form">Connectez vous </h2>
                 <hr class="star-primary">
             </div>
         </div>
@@ -31,7 +31,7 @@
                 </div>
                 <?php endif; ?>
 
-                <form action="index.php?action=connect_admin" id="form_admin" method="post">
+                <form action="index.php?action=connect_admin" id="form_admin" method="post" class="col-xs-12">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="pseudo_admin">Votre pseudo</label>

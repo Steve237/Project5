@@ -570,6 +570,14 @@ fieldset[disabled] .btn-success.active {
   display: none;
 }
 
+@media all and (max-width: 400px) {
+    
+    .titre_form {
+        
+        font-size: 20px;    
+    }
+}
+
 
 @media all and (max-width: 576px) {
     
