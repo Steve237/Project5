@@ -1,4 +1,3 @@
-
 <?php
 
 // autoloader, chargement automatique des classes
