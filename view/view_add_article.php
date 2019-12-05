@@ -45,7 +45,7 @@ $_SESSION['token'] = $token;
                 </div>
                 <?php endif; ?>
 
-                <form action="index.php?action=add_article" id="add_post" method="post" enctype="multipart/form-data">
+                <form action="index.php?action=add_article" id="add_post" method="post" enctype="multipart/form-data" class="col-xs-12">
                     <div class="row control-group">
                         Entrez le nom de l'auteur    
                         <div class="form-group col-xs-12 floating-label-form-group controls">

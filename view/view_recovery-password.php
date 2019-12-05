@@ -15,11 +15,11 @@
 
 
 <!-- Contact Section -->
-<section id="contact">
+<section id="contact" class="connection-form">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Récupération du mot de passe </h2>
+                <h2 class="titre_form">Récupération du mot de passe </h2>
                 <hr class="star-primary">
             </div>
         </div>
@@ -40,7 +40,7 @@
                     </div>
                     <?php endif; ?>
 
-                    <form action="index.php?action=recovery_pass" id="form_recovery" method="post">
+                    <form action="index.php?action=recovery_pass" id="form_recovery" method="post" class="col-xs-12">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="password">Votre nouveau mot de passe </label>

@@ -138,6 +138,7 @@ function recovery()
         
         $section = htmlspecialchars($_GET['section']);   
     }
+    
     else {
         
         $section=""; 
@@ -161,18 +162,18 @@ function recovery()
         if ($nbEmail > 0) {
             $_SESSION['email'] = $email;
             $recoveryPass = sha1(time());
-            $_SESSION['recovery_pass'] = $recovery_pass;
+            $_SESSION['recovery_pass'] = $recoveryPass;
             $verifEmail = new UsersManager();
             $nbEmail = $verifEmail->checkEmail($_POST['email']);
             
-            if ($nb_email > 0) {
+            if ($nbEmail > 0) {
                 
                 $updateData = new Users(array('recoveryCode'=>$recoveryPass, 'email'=>$email));
                 $updateInfo = new UsersManager();
                 $updateInfo->updateRecovery($updateData);
                 $_SESSION['success'] = 1;
                 $header="MIME-Version: 1.0\r\n";
-                $header.='From:"Blog de Steve Essama"<essonoadou@gmail.com>'."\n";
+                $header.='From:"Blog de Steve Essama"<adouessono@steveessama.com>'."\n";
                 $header.='Content-Type:text/html; charset="utf-8"'."\n";
                 $header.='Content-Transfer-Encoding: 8bit';
                 $message = '
@@ -482,7 +483,8 @@ function addArticle()
                     $insertPost->addPost();
                     $_SESSION['insert_success'] = 1;
                     
-                    header('Location: index.php?action=admin_space');
+                    header('Location:index.php?action=admin_space');
+                    
                     
                 }
             }
@@ -656,9 +658,7 @@ function update()
                     $updatePost = new NewsManager();
                     $updatePost->updateNew();
                     $_SESSION['success_update'] = 1;
-                    
-                    header('Location: index.php?action=admin_space');
-                    
+                    header('Location:index.php?action=admin_space');        
                 }
             }
         }
@@ -679,7 +679,7 @@ function manageComment()
 {
    if (!array_key_exists('success_connect', $_SESSION)) {
         
-       header('Location: index.php');
+       header('Location:index.php');
         
     }
         
