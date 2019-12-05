@@ -4,7 +4,7 @@
 
 <p>Ensuite, vous devez importer la base de données du projet dans votre base de données. Il s'agit donc d'importer le fichier blog.sql dans votre base de données.</p>
 
-<p>Puis, il est indispensable de configurer votre serveur smtp pour pouvoir envoyer des mails en local pour le bon fonctionnement du formulaire de contact et du système de récupération du mot de passe.</p>
+<p>Puis, il est indispensable de configurer votre serveur smtp pour pouvoir envoyer des mails en local pour le bon fonctionnement du formulaire de contact et du système de récupération du mot de passe. Ce lien montre un tutoriel exposant comment configurer un server smtp:https://www.grafikart.fr/blog/mail-local-wamp</p>
 
 <p>Enfin, après avoir réalisé tout cela vous pourrez accéder au site web via l'url suivant: http://localhost/index.php</p>
 
