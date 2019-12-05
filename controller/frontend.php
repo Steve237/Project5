@@ -38,7 +38,7 @@ function sendMail()
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
         $headers .= 'FROM:' . htmlspecialchars($_POST['email']);
-        $to = 'essonoadou@gmail.com';
+        $to = 'adouessono@steveessama.com';
         $subject = 'Message envoyé par ' . htmlspecialchars($_POST['name']) .' - <i>' . htmlspecialchars($_POST['email']) .'</i>';
         $message_content = '
             <table>
