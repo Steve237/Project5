@@ -2,7 +2,8 @@
 function inscription()
 {
    
-    
+    $errors = array();
+
     if(isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
@@ -36,7 +37,7 @@ function inscription()
             $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                     empty($_POST['password_confirm'])) {
+        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                       empty($_POST['password_confirm'])) {
             
             $errors ['password'] = "veuillez entrer votre mot de passe";
         }
@@ -71,6 +72,9 @@ function inscription()
 
 function connection()
 {
+    
+    $errors = array();
+
     if (array_key_exists("success_connect", $_SESSION)) {
         
         header('Location: index.php');
@@ -133,12 +137,14 @@ function connection()
 }
 
 function recovery()
-{
+{   
+    
+   $errors = array();
+
    if (isset($_GET['section'])) {
         
         $section = htmlspecialchars($_GET['section']);   
     }
-    
     else {
         
         $section=""; 
@@ -152,6 +158,8 @@ function recovery()
         $errors = array();
         $verifEmail = new UsersManager();
         $nbEmail = $verifEmail->checkEmail($_POST['email']);
+
+
         
         if (!array_key_exists('email', $_POST) || empty($_POST['email']) || !$nbEmail || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $errors ['email'] = "adresse email non renseigné ou inconnu du système";
@@ -285,6 +293,7 @@ function disconnect()
 
 function connectionAdmin()
 {
+    $errors = array();
     
     if (array_key_exists('success_connect', $_SESSION)) {
         
@@ -361,6 +370,10 @@ function adminSpace()
 
 function addArticle()
 {
+    
+    $errors = array();
+
+    
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
@@ -535,7 +548,9 @@ function delete()
 
 function update()
 {
-   
+    
+    $errors = array();
+
     if (!array_key_exists('success_connect', $_SESSION)) {
         
         header('Location: index.php');
