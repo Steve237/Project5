@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,6 +45,15 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+                    <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
+                    <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
+                        <?= $_SESSION['success_connect1']; ?>
+                    </div>
+                    <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px;                             top:40px;">
+                        <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
+                    </form>
+                    <?php endif; ?>
+                    
                     <?php if (array_key_exists('success_connect', $_SESSION)): ?>
                     <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
                         <?= $_SESSION['success_connect']; ?>
@@ -54,7 +63,8 @@
                     </form>
                     <?php endif; ?>
                     
-                    
+
+
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden"><a href="#page-top"></a></li>
                         <li><a href="index.php">Accueil</a></li>
@@ -62,63 +72,65 @@
                         <li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
                         <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
                     </ul>
-                    
 
-                    
-                <!-- /.navbar-collapse -->
 
+
+                    <!-- /.navbar-collapse -->
+                </div>
             </div>
             <!-- /.container-fluid -->
         </nav>
-        
-        <?= $content ?>
 
-        <!-- Footer -->
-        <footer class="text-center">
-            <div class="footer-above">
-                <div class="container">
-                    <div class="row">
-                        <div class="footer-col col-md-4">
-                            <h3>Adresse</h3>
-                            <p>
-                                27 rue Arago, <br>
-                                Villeurbanne, 69100
-                            </p>
-                        </div>
-                        <div class="footer-col col-md-4">
-                            <h3>Réseaux sociaux</h3>
-                            <ul class="list-inline">
-                                <li>
-                                    <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline">
-                                        <i class="fa fa-fw fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
-                                        <i class="fa fa-fw fa-linkedin"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="footer-col col-md-4">
-                            <h3>Administration du site</h3>
-                            <p>
-                                <a href="index.php?action=connect_admin"> Accédez à l'espace administrateur </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-below">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            Copyright &copy; Blog Steve Essama 2019
+        <div id="main">
+            <?= $content ?>
+
+            <!-- Footer -->
+            <footer class="text-center">
+                <div class="footer-above">
+                    <div class="container">
+                        <div class="row">
+                            <div class="footer-col col-md-4">
+                                <h3>Adresse</h3>
+                                <p>
+                                    27 rue Arago, <br>
+                                    Villeurbanne, 69100
+                                </p>
+                            </div>
+                            <div class="footer-col col-md-4">
+                                <h3>Réseaux sociaux</h3>
+                                <ul class="list-inline">
+                                    <li>
+                                        <a href="https://openclassrooms.facebook.com/profile.php?id=100030215146732" class="btn-social btn-outline">
+                                            <i class="fa fa-fw fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/in/essama-mgba-franck-steve-7a6227175/" class="btn-social btn-outline">
+                                            <i class="fa fa-fw fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="footer-col col-md-4">
+                                <h3>Administration du site</h3>
+                                <p>
+                                    <a href="index.php?action=connect_admin"> Accédez à l'espace administrateur </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+                <div class="footer-below">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                Copyright &copy; Blog Steve Essama 2019
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
 
 
 
@@ -141,8 +153,8 @@
 
         <!-- Theme JavaScript -->
         <script src="public/js/freelancer.min.js"></script>
-        
-       
+
+
 
     </body>
 

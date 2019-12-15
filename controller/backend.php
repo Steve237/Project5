@@ -295,7 +295,7 @@ function connectionAdmin()
 {
     $errors = array();
     
-    if (array_key_exists('success_connect', $_SESSION)) {
+    if (array_key_exists('success_connect1', $_SESSION)) {
         
         header('Location: index.php?action=admin_space');
         
@@ -334,7 +334,7 @@ function connectionAdmin()
         
         if ($verifPass == true) {
             session_regenerate_id();
-            $_SESSION['success_connect'] = "Vous êtes connecté";
+            $_SESSION['success_connect1'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
             
