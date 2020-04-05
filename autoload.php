@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 // autoloader, chargement automatique des classes
 function __autoload($className) 

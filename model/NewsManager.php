@@ -8,7 +8,7 @@ class NewsManager extends Manager
     public function addPost()
     {
         $dtb = $this->dbconnect();
-        $query = $dtb->prepare('INSERT INTO articles(titreArticle, pseudoAuteur, descriptifArticle, contenu, dateModification, imageArticle, nomImage)                   VALUES(:titreArticle, :pseudoAuteur, :descriptifArticle, :contenu, NOW(), :imageArticle, :nomImage)');
+        $query = $dtb->prepare('INSERT INTO articles(titreArticle, pseudoAuteur, descriptifArticle, contenu, dateModification, imageArticle, nomImage) VALUES(:titreArticle, :pseudoAuteur, :descriptifArticle, :contenu, NOW(), :imageArticle, :nomImage)');
         $query->bindValue(':titreArticle', $_POST['post_title']);
         $query->bindValue(':pseudoAuteur', $_POST['post_author']);
         $query->bindValue(':descriptifArticle', $_POST['resume_post']);
@@ -56,7 +56,7 @@ class NewsManager extends Manager
     public function getListPosts()
     {
         $dtb = $this->dbconnect();
-        $query = $dtb->query('SELECT idPost, titreArticle, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS                         dateModification, imageArticle FROM articles');
+        $query = $dtb->query('SELECT idPost, titreArticle, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, imageArticle FROM articles');
         $results = $query->fetchAll(PDO::FETCH_ASSOC);        
         // instanciation de notre tableau d'objets
         $listPost = array();
@@ -79,7 +79,7 @@ class NewsManager extends Manager
     public function getPostById($postId)
     {
         $dtb  = $this->dbconnect();
-        $query = $dtb->prepare('SELECT titreArticle, pseudoAuteur, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS                                     dateModification, idPost, descriptifArticle, imageArticle FROM articles WHERE idPost = ?');
+        $query = $dtb->prepare('SELECT titreArticle, pseudoAuteur, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, idPost, descriptifArticle, imageArticle FROM articles WHERE idPost = ?');
         $query->execute(array($postId));
 
         // On récupère l'objet

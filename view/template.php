@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-
+        
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Blog de Steve Essama">
+        <meta name="author" content="Essama 237">
         <title><?= $title ?></title>
 
         <!-- Bootstrap Core CSS -->
@@ -46,21 +46,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
-                    <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
-                        <?= $_SESSION['success_connect1']; ?>
-                    </div>
-                    <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px;                             top:40px;">
-                        <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
-                    </form>
-                    <?php endif; ?>
                     
-                    <?php if (array_key_exists('success_connect', $_SESSION)): ?>
-                    <div class="hidden-xs hidden-md hidden-lg" style="color:white; position:absolute; right: 14px; top: 5px;">
-                        <?= $_SESSION['success_connect']; ?>
-                    </div>
-                    <form class="hidden-xs hidden-md hidden-lg" action="index.php?action=disconnected" method="post" style="position:fixed; right:15px;                             top:40px;">
-                        <button style="color:red; margin-top:-8px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
-                    </form>
                     <?php endif; ?>
                     
 
@@ -71,10 +57,18 @@
                         <li class="page-scroll"><a href="index.php?action=listposts"> Nos articles </a></li>
                         <li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
                         <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
+                        
+                        <?php if (array_key_exists('success_connect', $_SESSION)): ?>
+                        <li class="page_scroll"><form class="" action="index.php?action=disconnected" method="post">
+                        <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button></form></li>
+                        <?php endif; ?>
+                        
+                        <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
+                        <li class="page_scroll"><form class="" action="index.php?action=disconnected" method="post">
+                        <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button></form></li>
+                        <?php endif; ?>
+
                     </ul>
-
-
-
                     <!-- /.navbar-collapse -->
                 </div>
             </div>

@@ -78,7 +78,6 @@ function connection()
     if (array_key_exists("success_connect", $_SESSION)) {
         
         header('Location: index.php');
-        
     }
     
     if (isset($_POST['connection'])) {
@@ -200,7 +199,7 @@ function recovery()
                                                 Bonjour, vous avez indiqué avoir oublié votre mot de passe 
                                             </p>
                                             <p>
-                                                Cliquez <a href="http://localhost/test/index.php?                                                                                                               action=recovery_pass&section=update_password&code='.$recoveryPass.'">
+                                                Cliquez <a href="https://steveessama.com/index.php?action=recovery_pass&section=update_password&code='.$recoveryPass.'">
                                                 ici pour réinitialiser votre mot de passe</a> </br>
                                                 A bientôt sur <a href="index.php/">Notre blog!</a>
                                             </p>
@@ -301,7 +300,6 @@ function connectionAdmin()
         
     }
     
-    
     if (isset($_POST['connect_admin'])) {
         
         sleep(1); 
@@ -326,7 +324,7 @@ function connectionAdmin()
         }
         
         $connectAdmin = new UsersManager();
-        $verifPass = $connectAdmin ->connectUser();
+        $verifPass = $connectAdmin ->connectAdmin();
         
         if ($verifPass == false) {
             $errors ['password'] = "mauvais identifiant ou mot de passe";
@@ -334,7 +332,7 @@ function connectionAdmin()
         
         if ($verifPass == true) {
             session_regenerate_id();
-            $_SESSION['success_connect1'] = "Vous êtes connecté";
+            $_SESSION['success_connect1'] = "1";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
             
@@ -357,7 +355,7 @@ function connectionAdmin()
 function adminSpace()
 {
        
-   if (!array_key_exists('success_connect', $_SESSION)) {
+   if (!array_key_exists('success_connect1', $_SESSION)) {
         
        header('Location: index.php');
        
@@ -374,7 +372,7 @@ function addArticle()
     $errors = array();
 
     
-    if (!array_key_exists('success_connect', $_SESSION)) {
+    if (!array_key_exists('success_connect1', $_SESSION)) {
         
         header('Location: index.php');
         
@@ -551,7 +549,7 @@ function update()
     
     $errors = array();
 
-    if (!array_key_exists('success_connect', $_SESSION)) {
+    if (!array_key_exists('success_connect1', $_SESSION)) {
         
         header('Location: index.php');
         
@@ -692,7 +690,7 @@ function update()
 
 function manageComment()
 {
-   if (!array_key_exists('success_connect', $_SESSION)) {
+   if (!array_key_exists('success_connect1', $_SESSION)) {
         
        header('Location:index.php');
         
