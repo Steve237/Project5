@@ -1,6 +1,7 @@
 <?php
+namespace App\src\Dao;
 
-class Article extends Database
+class ArticleDAO extends DAO
 {
     
     public function getArticles()

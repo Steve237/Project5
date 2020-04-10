@@ -1,10 +1,9 @@
-<?php $title = 'Mon blog'; ?>
 <?php
-require 'Database.php';
-require 'Article.php';
+require '../src/DAO/DAO.php';
+require '../src/DAO/ArticleDAO.php';
 ?>
 
-<?php ob_start(); ?>
+
 <section id="portfolio" class="list_post">
     <div class="container">
         <div class="row">
@@ -17,13 +16,13 @@ require 'Article.php';
 
         <div class="row">
             <?php
-            $article = new Article();
+            $article = new App\src\DAO\ArticleDAO();
             $articles = $article->getArticles();
             while($data = $articles->fetch()) 
             {
             ?>
                 <div class="col-sm-6 col-md-4 col-lg-4 portfolio-item">
-                    <a href="index.php?action=post&amp;id=<?= $data['idPost']?>&amp;titre=<?= $data['titreArticle']?>" class="portfolio-link">
+                    <a href="single.php?action=post&amp;id=<?= $data['idPost']?>&amp;titre=<?= $data['titreArticle']?>" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <h6 class="hidden-sm hidden-md hidden-lg">
@@ -58,7 +57,6 @@ require 'Article.php';
     </div>
 </section>
 
-<?php $content = ob_get_clean(); ?>
-<?php require('template.php'); ?>         
+       
 
 

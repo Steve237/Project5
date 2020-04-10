@@ -1,7 +1,8 @@
-<?php $title = 'Mon blog'; ?>
-
-<?php ob_start(); ?>
-
+<?php
+require '../src/DAO/DAO.php';
+require '../src/DAO/ArticleDAO.php';
+require '../src/DAO/CommentDAO.php';
+?>
 
 
 <!-- Portfolio Modals -->
@@ -17,9 +18,9 @@
         <?php
 
        
-        $singlepost = new Article();
+        $singlepost = new App\src\DAO\ArticleDAO();
         $singlepost = $singlepost->getArticle($_GET['id']);
-        $data = $article->fetch()
+        $data = $singlepost->fetch()
         ?>
        
         <div class="container">
@@ -41,32 +42,15 @@
                             </li>
                         </ul>
         <?php
-        $article->closeCursor();
+        $singlepost->closeCursor();
         ?>
-
-        <?php
-        $database = new Database();
-        $database->checkConnection();
-        ?>
-
-                        <?php if (array_key_exists('errors', $_SESSION)): ?>
-                        <div class="alert alert-danger">
-                            <?= implode('<br>', $_SESSION['errors']); ?>
-                        </div>
-                        <?php endif;?>
-
-                        <?php if (array_key_exists('success', $_SESSION)): ?>
-                        <div class="alert alert-danger">
-                            Votre commentaire a été soumis pour validation.
-                        </div>
-                        <?php endif;?>
-
+                        
                         <h3>Laissez un commentaire </h3>
 
                         <?php
-                        $comment = new Comment();
-                        $comments = $comment->getCommentsFromArticle($_GET['idPost']);
-                        while($datas = $comments->fetch())
+                        $comment = new App\src\DAO\CommentDAO();
+                        $comment = $comment->getCommentsFromArticle($_GET['id']);
+                        while($datas = $comment->fetch())
                         {
                             ?>
                             <form action="index.php?action=post&amp;id=<?= $datas['idPost']?>" id="comment" method="post">
@@ -109,7 +93,7 @@
                         
                         }
                         
-                        $comments->closeCursor();
+                        $comment->closeCursor();
                         
                         ?>
                         
@@ -122,9 +106,3 @@
     </div>
 </div>
 
-<?php $content = ob_get_clean();?>
-<?php require('template.php');?>
-<?php
-unset($_SESSION['success']);  
-unset($_SESSION['errors']);
-?>
