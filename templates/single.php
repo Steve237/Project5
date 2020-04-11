@@ -1,10 +1,3 @@
-<?php
-require '../src/DAO/DAO.php';
-require '../src/DAO/ArticleDAO.php';
-require '../src/DAO/CommentDAO.php';
-?>
-
-
 <!-- Portfolio Modals -->
 <div class="portfolio-modal" tabindex="-1">
     <div class="modal-content">

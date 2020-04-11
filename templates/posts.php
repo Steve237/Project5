@@ -1,9 +1,3 @@
-<?php
-require '../src/DAO/DAO.php';
-require '../src/DAO/ArticleDAO.php';
-?>
-
-
 <section id="portfolio" class="list_post">
     <div class="container">
         <div class="row">
@@ -22,7 +16,7 @@ require '../src/DAO/ArticleDAO.php';
             {
             ?>
                 <div class="col-sm-6 col-md-4 col-lg-4 portfolio-item">
-                    <a href="single.php?action=post&amp;id=<?= $data['idPost']?>&amp;titre=<?= $data['titreArticle']?>" class="portfolio-link">
+                    <a href="../public/index.php?action=article&amp;id=<?= $data['idPost']?>&amp;titre=<?= $data['titreArticle']?>" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <h6 class="hidden-sm hidden-md hidden-lg">
