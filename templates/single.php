@@ -9,10 +9,6 @@
         </div>
 
         <?php
-
-       
-        $singlepost = new App\src\DAO\ArticleDAO();
-        $singlepost = $singlepost->getArticle($_GET['id']);
         $data = $singlepost->fetch()
         ?>
        
@@ -41,8 +37,6 @@
                         <h3>Laissez un commentaire </h3>
 
                         <?php
-                        $comment = new App\src\DAO\CommentDAO();
-                        $comment = $comment->getCommentsFromArticle($_GET['id']);
                         while($datas = $comment->fetch())
                         {
                             ?>

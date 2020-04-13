@@ -10,9 +10,7 @@
 
         <div class="row">
             <?php
-            $article = new App\src\DAO\ArticleDAO();
-            $articles = $article->getArticles();
-            while($data = $articles->fetch()) 
+            while($data = $article->fetch()) 
             {
             ?>
                 <div class="col-sm-6 col-md-4 col-lg-4 portfolio-item">
@@ -45,7 +43,7 @@
                 </div>
                 <?php
             }
-            $articles->closeCursor();
+            $article->closeCursor();
             ?> 
         </div>
     </div>

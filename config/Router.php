@@ -1,9 +1,22 @@
 <?php
 
 namespace App\config;
+use App\src\Controller\FrontController;
+use App\src\Controller\ErrorController;
+
 
 class Router
 {
+
+    private $frontController;
+    private $errorController;
+
+    public function __construct() 
+    {
+        $this->frontController = new FrontController();
+        $this->errorController = new ErrorController();
+    }
+
     public function run()
     {
         try{
@@ -13,30 +26,33 @@ class Router
                     
                     if(isset($_GET['id']) AND $_GET['id'] > 0){
 
-                        require '../templates/single.php';
+                        $this->frontController->single($_GET['id']);
 
                     }
                     else{
                         
-                        header('Location: ../public/index.php');
+                        $this->errorController->unknown();
 
 
                     }
                     
                     
                 }
-                elseif($_GET['action'] === 'listposts'){
+                elseif($_GET['action'] === 'listposts') {
                     
-                    require '../templates/posts.php';
+                    $this->frontController->articles();
+                    
                 }
             }
             else{
-                require '../templates/homepage.php';
+                
+                $this->frontController->home();
             }
         }
+        
         catch (Exception $e)
         {
-            echo 'Erreur';
+            $this->errorController->error();
         }
     }
 }
