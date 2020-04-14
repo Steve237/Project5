@@ -1,3 +1,5 @@
+<?php $this->title = 'Article'; ?>
+
 <!-- Portfolio Modals -->
 <div class="portfolio-modal" tabindex="-1">
     <div class="modal-content">

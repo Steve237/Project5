@@ -1,18 +1,24 @@
 <?php
 
 namespace App\src\Controller;
+use App\src\model\View;
 
 class ErrorController 
 {   
-    
+    private $view;
+
+    public function __construct() {
+        $this->view = new View();
+    }
+
     public function unknown()
     {
-        require '../templates/unknown.php';
+        $this->view->render('unknown');
     }
 
     public function error()
     {
-        require '../templates/error.php';
+        $this->view->render('error');
     }
 
 }

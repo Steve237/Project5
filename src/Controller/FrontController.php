@@ -3,23 +3,28 @@
 namespace App\src\Controller;
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
+use App\src\model\View;
 
 class FrontController {
 
     private $articleDAO;
     private $commentDAO;
+    private $view;
 
     public function __construct() 
     {
 
         $this->articleDAO = new ArticleDAO();
         $this->commentDAO = new CommentDAO();
+        $this->view = new View();
+    
+    
     }
 
     public function home() 
     {
 
-        require '../templates/homepage.php';
+        $this->view->render('homepage');
 
     }
 
@@ -27,7 +32,7 @@ class FrontController {
     {
 
         $article = $this->articleDAO->getArticles();
-        require '../templates/posts.php';
+        $this->view->render('posts', ['article' => $article]);
     }
 
     public function single($idArt) 
@@ -35,7 +40,10 @@ class FrontController {
 
         $singlepost = $this->articleDAO->getArticle($idArt);
         $comment = $this->commentDAO->getCommentsFromArticle($idArt);
-        require '../templates/single.php';
+        $this->view->render('single', [
+            'singlepost' => $singlepost,
+            'comment' => $comment
+        ]);
     }
 
 }

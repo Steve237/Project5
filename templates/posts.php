@@ -1,3 +1,5 @@
+<?php $this->title = 'Liste des articles'; ?>
+
 <section id="portfolio" class="list_post">
     <div class="container">
         <div class="row">
