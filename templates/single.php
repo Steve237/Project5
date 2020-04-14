@@ -8,39 +8,35 @@
             </a>
         </div>
 
-        <?php
-        $data = $singlepost->fetch()
-        ?>
+
        
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="modal-body">
 
-                        <h2><?= htmlspecialchars($data['titreArticle'])?></h2>
+                        <h2><?= htmlspecialchars($singlepost->getTitreArticle())?></h2>
                         <hr class="star-primary">
-                        <p style='text-align:left'><?= htmlspecialchars($data['descriptifArticle'])?></p>
-                        <img src="<?= htmlspecialchars($data['imageArticle'])?>" class="img-responsive img-centered" alt="image_article">
-                        <p style='text-align:left'><?= nl2br(htmlspecialchars($data['contenu']))?></p>
+                        <p style='text-align:left'><?= htmlspecialchars($singlepost->getDescriptifArticle())?></p>
+                        <img src="<?= htmlspecialchars($singlepost->getImageArticle())?>" class="img-responsive img-centered" alt="image_article">
+                        <p style='text-align:left'><?= nl2br(htmlspecialchars($singlepost->getContenu()))?></p>
                         <ul class="list-inline item-details">
                             <li>Auteur:
-                                <strong><?= htmlspecialchars($data['pseudoAuteur'])?></strong>
+                                <strong><?= htmlspecialchars($singlepost->getPseudoAuteur())?></strong>
                             </li>
                             <li>Date de mise à jour:
-                                <strong><?= htmlspecialchars($data['dateModification'])?></strong>
+                                <strong><?= htmlspecialchars($singlepost->getDateModification())?></strong>
                             </li>
                         </ul>
-        <?php
-        $singlepost->closeCursor();
-        ?>
+
                         
                         <h3>Laissez un commentaire </h3>
 
                         <?php
-                        while($datas = $comment->fetch())
+                        foreach($comment as $comment)
                         {
                             ?>
-                            <form action="index.php?action=post&amp;id=<?= $datas['idPost']?>" id="comment" method="post">
+                            <form action="index.php?action=post&amp;id=<?= $comment->getIdPost()?>" id="comment" method="post">
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label for="pseudo_user">Votre pseudo</label>
@@ -70,17 +66,15 @@
                         
                             <div class="list_comments" >
 
-                                <p>Auteur du commentaire : <?= htmlspecialchars($datas['pseudoAuteur'])?></p>
-                                <p><?= htmlspecialchars($datas['contenuCommentaire'])?></p>
-                                <p>Date du commentaire : <?= htmlspecialchars($datas['dateCreation'])?></p>
+                                <p>Auteur du commentaire : <?= htmlspecialchars($comment->getPseudoAuteur()); ?></p>
+                                <p><?= htmlspecialchars($comment->getContenuCommentaire());?></p>
+                                <p>Date du commentaire : <?= htmlspecialchars($comment->getDateCreation());?></p>
 
                             </div>
 
                             <?php
                         
                         }
-                        
-                        $comment->closeCursor();
                         
                         ?>
                         

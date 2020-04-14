@@ -10,40 +10,40 @@
 
         <div class="row">
             <?php
-            while($data = $article->fetch()) 
+            foreach($article as $article) 
             {
             ?>
                 <div class="col-sm-6 col-md-4 col-lg-4 portfolio-item">
-                    <a href="../public/index.php?action=article&amp;id=<?= $data['idPost']?>&amp;titre=<?= $data['titreArticle']?>" class="portfolio-link">
+                    <a href="../public/index.php?action=article&amp;id=<?= $article->getIdPost() ?>&amp;titre=<?= $article->getTitreArticle()?>" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
                                 <h6 class="hidden-sm hidden-md hidden-lg">
-                                    <?= htmlspecialchars($data['titreArticle'])?>
+                                    <?= htmlspecialchars($article->getTitreArticle())?>
                                 </h6>
 
                                 <h3 class="hidden-xs hidden-md hidden-lg">
-                                    <?= htmlspecialchars($data['titreArticle'])?>
+                                    <?= htmlspecialchars($article->getTitreArticle())?>
                                 </h3>
 
                                 <h4 class="hidden-xs hidden-sm">
-                                    <?= htmlspecialchars($data['titreArticle'])?>
+                                    <?= htmlspecialchars($article->getTitreArticle())?>
                                 </h4>
 
                                 <p class="description_text">
-                                    <?= htmlspecialchars($data['descriptifArticle'])?>
+                                    <?= htmlspecialchars($article->getDescriptifArticle())?>
                                 </p>
 
                                 <p class="titre">
-                                    <?='Modifié le : ' . htmlspecialchars($data['dateModification'])?>
+                                    <?='Modifié le : ' . htmlspecialchars($article->getDateModification())?>
                                 </p>
                             </div>
                         </div>
-                        <img src="<?= htmlspecialchars($data['imageArticle'])?>" class="img-responsive" alt="image_article">
+                        <img src="<?= htmlspecialchars($article->getImageArticle())?>" class="img-responsive" alt="image_article">
                     </a>
                 </div>
                 <?php
             }
-            $article->closeCursor();
+            
             ?> 
         </div>
     </div>

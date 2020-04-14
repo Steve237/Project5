@@ -1,6 +1,8 @@
 <?php
 
-class News
+namespace App\src\model;
+
+class Article
 {
     private $_idPost;
     private $_titreArticle;
@@ -36,6 +38,9 @@ class News
     }
 
 
+    /**
+     * @return int
+     */
     public function getIdPost()
     {
         return $this->_idPost;
@@ -43,6 +48,9 @@ class News
     }
 
 
+    /**
+     * @return string
+     */
     public function getTitreArticle()
     {
         return $this->_titreArticle;
@@ -50,6 +58,9 @@ class News
     }
 
 
+    /**
+     * @return string
+     */
     public function getPseudoAuteur()
     {
         return $this->_pseudoAuteur;
@@ -57,6 +68,9 @@ class News
     }
 
 
+    /**
+     * @return string
+     */
     public function getDescriptifArticle()
     {
         return $this->_descriptifArticle;
@@ -64,12 +78,18 @@ class News
     }
 
 
+    /**
+     * @return string
+     */
     public function getContenu()
     {
         return $this->_contenu;
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getDateModification()
     {
         return $this->_dateModification;
@@ -77,6 +97,9 @@ class News
     }
 
 
+    /**
+     * @return string
+     */
     public function getImageArticle()
     {
         return $this->_imageArticle;
@@ -84,12 +107,20 @@ class News
     }
 
     
+    /**
+     * @return string
+     */
     public function getNomImage()
     {
         return $this->_nomImage;
 
     }
 
+    /**
+     * @param mixed $idPost
+     * 
+     * @return int
+     */
     public function setIdPost($idPost)
     {
 
@@ -104,6 +135,11 @@ class News
     }
 
 
+    /**
+     * @param mixed $titreArticle
+     * 
+     * @return string
+     */
     public function setTitreArticle($titreArticle)
     {
         // On vérifie qu'il s'agit bien d'une chaîne de caractères.
@@ -113,6 +149,11 @@ class News
         }
     }
 
+    /**
+     * @param mixed $pseudoAuteur
+     * 
+     * @return string
+     */
     public function setPseudoAuteur($pseudoAuteur)
     {
 
@@ -123,6 +164,11 @@ class News
     }
 
 
+    /**
+     * @param mixed $descriptifArticle
+     * 
+     * @return string
+     */
     public function setDescriptifArticle($descriptifArticle)
     {
 
@@ -133,6 +179,11 @@ class News
     }
 
 
+    /**
+     * @param mixed $contenu
+     * 
+     * @return string
+     */
     public function setContenu($contenu)
     {
 
@@ -143,6 +194,11 @@ class News
     }
 
 
+    /**
+     * @param mixed $dateModification
+     * 
+     * 
+     */
     public function setDateModification($dateModification)
     {
 
@@ -150,6 +206,11 @@ class News
     }
 
     
+    /**
+     * @param mixed $imageArticle
+     * 
+     * @return string
+     */
     public function setImageArticle($imageArticle)
     {
 
@@ -158,6 +219,11 @@ class News
     }
 
     
+    /**
+     * @param mixed $nomImage
+     * 
+     * @return string
+     */
     public function setNomImage($nomImage)
     {
 
