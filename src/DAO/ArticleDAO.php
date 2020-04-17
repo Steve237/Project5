@@ -1,5 +1,5 @@
 <?php
-namespace App\src\Dao;
+namespace App\src\DAO;
 
 use App\src\model\Article;
 
@@ -31,10 +31,6 @@ class ArticleDAO extends DAO
         return $this->buildObject($row);
     }
 
-    
-    
-    
-    
     private function buildObject(array $row)
     {
         $article = new Article();

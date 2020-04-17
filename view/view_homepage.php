@@ -1,13 +1,13 @@
-<?php session_start(); ?>
-<?php $this->title = 'Accueil'; ?>
+<?php $title = 'Mon blog'; ?>
 
+<?php ob_start(); ?>
 
 <!-- Header -->
 <header>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <img class="img-responsive" src="../public/img/steve_essama.jpg" alt="webmaster">
+                <img class="img-responsive" src="public/img/steve_essama.jpg" alt="webmaster">
                 <div class="intro-text">
                     <span class="name">Steve Essama</span>
                     <hr class="star-light">
@@ -71,7 +71,7 @@
                 </div>
                 <?php endif; ?>
 
-                <form action="../public/index.php?action=sendmail" id="formContact" method="post">
+                <form action="index.php?action=sendmail" id="formContact" method="post">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="name">Votre nom</label>
@@ -106,6 +106,9 @@
     </div>
 </section>
 
+
+<?php $content = ob_get_clean(); ?>
+<?php require('template.php'); ?>
 <?php  
 unset($_SESSION['success']);  
 unset($_SESSION['errors']); 

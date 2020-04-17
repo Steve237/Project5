@@ -38,7 +38,7 @@ function sendMail()
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
         $headers .= 'FROM:' . htmlspecialchars($_POST['email']);
-        $to = 'espiritokamer237@gmail.com';
+        $to = 'adouessono@steveessama.com';
         $subject = 'Message envoyé par ' . htmlspecialchars($_POST['name']) .' - <i>' . htmlspecialchars($_POST['email']) .'</i>';
         $message_content = '
             <table>
@@ -66,7 +66,7 @@ function listPosts()
 {
 
     $newsList = new NewsManager(); // Création d'un objet
-    $newsList->getListPosts(); //Appel d'une fonction de cet objet
+    $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
     require ABSOLUTE_PATH.'/view/view_listposts.php';
 }
 
@@ -74,10 +74,9 @@ function post()
 {
 
     $post = new NewsManager();
-    
+    $post = new NewsManager();
 
     $news = $post->getPostById($_GET['id']);
-    
     $commentManager = new CommentManager();
     $listComments = $commentManager->getListCommentById($_GET['id']);
     

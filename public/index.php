@@ -1,5 +1,4 @@
 <?php
-
 require '../config/Autoloader.php';
 require '../config/dev.php';
 \App\config\Autoloader::register();

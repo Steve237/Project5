@@ -10,12 +10,12 @@
         <title><?= $title ?></title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Theme CSS -->
-        <link href="public/css/freelancer.css" rel="stylesheet">
+        <link href="../public/css/freelancer.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
-        <link href="public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="../public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -45,9 +45,7 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                    <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
-                    
-                    <?php endif; ?>
+                  
                     
 
 
@@ -58,15 +56,7 @@
                         <li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
                         <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
                         
-                        <?php if (array_key_exists('success_connect', $_SESSION)): ?>
-                        <li class="page_scroll"><form class="" action="index.php?action=disconnected" method="post">
-                        <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button></form></li>
-                        <?php endif; ?>
                         
-                        <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
-                        <li class="page_scroll"><form class="" action="index.php?action=disconnected" method="post">
-                        <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button></form></li>
-                        <?php endif; ?>
 
                     </ul>
                     <!-- /.navbar-collapse -->
@@ -135,18 +125,18 @@
 
 
         <!-- jQuery -->
-        <script src="public/vendor/jquery/jquery.min.js"></script>
+        <script src="../public/vendor/jquery/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
-        <script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../public/vendor/bootstrap/js/bootstrap.min.js"></script>
         <!-- Plugin JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
         <!-- Contact Form JavaScript -->
-        <script src="public/js/jqBootstrapValidation.js"></script>
-        <script src="public/js/contact_me.js"></script>
+        <script src="../public/js/jqBootstrapValidation.js"></script>
+        <script src="../public/js/contact_me.js"></script>
 
         <!-- Theme JavaScript -->
-        <script src="public/js/freelancer.min.js"></script>
+        <script src="../public/js/freelancer.min.js"></script>
 
 
 
