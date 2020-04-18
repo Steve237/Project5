@@ -45,10 +45,6 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                  
-                    
-
-
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden"><a href="#page-top"></a></li>
                         <li><a href="index.php">Accueil</a></li>
@@ -56,7 +52,10 @@
                         <li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
                         <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
                         
-                        
+                        <?php if (array_key_exists('success_connect', $_SESSION)): ?>
+                        <li class="page_scroll"><form class="" action="index.php?action=disconnected" method="post">
+                        <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button></form></li>
+                        <?php endif; ?>   
 
                     </ul>
                     <!-- /.navbar-collapse -->

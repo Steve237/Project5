@@ -176,10 +176,56 @@ class BackController {
         
     }
     
-    public function connexion() {
+    public function connexion() { 
 
+        $errors = array();
+        
+        if(isset($_POST['email']) AND isset($_POST['password'])) {
 
-        $this->view->render('connection');
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+
+            $checkLogin = new UsersDAO();
+            $verifLogin = $checkLogin->checkEmail($email);
+
+            $checkPass = new UsersDAO();
+            $verifPass = $checkPass->checkPassword($email);
+            
+            if(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $verifLogin == null ) {
+
+                $errors ['email'] = "Adresse email non renseigné ou invalide";
+
+            }
+
+        
+            if(empty($password) || $verifPass == false) {
+
+                $errors ['password'] = "Mot de passe invalide ou non renseigné";
+
+            }
+
+            if(!empty($errors)) {
+            
+                session_start();
+                $_SESSION['errors'] = $errors;
+
+                header('Location:../public/index.php?action=connexion');
+
+            }
+
+            else {
+            
+                session_start();
+                $_SESSION['success_connect'] = 1;
+                $this->view->render('adminspace');
+            
+            }
+        }  
+        
+        else {
+                
+                $this->view->render('connexion');
+        }  
+            
     }
-
 }

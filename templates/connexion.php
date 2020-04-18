@@ -39,7 +39,7 @@
                 <?php endif; ?>   
 
 
-               <form action="index.php?action=connection" id="formConnexion" method="post" class="col-xs-12">
+               <form action="../public/index.php?action=connexion" id="formConnexion" method="post" class="col-xs-12">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="email">Votre adresse email</label>

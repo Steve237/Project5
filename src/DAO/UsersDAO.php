@@ -30,6 +30,17 @@ public function checkEmail($email) {
     return $result2->fetch();
 }
 
+public function checkPassword($email) {
+
+    $sql = 'SELECT password FROM membres WHERE email = ?';
+    $result3 = $this->sql($sql, [$email]);
+    $salut = $result3->fetch();
+    $salutami = new Users();
+    $salutami->hydrate($salut);
+    $isPasswordCorrect = password_verify($_POST['password'], $salut['password']);
+    return $isPasswordCorrect;
+}
+
 public function addKey($confirmkey, $pseudo)
 {
     $sql = 'UPDATE membres SET confirmKey = ? WHERE pseudo = ?';
