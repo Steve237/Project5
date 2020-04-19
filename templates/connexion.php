@@ -38,6 +38,12 @@
                 </div>
                 <?php endif; ?>   
 
+                <?php if (array_key_exists('success', $_SESSION)): ?>
+                <div class="alert alert-success">
+                    Votre mot de passe a été mis à jour, vous pouvez vous connecter.
+                </div>
+                <?php endif; ?>   
+
 
                <form action="../public/index.php?action=connexion" id="formConnexion" method="post" class="col-xs-12">
                     <div class="row control-group">
@@ -62,8 +68,8 @@
                     </div>
 
                 </form>
-                <p><a href="index.php?action=recovery_pass">Cliquez ici si vous avez oublié votre mot de passe</a></p>
-                <p> Si vous n'avez pas encore de compte, <a href="index.php?action=inscription">inscrivez vous.</a></p>
+                <p><a href="../public/index.php?action=recoverypass">Cliquez ici si vous avez oublié votre mot de passe</a></p>
+                <p> Si vous n'avez pas encore de compte, <a href="../public/index.php?action=inscription">inscrivez vous.</a></p>
             </div>
         </div>
     </div>

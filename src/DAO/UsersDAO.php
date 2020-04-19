@@ -71,4 +71,17 @@ public function confirmCount($pseudo)
     $this->sql($sql, [$pseudo]);
 }
 
+
+public function recoveryCode($recoverypass, $email) 
+{
+    $sql = 'UPDATE membres SET recoveryCode = ? WHERE email = ?';
+    $this->sql($sql, [$recoverypass, $email]);
+}
+
+public function updatePass($password, $email) 
+{
+    $sql = 'UPDATE membres set password = ? WHERE email = ?';
+    $this->sql($sql, [password_hash($password, PASSWORD_DEFAULT), $email]);
+}
+
 }

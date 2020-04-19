@@ -228,4 +228,141 @@ class BackController {
         }  
             
     }
+
+    public function recoveryPass() {
+
+        $errors = array();
+
+        if (isset($_GET['section'])) {
+        
+            $section = htmlspecialchars($_GET['section']);   
+        }
+        
+        else {
+        
+            $section=""; 
+        }
+
+        
+        if(isset($_POST['recoverysubmit'])) {   
+        
+            $recoverysubmit = htmlspecialchars($_POST['recoverysubmit']); 
+            
+            $email = htmlspecialchars($_POST['email']);   
+            
+            $verifEmail = new UsersDAO();
+            $nbEmail = $verifEmail->checkEmail($email);
+
+            if (!array_key_exists('email', $_POST) || empty($email) 
+            || $nbEmail == null || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                
+                $errors ['email'] = "adresse email non renseigné ou inconnu du système";
+                header('Location: index.php?action=recoverypass');
+            }
+
+            if (!empty($errors)) {
+                
+                $_SESSION['errors'] = $errors;
+            }     
+
+            else {
+                
+                $_SESSION['email'] = $email;
+                $recoveryPass = sha1(time());
+                $_SESSION['recoverypass'] = $recoveryPass;
+                
+                $updateRecovery = new UsersDAO();
+                $updateRecovery->recoveryCode($recoveryPass, $email);
+                
+                
+                $header="MIME-Version: 1.0\r\n";
+                $header.='From:"Blog de Steve Essama"<adouessono@steveessama.com>'."\n";
+                $header.='Content-Type:text/html; charset="utf-8"'."\n";
+                $header.='Content-Transfer-Encoding: 8bit';
+                $message = '
+                <html>
+                    <head>
+                        <title>Récupération de mot de passe</title>
+                        <meta charset="utf-8" />
+                    </head>
+                    <body>
+                        <font color="#303030";>
+                            <div align="center">
+                                <table width="600px">
+                                    <tr>
+                                        <td>
+                                            <p align="center">
+                                                Bonjour, vous avez indiqué avoir oublié votre mot de passe 
+                                            </p>
+                                            <p>
+                                                <a href="localhost/project5/public/index.php?action=recoverypass&amp;section=updatepassword&code='.$recoveryPass.'" target="_blank">
+                                                Cliquez ici pour réinitialiser votre mot de passe</a></br>
+                                                A bientôt sur <a href="../public/index.php/">Notre blog!</a> 
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <font size="2">
+                                                Ceci est un email automatique, merci de ne pas y répondre
+                                            </font>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </font>
+                    </body>
+                </html>
+                ';
+               
+                mail($email, "Récupération de mot de passe", $message, $header);
+                $_SESSION['success'] = 1;
+                
+            }
+        }
+        
+        if (isset($_POST['pass_submit'])) {
+        
+            sleep(1); 
+            $submitPass = htmlspecialchars($_POST['pass_submit']); 
+            
+            if (isset($_POST['newpass'], $_POST['confirmpass'])) {
+                $newPass = htmlspecialchars($_POST['newpass']);
+                $confirmPass = htmlspecialchars($_POST['confirmpass']);
+                
+                if (empty($_POST['newpass']) || empty($_POST['confirmpass'])) {
+
+                    $errors ['newpass'] = "veuillez entrer votre nouveau mot de passe";
+                    header('Location: index.php?action=recoverypass&section=updatepassword');
+                }
+                
+                else {
+                    
+                    if ($newPass == $confirmPass) {
+                    
+                        $updatePass = new UsersDAO();
+                        $updatePass->updatePass($newPass, $email);
+                        $_SESSION['success'] = 1;
+                        header('Location: index.php?action=connexion');
+                    }
+                
+                    else {
+                        
+                        $errors ['newpass'] = "Les deux mots de passe ne correspondent pas";
+                        header('Location: index.php?action=recoverypass&section=updatepassword');
+                        
+                    }
+                }      
+               
+            }
+            
+            if (!empty($errors)) {
+                
+                $_SESSION['errors'] = $errors;
+            }  
+               
+        }
+            
+        $this->view->render('recoverypass', ['section' => $section]);
+    }
 }

@@ -61,6 +61,10 @@ class Router
 
                     $this->backController->connexion();
                 }
+                elseif($_GET['action'] === 'recoverypass') {
+
+                    $this->backController->recoveryPass();
+                }
             
             }
             else{
