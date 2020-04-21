@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php $title = 'Récupération du mot de passe'; ?>
+<?php $this->title = 'Récupération du mot de passe'; ?>
 
 <!-- Contact Section -->
 <section id="contact" class="connection-form">

@@ -38,7 +38,7 @@ class NewsManager extends Manager
     {
 
         $dtb = $this->dbConnect();
-        $query = $dtb->prepare('UPDATE articles SET pseudoAuteur=:pseudoAuteur, titreArticle=:titreArticle, descriptifArticle=:descriptifArticle,                       contenu=:contenu, dateModification=NOW(), imageArticle=:imageArticle, nomImage=:nomImage WHERE idPost=:idPost');
+        $query = $dtb->prepare('UPDATE articles SET pseudoAuteur=:pseudoAuteur, titreArticle=:titreArticle, descriptifArticle=:descriptifArticle, contenu=:contenu, dateModification=NOW(), imageArticle=:imageArticle, nomImage=:nomImage WHERE idPost=:idPost');
         $query->bindValue(':pseudoAuteur', $_POST['post_author']);
         $query->bindValue(':titreArticle', $_POST['post_title']);
         $query->bindValue(':descriptifArticle', $_POST['resume_post']);

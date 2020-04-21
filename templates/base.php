@@ -47,15 +47,28 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden"><a href="#page-top"></a></li>
-                        <li><a href="index.php">Accueil</a></li>
-                        <li class="page-scroll"><a href="index.php?action=listposts"> Nos articles </a></li>
-                        <li class="page_scroll"><a href="index.php?action=connection"> Espace membres </a></li>
-                        <li class="page_scroll"><a href="index.php?action=connect_admin"> Espace administrateur </a></li>
+                        <li><a href="../public/index.php">Accueil</a></li>
+                        <li class="page-scroll"><a href="../public/index.php?action=listposts"> Nos articles </a></li>
+                        <li class="page_scroll"><a href="../public/index.php?action=connexion"> Espace membres </a></li>
                         
+
+                   
                         <?php if (array_key_exists('success_connect', $_SESSION)): ?>
-                        <li class="page_scroll"><form class="" action="index.php?action=disconnected" method="post">
-                        <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button></form></li>
+                        <li class="page_scroll">
+                            <form class="" action="../public/index.php?action=disconnect" method="post">
+                                <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
+                            </form>
+                        </li>
                         <?php endif; ?>   
+
+
+                        <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
+                        <li class="page_scroll">
+                            <form class="" action="../public/index.php?action=disconnect" method="post">
+                                <button style="color:red;margin-left:13px" type="submit" class="btn btn-success btn-default" name="disconnect">Déconnexion</button>
+                            </form>
+                        </li>
+                        <?php endif; ?>  
 
                     </ul>
                     <!-- /.navbar-collapse -->
@@ -97,7 +110,17 @@
                             <div class="footer-col col-md-4">
                                 <h3>Administration du site</h3>
                                 <p>
-                                    <a href="index.php?action=connect_admin"> Accédez à l'espace administrateur </a>
+                                    <?php if (!array_key_exists('success_connect1', $_SESSION)): ?>
+                                    <a href="../public/index.php?action=adminconnection"> Accédez à l'espace administrateur </a>
+                                    <?php endif;?>
+                                
+                                    <?php if (array_key_exists('success_connect1', $_SESSION)): ?>
+                                    <li class="page_scroll"><a href="../public/index.php?action=adminspace"> Espace administrateur </a></li>
+                                    <?php endif; ?>  
+            
+                                
+                                
+                                
                                 </p>
                             </div>
                         </div>

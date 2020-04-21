@@ -5,14 +5,17 @@ $token = bin2hex(openssl_random_pseudo_bytes(6));
     
 $_SESSION['token'] = $token;
 
+if(!array_key_exists('success_connect1', $_SESSION)) {
+
+    header('Location:../public/index.php');
+
+}
 ?>
 
-<?php $title = 'Mon blog'; ?>
-
-<?php ob_start(); ?>
+<?php $title = 'Espace Administrateur'; ?>
 
 <h2 class="admin_title">Espace administrateur</h2>
-<h3 class="admin_title"> Liste des articles </h3>
+<h3 class="admin_list"> Liste des articles </h3>
 
 
 <div class="container">
@@ -42,12 +45,12 @@ $_SESSION['token'] = $token;
     <?php endif; ?>
 
 
-    <a href="index.php?action=add_article"><button type="button" class="btn btn-primary">Ajouter un article</button></a>
+    <a href="../public/index.php?action=addarticle"><button type="button" class="btn btn-primary">Ajouter un article</button></a>
     <a href="index.php?action=manage_comment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
 
     <?php
 
-    foreach ($newsList->getListPosts() as $news) {
+    foreach ($news as $news) {
 
         ?>
 
@@ -61,8 +64,8 @@ $_SESSION['token'] = $token;
                 <?= $news->getDescriptifArticle() ?>
             </p>
 
-            <a href="index.php?action=update_post&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
-            <form action="index.php?action=delete_post&amp;id=<?= $news->getIdPost()?>" method="post">
+            <a href="../public/index.php?action=updatepost&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
+            <form action="../public/index.php?action=deletepost&amp;id=<?= $news->getIdPost()?>" method="post">
                 <input type="submit" value="Supprimer" class="btn btn-primary delete_post">
                 <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
             </form>
@@ -75,10 +78,6 @@ $_SESSION['token'] = $token;
     ?>
 
 </div>
-
-
-<?php $content = ob_get_clean(); ?>
-<?php require('template.php'); ?>
 
 <?php
 unset($_SESSION['insert_success']);

@@ -296,7 +296,7 @@ function connectionAdmin()
     
     if (array_key_exists('success_connect1', $_SESSION)) {
         
-        header('Location: index.php?action=admin_space');
+        header('Location: ../public/index.php?action=adminspace');
         
     }
     

@@ -1,6 +1,6 @@
-
 <?php session_start(); ?>
-<?php $this->title = 'Connexion à l\'espace membre'; ?>
+
+<?php $title = "Connexion à l'espace administrateur"; ?>
 
 <!-- Contact Section -->
 <section id="contact" class="connection-form">
@@ -11,7 +11,6 @@
                 <hr class="star-primary">
             </div>
         </div>
-
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <?php if (array_key_exists('errors', $_SESSION)): ?>
@@ -20,32 +19,7 @@
                 </div>
                 <?php endif; ?>
 
-                <?php if (array_key_exists('activation', $_SESSION)): ?>
-                <div class="alert alert-danger">
-                    Vous aviez déjà confirmé votre inscription, connectez vous.
-                </div>
-                <?php endif; ?>
-
-                <?php if (array_key_exists('confirmation', $_SESSION)): ?>
-                <div class="alert alert-danger">
-                    Votre compte est désormais activé, vous pouvez vous connecter
-                </div>
-                <?php endif; ?>    
-
-                <?php if (array_key_exists('erroractivation', $_SESSION)): ?>
-                <div class="alert alert-danger">
-                    Erreur d'activation, le lien n'est pas valide.
-                </div>
-                <?php endif; ?>   
-
-                <?php if (array_key_exists('success', $_SESSION)): ?>
-                <div class="alert alert-success">
-                    Votre mot de passe a été mis à jour, vous pouvez vous connecter.
-                </div>
-                <?php endif; ?>   
-
-
-               <form action="../public/index.php?action=connexion" id="formConnexion" method="post" class="col-xs-12">
+                <form action="../public/index.php?action=adminconnection" id="form_admin" method="post" class="col-xs-12">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="email">Votre adresse email</label>
@@ -63,13 +37,12 @@
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg" name="connection">Envoyer</button>
+                            <button type="submit" class="btn btn-success btn-lg" name="connectadmin">Envoyer</button>
                         </div>
                     </div>
-
                 </form>
-                <p><a href="../public/index.php?action=recoverypass">Cliquez ici si vous avez oublié votre mot de passe</a></p>
-                <p> Si vous n'avez pas encore de compte, <a href="../public/index.php?action=inscription">inscrivez vous.</a></p>
+                <p><a href="index.php?action=recovery_pass">Cliquez ici si vous avez oublié votre mot de passe</a></p>
+
             </div>
         </div>
     </div>
@@ -79,8 +52,4 @@
 unset($_SESSION['success']);
 unset($_SESSION['errors']);
 unset($_SESSION['success_connect1']);
-unset($_SESSION['activation']);
-unset($_SESSION['confirmation']);
-unset($_SESSION['erroractivation']);
-
 ?>

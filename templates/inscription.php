@@ -1,5 +1,5 @@
 <?php session_start();?>
-<?php $title = 'Inscription'; ?>
+<?php $this->title = 'Inscription'; ?>
 
 <!-- Contact Section -->
 <section id="contact" class="connection-form">

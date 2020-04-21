@@ -65,7 +65,42 @@ class Router
 
                     $this->backController->recoveryPass();
                 }
-            
+                elseif($_GET['action'] === 'disconnect') {
+
+                    $this->backController->disconnect();
+                }
+                elseif($_GET['action'] === 'adminconnection') {
+
+                    $this->backController->adminConnection();
+                }
+                
+                elseif($_GET['action'] === 'adminspace') {
+
+                    $this->backController->adminSpace();
+                }
+                
+                elseif($_GET['action'] === 'addarticle') {
+
+                    $this->backController->addArticle();
+                }
+                elseif($_GET['action'] === 'updatepost') {
+
+                    $this->backController->updateArticle($_GET['id']);
+                }
+                elseif($_GET['action'] === 'deletepost') {
+                    
+                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+
+                        $this->backController->deleteArticle();
+
+                    }
+
+                    else {
+                        
+                        $this->errorController->unknown();
+                    }
+                    
+                }
             }
             else{
                 

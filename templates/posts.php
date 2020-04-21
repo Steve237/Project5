@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php $this->title = 'Liste des articles'; ?>
 
 <section id="portfolio" class="list_post">
