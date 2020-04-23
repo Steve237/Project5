@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </form>
-                <p><a href="index.php?action=recovery_pass">Cliquez ici si vous avez oublié votre mot de passe</a></p>
+                <p><a href="../public/index.php?action=recoverypass">Cliquez ici si vous avez oublié votre mot de passe</a></p>
 
             </div>
         </div>

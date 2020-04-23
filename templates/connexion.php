@@ -78,7 +78,6 @@
 <?php
 unset($_SESSION['success']);
 unset($_SESSION['errors']);
-unset($_SESSION['success_connect1']);
 unset($_SESSION['activation']);
 unset($_SESSION['confirmation']);
 unset($_SESSION['erroractivation']);

@@ -1,9 +1,13 @@
 <?php
-session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}
 
-$token = bin2hex(openssl_random_pseudo_bytes(6));
-    
-$_SESSION['token'] = $token;
+if(!array_key_exists('success_connect1', $_SESSION)) {
+
+    header('Location:../public/index.php');
+
+}
 
 ?>
 
@@ -75,9 +79,7 @@ $_SESSION['token'] = $token;
                             <input type="file" name="image_post" id="image" class="form-control">
                         </div>
                     </div>
-                    <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
                     <br>
-                    
                     <div class="row">
                         <div class="form-group col-xs-12">
                             <button type="submit" class="btn btn-success btn-lg" name="add_new">Ajouter</button>

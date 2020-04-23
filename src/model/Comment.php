@@ -1,6 +1,7 @@
 <?php
 
 namespace App\src\model;
+use App\src\DAO\ArticleDAO;
 
 class Comment
 {
@@ -10,7 +11,6 @@ class Comment
     private $_contenuCommentaire;
     private $_dateCreation;
     private $_validation;
-
 
     public function __construct($valeurs = [])
     {
@@ -119,7 +119,6 @@ class Comment
             $this->_contenuCommentaire = $contenuCommentaire;
         }
     }
-
 
     public function setDateCreation($dateCreation)
     {

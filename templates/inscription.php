@@ -21,7 +21,8 @@
 
                 <?php if (array_key_exists('success', $_SESSION)): ?>
                 <div class="alert alert-success">
-                    Vous êtes désormais inscrit, <a href="index.php?action=connection">connectez vous</a>!
+                Pour confirmer votre inscription veuillez cliquez 
+                sur lien d'activation que nous vous avons envoyé par mail.
                 </div>
                 <?php endif; ?>
 

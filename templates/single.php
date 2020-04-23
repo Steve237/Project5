@@ -1,4 +1,8 @@
-<?php session_start();?>
+<?php if(!isset($_SESSION)) {
+session_start();
+}
+?>
+
 <?php $this->title = 'Article'; ?>
 
 <!-- Portfolio Modals -->
@@ -36,49 +40,59 @@
                         <h3>Laissez un commentaire </h3>
 
                         <?php
-                        foreach($comment as $comment)
-                        {
+                        if(array_key_exists('allowcomments', $_SESSION)) {
                             ?>
-                            <form action="index.php?action=post&amp;id=<?= $comment->getIdPost()?>" id="comment" method="post">
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label for="pseudo_user">Votre pseudo</label>
-                                    <input required placeholder="Entrez votre pseudo" type="text" name="pseudo" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="row control-group">
-                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label for="commentaire">Entrez votre commentaire</label>
-                                    <textarea name="user_comment" class="form-control">Entrez votre commentaire</textarea>
-                                </div>
-                            </div>
-
-                            <br>
-                            <div id="success"></div>
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <button type="submit" class="btn btn-success btn-lg" name="submit_comment">Envoyer</button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                        <h3>Liste des commentaires</h3>
-
                         
-                            <div class="list_comments" >
+                            <form action="index.php?action=post&amp;id=<?= $singlepost->getIdPost()?>" id="comment" method="post">
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label for="pseudo_user">Votre pseudo</label>
+                                        <input required placeholder="Entrez votre pseudo" type="text" name="pseudo" class="form-control">
+                                    </div>
+                                </div>
 
-                                <p>Auteur du commentaire : <?= htmlspecialchars($comment->getPseudoAuteur()); ?></p>
-                                <p><?= htmlspecialchars($comment->getContenuCommentaire());?></p>
-                                <p>Date du commentaire : <?= htmlspecialchars($comment->getDateCreation());?></p>
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label for="commentaire">Entrez votre commentaire</label>
+                                        <textarea name="user_comment" class="form-control">Entrez votre commentaire</textarea>
+                                    </div>
+                                </div>
 
-                            </div>
+                                <br>
+                            
+                                <div class="row">
+                                    <div class="form-group col-xs-12">
+                                        <button type="submit" class="btn btn-success btn-lg" name="submit_comment">Envoyer</button>
+                                    </div>
+                                </div>
 
+                            </form>
+
+                            <h3>Liste des commentaires</h3>
+                        
                             <?php
+                            foreach($comment as $comment)
+                            {
+                                ?>
+                                <div class="list_comments" >
+
+                                    <p>Auteur du commentaire : <?= htmlspecialchars($comment->getPseudoAuteur()); ?></p>
+                                    <p><?= htmlspecialchars($comment->getContenuCommentaire());?></p>
+                                    <p>Date du commentaire : <?= htmlspecialchars($comment->getDateCreation());?></p>
+
+                                </div>
+
+                                <?php
+                            }
                         
                         }
-                        
+                        else {
+                            
+                            ?>
+                            <p>Veuillez vous <a href = "../public/index.php?action=connexion">connecter pour poster un commentaire<p></a>
+
+                            <?php
+                        }
                         ?>
                         
 

@@ -1,8 +1,11 @@
 <?php
+session_start();
 
-$token = bin2hex(openssl_random_pseudo_bytes(6));
-    
-$_SESSION['token'] = $token;
+if(!array_key_exists('success_connect1', $_SESSION)) {
+
+    header('Location:../public/index.php');
+
+}
 
 ?>
 
@@ -76,7 +79,6 @@ $_SESSION['token'] = $token;
                         </div>
                     </div>
                     <br>
-                    <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
                     
                     <div class="row">
                         <div class="form-group col-xs-12">

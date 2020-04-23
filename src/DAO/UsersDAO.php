@@ -80,7 +80,7 @@ class UsersDAO extends DAO
 
     public function updatePass($password, $email) 
     {
-        $sql = 'UPDATE membres set password = ? WHERE email = ?';
+        $sql = 'UPDATE membres SET password = ? WHERE email = ?';
         $this->sql($sql, [password_hash($password, PASSWORD_DEFAULT), $email]);
     }
 
@@ -92,7 +92,8 @@ class UsersDAO extends DAO
     }
 
 
-    public function checkAdminPass($email) {
+    public function checkAdminPass($email) 
+    {
 
         $sql = 'SELECT password FROM membres WHERE email = ? AND admin = 1';
         $resultpass = $this->sql($sql, [$email]);
@@ -102,16 +103,5 @@ class UsersDAO extends DAO
         $isPasswordCorrect = password_verify($_POST['password'], $checkpassword['password']);
         return $isPasswordCorrect;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }

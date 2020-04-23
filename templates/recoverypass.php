@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php if(!isset($_SESSION)){
+    session_start();
+}
+?>
 <?php $this->title = 'Récupération du mot de passe'; ?>
 
 <!-- Contact Section -->
@@ -13,6 +16,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <?php if ($section == 'updatepassword') { 
+                    
                     ?>
 
                     <?php if (array_key_exists('errors', $_SESSION)): ?>
@@ -44,7 +48,7 @@
                 }
 
                 else { 
-                
+                    
                     ?>
 
                     <?php if (array_key_exists('errors', $_SESSION)): ?>
@@ -53,13 +57,13 @@
                     </div>
                     <?php endif; ?>
 
-                    <?php if (array_key_exists('success', $_SESSION)): ?>
+                    <?php if (array_key_exists('sendrecovery', $_SESSION)): ?>
                     <div class="alert alert-success">
                         Vous avez reçu un lien pour rénitialiser votre mot de passe sur votre boite mail
                     </div>
                     <?php endif; ?>
 
-                    <form action="index.php?action=recoverypass" id="form_recovery" method="post">
+                    <form action="../public/index.php?action=recoverypass" id="form_recovery" method="post">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="email">Votre adresse email</label>
@@ -84,6 +88,6 @@
 
 
 <?php
-unset($_SESSION['success']);  
+unset($_SESSION['sendrecovery']);  
 unset($_SESSION['errors']);  
 ?>

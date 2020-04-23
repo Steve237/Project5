@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-$token = bin2hex(openssl_random_pseudo_bytes(6));
-    
-$_SESSION['token'] = $token;
-
 if(!array_key_exists('success_connect1', $_SESSION)) {
 
     header('Location:../public/index.php');
@@ -46,7 +42,7 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
 
 
     <a href="../public/index.php?action=addarticle"><button type="button" class="btn btn-primary">Ajouter un article</button></a>
-    <a href="index.php?action=manage_comment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
+    <a href="../public/index.php?action=managecomment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
 
     <?php
 
@@ -67,7 +63,6 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
             <a href="../public/index.php?action=updatepost&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
             <form action="../public/index.php?action=deletepost&amp;id=<?= $news->getIdPost()?>" method="post">
                 <input type="submit" value="Supprimer" class="btn btn-primary delete_post">
-                <input type="hidden" name="token" id="token" value="<?= $token ?>"/>
             </form>
         </div>
 

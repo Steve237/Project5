@@ -70,8 +70,7 @@ class FrontController {
         }
     
         else {
-            session_start();
-            $_SESSION['success'] = 1;
+            
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
             $headers .= 'FROM:' . htmlspecialchars($_POST['name']);
@@ -95,7 +94,8 @@ class FrontController {
             ';
             mail($to, $subject, $message_content, $headers);
             header('Location: index.php#formContact');
-        
+            session_start();
+            $_SESSION['success'] = 1;
         }
     }
 

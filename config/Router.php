@@ -101,6 +101,36 @@ class Router
                     }
                     
                 }
+                elseif($_GET['action'] === 'managecomment') {
+
+                    $this->backController->manageComment();
+                }
+                elseif($_GET['action'] === 'approve') {
+                    
+                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+                        
+                        $this->backController->approveComment($_GET['id']);
+                    
+                    }
+
+                    else {
+                        
+                        $this->errorController->unknown();
+                    }
+                }
+                elseif($_GET['action'] === 'deletecomment') {
+                    
+                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+                        
+                        $this->backController->deleteComment($_GET['id']);
+                    
+                    }
+
+                    else {
+                        
+                        $this->errorController->unknown();
+                    }
+                }
             }
             else{
                 
