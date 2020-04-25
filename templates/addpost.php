@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 if(!array_key_exists('success_connect1', $_SESSION)) {
 
     header('Location:../public/index.php');
@@ -17,7 +15,7 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
 <section id="contact">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-12 text-center addpost">
                 <h2>Ajouter un article </h2>
                 <hr class="star-primary">
             </div>

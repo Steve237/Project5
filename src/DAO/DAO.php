@@ -9,6 +9,9 @@ abstract class DAO
 
     private $connection;
 
+    /**
+     * Permet de vérifier l'état de la connexion.
+     */
     private function checkConnection()
     {
         //Vérifie si la connexion est nulle et fait appel à getConnection()
@@ -22,9 +25,9 @@ abstract class DAO
         return $this->connection;
     }
     
-    
-    
-    //Méthode pour gérer les requêtes à la base de données.
+    /**
+     * Méthode pour gérer les requêtes à la base de données.
+     */
     protected function sql($sql, $parameters = null)
     {
         if($parameters)
@@ -39,7 +42,10 @@ abstract class DAO
         }
     }
     
-    //Fonction de connexion à la base de données
+    
+    /**
+     * Fonction de connexion à la base de données
+     */
     public function getConnection()
     {
         //Tentative de connexion à la base de données

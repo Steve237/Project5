@@ -1,7 +1,4 @@
 <?php
-if(!isset($_SESSION)) {
-    session_start();
-}
 
 if(!array_key_exists('success_connect1', $_SESSION)) {
 
@@ -17,7 +14,7 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
 <section id="contact">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-12 text-center update_title">
                 <h2>Modifier un article </h2>
                 <hr class="star-primary">
             </div>

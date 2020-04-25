@@ -1,11 +1,9 @@
 <?php
-session_start();
 
-if(!array_key_exists('success_connect1', $_SESSION)) {
-
+if (!array_key_exists('success_connect1', $_SESSION)) {
     header('Location:../public/index.php');
-
 }
+
 ?>
 
 <?php $title = 'Espace Administrateur'; ?>
@@ -78,4 +76,5 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
 unset($_SESSION['insert_success']);
 unset($_SESSION['delete_post']);
 unset($_SESSION['success_update']);
+unset($_SESSION['success_connect']);
 ?>

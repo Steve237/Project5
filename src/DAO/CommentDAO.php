@@ -8,6 +8,11 @@ use PDO;
 class CommentDAO extends DAO 
 {
 
+    /**
+     * @param mixed $idArt
+     * 
+     * Permet l'affichage des commentaires sur chaque article.
+     */
     public function getCommentsFromArticle($idArt) 
     {
 
@@ -23,6 +28,9 @@ class CommentDAO extends DAO
         return $comments;
     }
 
+    /**
+     * Permet d'afficher la liste des commentaires sur l'espace admin
+     */
     public function getComments() 
     {
 
@@ -38,6 +46,11 @@ class CommentDAO extends DAO
     }
 
 
+    /**
+     * @param mixed $idCommentaire
+     * 
+     * Permet d'approuver les commentaires.
+     */
     public function approveComment($idCommentaire) {
 
         $sql = 'UPDATE commentaires set validation = 1 WHERE idCommentaire = ?';
@@ -46,13 +59,30 @@ class CommentDAO extends DAO
     }
 
     
+    /**
+     * @param mixed $idCommentaire
+     * 
+     * Permet la suppression des commentaires.
+     */
     public function deleteComment($idCommentaire) {
 
         $sql = 'DELETE FROM commentaires WHERE idCommentaire = ? ';
         $this->sql($sql, [$idCommentaire]);
 
     }
-    
+
+    public function addComment($idPost, $pseudo, $contenu) {
+        $sql = 'INSERT INTO commentaires(idPost, pseudoAuteur, contenuCommentaire, dateCreation) 
+        VALUES (?, ?, ?, NOW())';
+        
+        $this->sql($sql, [$idPost, $pseudo, $contenu]);
+    }
+
+    /**
+     * @param array $row
+     * 
+     * Permet l'affichage des commentaires en objet.
+     */
     private function buildObject(array $row)
     {
         $comment = new Comment();

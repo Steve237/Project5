@@ -1,7 +1,3 @@
-<?php if(!isset($_SESSION)){
-    session_start();
-}
-?>
 <?php $this->title = 'Récupération du mot de passe'; ?>
 
 <!-- Contact Section -->
@@ -35,7 +31,6 @@
                         </div>
                     </div>
                     <br>
-                    <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
                             <button type="submit" class="btn btn-success btn-lg" name="pass_submit">Valider</button>

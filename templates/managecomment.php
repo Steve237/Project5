@@ -1,12 +1,9 @@
 <?php
-session_start();
-
 if(!array_key_exists('success_connect1', $_SESSION)) {
 
     header('Location:../public/index.php');
 
 }
-
 
 ?>
 
@@ -14,7 +11,7 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
 
 
 
-<h2 style="text-align:center;margin-top:170px;margin-bottom:30px">Gestion des commentaires</h2>
+<h2 class="title_comment">Gestion des commentaires</h2>
 <div class="container pagecomments">
     <?php if (array_key_exists('comment_approved', $_SESSION)): ?>
     <div class="alert alert-success">
@@ -29,7 +26,7 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
     <?php endif; ?>    
 
 
-    <a href="../public/index.php?action=addarticle"><button type="button" class="btn btn-primary">Ajouter un article</button></a>
+    <a href="../public/index.php?action=adminspace"><button type="button" class="btn btn-primary">Gestions des articles</button></a>
     <a href="../public/index.php?action=managecomment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
     <?php
     

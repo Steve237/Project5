@@ -1,8 +1,3 @@
-<?php if(!isset($_SESSION)) {
-session_start();
-}
-?>
-
 <?php $this->title = 'Article'; ?>
 
 <!-- Portfolio Modals -->
@@ -24,9 +19,9 @@ session_start();
 
                         <h2><?= htmlspecialchars($singlepost->getTitreArticle())?></h2>
                         <hr class="star-primary">
-                        <p style='text-align:left'><?= htmlspecialchars($singlepost->getDescriptifArticle())?></p>
+                        <p class="descriptif"><?= htmlspecialchars($singlepost->getDescriptifArticle())?></p>
                         <img src="<?= htmlspecialchars($singlepost->getImageArticle())?>" class="img-responsive img-centered" alt="image_article">
-                        <p style='text-align:left'><?= nl2br(htmlspecialchars($singlepost->getContenu()))?></p>
+                        <p class="contenu"><?= nl2br(htmlspecialchars($singlepost->getContenu()))?></p>
                         <ul class="list-inline item-details">
                             <li>Auteur:
                                 <strong><?= htmlspecialchars($singlepost->getPseudoAuteur())?></strong>
@@ -36,6 +31,17 @@ session_start();
                             </li>
                         </ul>
 
+                        <?php if (array_key_exists('errors', $_SESSION)): ?>
+                        <div class="alert alert-danger">
+                            <?= implode('<br>', $_SESSION['errors']); ?>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if (array_key_exists('send_comment', $_SESSION)): ?>
+                        <div class="alert alert-success">
+                            Votre commentaire a été envoyé pour approbation.
+                        </div>
+                        <?php endif; ?>
                         
                         <h3>Laissez un commentaire </h3>
 
@@ -43,7 +49,7 @@ session_start();
                         if(array_key_exists('allowcomments', $_SESSION)) {
                             ?>
                         
-                            <form action="index.php?action=post&amp;id=<?= $singlepost->getIdPost()?>" id="comment" method="post">
+                            <form action="../public/index.php?action=article&amp;id=<?= $singlepost->getIdPost()?>" id="comment" method="post">
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label for="pseudo_user">Votre pseudo</label>
@@ -104,3 +110,7 @@ session_start();
     </div>
 </div>
 
+<?php
+unset($_SESSION['errors']);
+unset($_SESSION['send_comment']);
+?>

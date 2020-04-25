@@ -1,5 +1,12 @@
+<?php 
 
-<?php session_start(); ?>
+if (array_key_exists('success_connect', $_SESSION)) {
+
+header('Location: ../public/index.php');
+}
+
+?>
+
 <?php $this->title = 'Connexion à l\'espace membre'; ?>
 
 <!-- Contact Section -->
@@ -27,7 +34,7 @@
                 <?php endif; ?>
 
                 <?php if (array_key_exists('confirmation', $_SESSION)): ?>
-                <div class="alert alert-danger">
+                <div class="alert alert-success">
                     Votre compte est désormais activé, vous pouvez vous connecter
                 </div>
                 <?php endif; ?>    
@@ -81,5 +88,5 @@ unset($_SESSION['errors']);
 unset($_SESSION['activation']);
 unset($_SESSION['confirmation']);
 unset($_SESSION['erroractivation']);
-
+unset($_SESSION['success_connect1']);
 ?>

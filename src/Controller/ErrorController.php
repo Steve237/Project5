@@ -11,11 +11,13 @@ class ErrorController
         $this->view = new View();
     }
 
+    // Permet l'affichage de la page inconnue
     public function unknown()
     {
         $this->view->render('unknown');
     }
 
+    //Permet l'affichage de la page d'erreur
     public function error()
     {
         $this->view->render('error');

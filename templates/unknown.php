@@ -1,10 +1,7 @@
-<?php 
+<?php $title = 'Page Inconnue'; ?>
 
-
-
-echo 'page inconnu'; 
-
-
-
-
-?>
+<div class="container">
+    <section class="errorpage">
+        <h1 class="error"> Page Inconnue </h1>
+    </section>
+</div>

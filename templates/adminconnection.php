@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+if (array_key_exists('success_connect1', $_SESSION)) {
+
+header('Location: ../public/index.php?action=adminspace');
+}
+?>
 
 <?php $title = "Connexion à l'espace administrateur"; ?>
 
@@ -49,7 +54,5 @@
 </section>
 
 <?php
-unset($_SESSION['success']);
 unset($_SESSION['errors']);
-unset($_SESSION['success_connect1']);
 ?>

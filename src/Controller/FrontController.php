@@ -13,21 +13,19 @@ class FrontController {
 
     public function __construct() 
     {
-
         $this->articleDAO = new ArticleDAO();
         $this->commentDAO = new CommentDAO();
         $this->view = new View();
-    
-    
     }
 
+    //Permet l'affichage de la page d'accueil.
     public function home() 
     {
-
         $this->view->render('homepage');
-
+    
     }
 
+    //Permet l'affichage de la liste des articles.
     public function articles() 
     {
 
@@ -35,12 +33,12 @@ class FrontController {
         $this->view->render('posts', ['article' => $article]);
     }
 
+    /**
+     * Permet l'envoi d'un mail via formulaire de contact.
+     */
     public function sendMail() 
     {
-
-          
         $errors = array(); // on crée une vérif de champs
-    
         $name = htmlspecialchars($_POST['name']);
         $email = htmlspecialchars($_POST['email']);
         $message = htmlspecialchars($_POST['message']);
@@ -62,7 +60,7 @@ class FrontController {
         
         //On check les infos transmises lors de la validation
         if (!empty($errors)) { 
-            session_start();
+           
             $_SESSION['errors'] = $errors;//on stocke les erreurs
         
             header('Location: ../public/index.php#formContact');
@@ -94,21 +92,58 @@ class FrontController {
             ';
             mail($to, $subject, $message_content, $headers);
             header('Location: index.php#formContact');
-            session_start();
+            
             $_SESSION['success'] = 1;
         }
     }
 
-
+    //Permet l'affichage d'un article en particulier.
     public function single($idArt) 
     {
 
         $singlepost = $this->articleDAO->getArticle($idArt);
         $comment = $this->commentDAO->getCommentsFromArticle($idArt);
-        $this->view->render('single', [
-            'singlepost' => $singlepost,
-            'comment' => $comment
-        ]);
+        
+        if (isset($_POST['submit_comment'])) {
+        
+            $submitComment = htmlspecialchars($_POST['submit_comment']);
+            
+            $pseudo = htmlspecialchars($_POST['pseudo']);
+            $userComment = htmlspecialchars($_POST['user_comment']);
+            
+            if (!array_key_exists('pseudo', $_POST) || empty($pseudo)) {
+                
+                $errors ['pseudo'] = "Veuillez entrer un pseudo";   
+            }
+            
+            if (!array_key_exists('user_comment', $_POST) || empty($userComment)) {
+                
+                $errors ['user_comment'] = "Veuillez entrer un commentaire";   
+            }
+            
+            if (!empty($errors)) { 
+                
+                $_SESSION['errors'] = $errors;
+                header('Location: ../public/index.php?action=article&id='.$idArt.'');
+            }
+            
+            else {        
+                
+                $insertComment = $this->commentDAO->addComment($idArt, $pseudo, $userComment);
+                
+                $_SESSION['send_comment'] = 1;
+                header('Location: ../public/index.php?action=article&id='.$idArt.'');
+            }
+        }
+        
+        else {
+
+            $this->view->render('single', [
+                'singlepost' => $singlepost,
+                'comment' => $comment
+            ]);
+
+        }    
     }
 
 }

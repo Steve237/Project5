@@ -6,6 +6,9 @@ use App\src\model\Article;
 class ArticleDAO extends DAO
 {
     
+    /**
+     * Permet d'obtenir la liste des articles.
+     */
     public function getArticles()
     {
        
@@ -21,6 +24,11 @@ class ArticleDAO extends DAO
         return $articles;
     }
 
+    /**
+     * @param mixed $idArt
+     * 
+     * Permet de récupérer un article spécifique.
+     */
     public function getArticle($idArt)
     {
         $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, imageArticle FROM articles WHERE idPost = ?';
@@ -31,6 +39,16 @@ class ArticleDAO extends DAO
         return $this->buildObject($row);
     }
 
+    /**
+     * @param mixed $title
+     * @param mixed $author
+     * @param mixed $resume
+     * @param mixed $content
+     * @param mixed $image
+     * @param mixed $imagename
+     * 
+     * Permet d'ajouter un article.
+     */
     public function addArticles($title, $author, $resume, $content, $image, $imagename)
     {
         $sql = 'INSERT INTO articles (titreArticle, pseudoAuteur, descriptifArticle, contenu, dateModification, imageArticle, nomImage) VALUES (?, ?, ?, ?, NOW(), ?, ?)';
@@ -39,6 +57,17 @@ class ArticleDAO extends DAO
     }
 
     
+    /**
+     * @param mixed $title
+     * @param mixed $author
+     * @param mixed $resume
+     * @param mixed $content
+     * @param mixed $image
+     * @param mixed $imagename
+     * @param mixed $idPost
+     * 
+     * Permet la modification d'un article.
+     */
     public function updatePost($title, $author, $resume, $content, $image, $imagename, $idPost)
     {
 
@@ -48,6 +77,11 @@ class ArticleDAO extends DAO
     }
     
     
+    /**
+     * @param mixed $idPost
+     * 
+     * Permet la suppression d'un article.
+     */
     public function deletePost($idPost) {
 
         $sql = 'DELETE FROM articles WHERE idPost = ? ';
@@ -55,6 +89,11 @@ class ArticleDAO extends DAO
 
     }
     
+    /**
+     * @param array $row
+     * 
+     * Permet l'affichage des articles en objet.
+     */
     private function buildObject(array $row)
     {
         $article = new Article();

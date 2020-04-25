@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <?php $this->title = 'Accueil'; ?>
 
 
@@ -31,12 +30,18 @@
         <div class="row">
             <div class="col-lg-4 col-lg-offset-2">
                 <p>
-                    Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise des sites web en utilisant divers langages de développement, notamment                           le Php. Ce site est l'une de mes conceptions, visant à exposer mes talents et à partager des articles sur divers thèmes.
+                    Je soussigné Steve Essama, je suis agé de 27 ans, et je réalise 
+                    des sites web en utilisant divers langages de développement, 
+                    notamment le Php. Ce site est l'une de mes conceptions, 
+                    visant à exposer mes talents et à partager des articles sur divers thèmes.
                 </p>
             </div>
             <div class="col-lg-4">
                 <p>
-                    Ma passion pour l'informatique et mon désir de devenir développeur web professionel m'ont conduit à démarrer une formation,                                     sur Openclassroom, afin d'obtenir le titre professionel de développeur d'applications en Php Symfony.
+                    Ma passion pour l'informatique et mon désir de devenir développeur 
+                    web professionel m'ont conduit à démarrer une formation,                                     
+                    sur Openclassroom, afin d'obtenir le titre professionel de développeur 
+                    d'applications en Php Symfony.
                 </p>
             </div>
 

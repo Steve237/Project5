@@ -21,6 +21,7 @@ class BackController {
         $this->commentDAO = new CommentDAO();
     }
 
+    // Méthode pour l'inscription d'un nouveau membre
     public function inscription()
     {
         $errors = array();
@@ -74,15 +75,14 @@ class BackController {
         }
         
         if (!empty($errors)) {
-            session_start();
             $_SESSION['errors'] = $errors;
             header('Location: ../public/index.php?action=inscription#formInscription');
             
         }
         
+        // Envoi d'un mail pour activer le compte
         else {
             
-           
             $newmember = new UsersDAO();
             $newmember->addUser($pseudo, $password, $email);
 
@@ -133,7 +133,6 @@ class BackController {
            
             mail($email, "Activation du compte", $message, $header);
             
-            session_start();
             $_SESSION['success'] = 1;   
             
             header('Location: ../public/index.php?action=inscription#formInscription');
@@ -148,6 +147,7 @@ class BackController {
     
     }
 
+    // Méthode pour l'activation d'un compte.
     public function countActivation() 
     {
         if (isset($_GET['log']) AND isset($_GET['cle']) AND !empty($_GET['log']) 
@@ -158,14 +158,13 @@ class BackController {
 
             $checkCount = new UsersDAO();
             $verifcount = $checkCount->checkConfirmed($pseudo);
-            var_dump($verifcount);
+            
             
             $verifKey = new UsersDAO();
             $verif = $verifKey->checkConfirmKey($pseudo);
             
 
             if($verifcount == 1) {
-            session_start();
             $_SESSION['activation'] = 1;
 
             header('Location: ../public/index.php?action=connexion');
@@ -174,12 +173,11 @@ class BackController {
 
             else {
             
-                if($verif != null) {
+                if($verif == $confirmkey) {
                
                     $confirm = new UsersDAO();
                     $confirm->confirmCount($pseudo);
-
-                    session_start();
+                    
                     $_SESSION['confirmation'] = 1;
                 
                     header('Location: ../public/index.php?action=connexion');
@@ -187,7 +185,6 @@ class BackController {
 
                 else {
 
-                    session_start();
                     $_SESSION['erroractivation'] = 1;
                     header('Location: ../public/index.php?action=connexion');
                 }
@@ -203,6 +200,7 @@ class BackController {
         
     }
     
+    //Permet la connexion d'un membre
     public function connexion() { 
 
         $errors = array();
@@ -224,7 +222,6 @@ class BackController {
 
             }
 
-        
             if(empty($password) || $verifPass == false) {
 
                 $errors ['password'] = "Mot de passe invalide ou non renseigné";
@@ -233,16 +230,13 @@ class BackController {
 
             if(!empty($errors)) {
             
-                session_start();
-                $_SESSION['errors'] = $errors;
-                
+               $_SESSION['errors'] = $errors;
                 header('Location:../public/index.php?action=connexion');
 
             }
 
             else {
             
-                session_start();
                 $_SESSION['success_connect'] = 1;
                 $_SESSION['allowcomments'] = 1;
                 header('Location:../public/index.php');
@@ -257,6 +251,7 @@ class BackController {
             
     }
 
+    //Permet la récupération du mot de passe
     public function recoveryPass() {
 
         $errors = array();
@@ -271,7 +266,7 @@ class BackController {
             $section=""; 
         }
 
-        
+        // On vérifie le mail de récupération du mot de passe.
         if(isset($_POST['recoverysubmit'])) {   
         
             $recoverysubmit = htmlspecialchars($_POST['recoverysubmit']); 
@@ -289,13 +284,14 @@ class BackController {
             }
 
             if (!empty($errors)) {
-                session_start();
+               
                 $_SESSION['errors'] = $errors;
                 header('Location../public/index.php?action=recoverypass');
             }     
 
+            // Si le mail est valide, on envoie mail de récupération du mot de passe.
             else {
-                session_start();
+                
                 $_SESSION['email'] = $email;
                 $recoveryPass = sha1(time());
                 $_SESSION['recoverypass'] = $recoveryPass;
@@ -351,9 +347,9 @@ class BackController {
             }
         }
         
+        // Permet l'ajout d'un nouveau mot de passe.
         if (isset($_POST['pass_submit'])) {
 
-            session_start();
             $email = $_SESSION['email'];
             sleep(1); 
             $submitPass = htmlspecialchars($_POST['pass_submit']); 
@@ -374,7 +370,7 @@ class BackController {
                 }
                 
                 if (!empty($errors)) {
-                    session_start();
+                    
                     $_SESSION['errors'] = $errors;
                     header('Location: ../public/index.php?action=recoverypass&section=updatepassword');
                     
@@ -384,7 +380,7 @@ class BackController {
                     
                         $updatePass = new UsersDAO();
                         $updatePass->updatePass($newPass, $email);
-                        session_start();
+                        
                         $_SESSION['success'] = 1;
                         header('Location: ../public/index.php?action=connexion');
                     }      
@@ -400,13 +396,12 @@ class BackController {
         
     }
 
-
+    //Permet de se déconnecter
     public function disconnect() 
     {
         if (isset($_POST['disconnect'])) {
         
             $disconnect = htmlspecialchars($_POST['disconnect']); 
-            session_start();
             $_SESSION = array();
             session_destroy();
             
@@ -414,7 +409,7 @@ class BackController {
         }
     }
 
-
+    //Permet de se connecter à l'espace administrateur
     public function adminConnection() {
 
         $errors = array();
@@ -453,7 +448,7 @@ class BackController {
             }
 
             if (!empty($errors)) {
-                session_start();
+               
                 $_SESSION['errors'] = $errors;
                 header('Location: ../public/index.php?action=adminconnection#form_admin');
             
@@ -462,7 +457,7 @@ class BackController {
             else {
 
                 session_regenerate_id();
-                session_start();
+                
                 $_SESSION['success_connect1'] = 1;
                 $_SESSION['allowcomments'] = 1;
                 header('Location: ../public/index.php?action=adminspace');
@@ -477,6 +472,7 @@ class BackController {
     
     }
 
+    // Renvoi la liste des articles à l'espace administrateur.
     public function adminSpace() 
     {   
         $news = $this->articleDAO->getArticles();
@@ -484,6 +480,7 @@ class BackController {
         
     }
 
+    // Permet d'ajouter un article
     public function addArticle() 
     {
         $errors = array();
@@ -495,7 +492,7 @@ class BackController {
             $author = htmlspecialchars($_POST['post_author']);
             $resume = htmlspecialchars($_POST['resume_post']);
             $content = htmlspecialchars($_POST['content']);
-            $token = htmlspecialchars($_POST['token']);
+            
         
         
             if (!array_key_exists('post_author', $_POST) || empty($author)) {
@@ -596,18 +593,21 @@ class BackController {
                 $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
                 $insertPost = new ArticleDAO();
                 $insertPost->addArticles($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post']);
-                session_start();
                 $_SESSION['insert_success'] = 1;
-                    
-                header('Location:index.php?action=adminspace');
+                header('Location:../public/index.php?action=adminspace');
                     
                     
             }
         }
-    
-        $this->view->render('addpost');
+        
+        else {
+
+            $this->view->render('addpost');
+        }
+        
     }
 
+    // Permet de modifier un article.
     public function updateArticle($idArt) {
 
         $errors = array();
@@ -622,7 +622,7 @@ class BackController {
             $content = htmlspecialchars($_POST['content']);
             $author = htmlspecialchars($_POST['post_author']);
             $title = htmlspecialchars($_POST['post_title']);
-            $token = htmlspecialchars($_POST['token']);
+            
         
             if (!array_key_exists('post_author', $_POST) || empty($author)) {
             
@@ -720,31 +720,27 @@ class BackController {
                 imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
                 $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
                 $updatePost = $this->articleDAO->updatePost($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post'], $idPost);
-                session_start();
                 $_SESSION['success_update'] = 1;
                 header('Location:index.php?action=adminspace');        
             }
-        
-        
-        
-        
         }
-    
-        $this->view->render('updatepost', ['singlepost' => $singlepost]);
+        
+        else {
 
-
+            $this->view->render('updatepost', ['singlepost' => $singlepost]);
+        }
     }
 
+    // Permet de supprimer un article.
     public function deleteArticle() 
     {
-            
             $idPost = $_GET['id'];
             $this->articleDAO->deletePost($idPost);
-            session_start();
             $_SESSION['delete_post'] = 1;
             header('Location: ../public/index.php?action=adminspace');
     }
 
+    // Renvoi la liste des commentaires dans l'espace de gestion des commentaires.
     public function manageComment() 
     {
         $comment = $this->commentDAO->getComments();
@@ -752,19 +748,18 @@ class BackController {
         
     }
 
+    // Permet d'approuver les commentaires
     public function approveComment($idCommentaire) 
     {
         $approve = $this->commentDAO->approveComment($idCommentaire);
-        session_start();
         $_SESSION['comment_approved'] = 1;
         header('Location: ../public/index.php?action=managecomment');
     }
 
-
+    //Permet de supprimer les commentaires.
     public function deleteComment($idCommentaire) 
     {
         $delete = $this->commentDAO->deleteComment($idCommentaire);
-        session_start();
         $_SESSION['comment_delete'] = 1;
         header('Location: ../public/index.php?action=managecomment');
 
