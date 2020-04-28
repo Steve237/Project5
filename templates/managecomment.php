@@ -1,15 +1,17 @@
 <?php
+
 if(!array_key_exists('success_connect1', $_SESSION)) {
 
     header('Location:../public/index.php');
 
 }
 
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+$_SESSION['token'] = $token;
+
 ?>
 
 <?php $this->title = 'Gestion des commentaires'; ?>
-
-
 
 <h2 class="title_comment">Gestion des commentaires</h2>
 <div class="container pagecomments">
@@ -45,11 +47,12 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
                     
             <form action="../public/index.php?action=approve&amp;id=<?= $resultat->idcom ?>" method="post">
                 <input type="submit" class="btn btn-primary" value="Approuver">
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
             </form>
             
             <form action="../public/index.php?action=deletecomment&amp;id=<?= $resultat->idcom ?>" method="post">
                 <input type="submit" class="btn btn-primary" value="Supprimer" style="margin-top:2px">
-
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
             </form>
         </div>
         <?php

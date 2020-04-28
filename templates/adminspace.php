@@ -4,6 +4,9 @@ if (!array_key_exists('success_connect1', $_SESSION)) {
     header('Location:../public/index.php');
 }
 
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+$_SESSION['token'] = $token;
+
 ?>
 
 <?php $title = 'Espace Administrateur'; ?>
@@ -61,6 +64,7 @@ if (!array_key_exists('success_connect1', $_SESSION)) {
             <a href="../public/index.php?action=updatepost&amp;id=<?= $news->getIdPost()?>"><button type="button" class="btn btn-primary">Modifier</button></a>
             <form action="../public/index.php?action=deletepost&amp;id=<?= $news->getIdPost()?>" method="post">
                 <input type="submit" value="Supprimer" class="btn btn-primary delete_post">
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
             </form>
         </div>
 

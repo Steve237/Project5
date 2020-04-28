@@ -6,6 +6,11 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
 
 }
 
+
+$token = bin2hex(openssl_random_pseudo_bytes(6));
+    
+$_SESSION['token'] = $token;
+
 ?>
 
 <?php $this->title = 'Modifier un article'; ?>
@@ -82,6 +87,7 @@ if(!array_key_exists('success_connect1', $_SESSION)) {
                             <button type="submit" class="btn btn-success btn-lg" name="add_new">Ajouter</button>
                         </div>
                     </div>
+                    <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
                 </form>
             </div>
         </div>

@@ -41,9 +41,6 @@ class BackController {
         var_dump($nbPseudo);
         var_dump($nbMail);
         
-        
-        
-       
         if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
             
             $errors ['pseudo'] = "Pseudo non renseigné ou déjà utilisé";
@@ -68,6 +65,19 @@ class BackController {
             
             $errors ['password'] = "Veuillez entrer votre mot de passe";
         }
+        
+        if (preg_match("#[^a-zA-Z0-9]+#", $password)) {
+
+            $errors ['password'] = "Votre mot de passe doit comporter au moins une majuscule, 
+            une minuscule, et un chiffre";
+
+        }
+
+        if (strlen($password) < 7) {
+
+            $errors ['password'] = "Votre mot de passe doit comporter au moins 7 caractères"; 
+        }
+
         
         if ($password != $password_confirm) {
             
@@ -153,8 +163,8 @@ class BackController {
         if (isset($_GET['log']) AND isset($_GET['cle']) AND !empty($_GET['log']) 
         AND !empty($_GET['cle'])) {
             
-            $pseudo = $_GET['log'];
-            $confirmkey = $_GET['cle'];
+            $pseudo = htmlspecialchars($_GET['log']);
+            $confirmkey = htmlspecialchars($_GET['cle']);
 
             $checkCount = new UsersDAO();
             $verifcount = $checkCount->checkConfirmed($pseudo);
@@ -195,7 +205,6 @@ class BackController {
         else {    
             
             $this->view->render('connexion');
-        
         }
         
     }
@@ -207,6 +216,8 @@ class BackController {
         
         if(isset($_POST['email']) AND isset($_POST['password'])) {
 
+            sleep(1);    
+            
             $email = htmlspecialchars($_POST['email']);
             $password = htmlspecialchars($_POST['password']);
 
@@ -349,9 +360,11 @@ class BackController {
         
         // Permet l'ajout d'un nouveau mot de passe.
         if (isset($_POST['pass_submit'])) {
-
-            $email = $_SESSION['email'];
+            
             sleep(1); 
+            
+            $email = $_SESSION['email'];
+            
             $submitPass = htmlspecialchars($_POST['pass_submit']); 
             
             if (isset($_POST['newpass']) AND isset($_POST['confirmpass'])) {
@@ -363,6 +376,18 @@ class BackController {
                     $errors ['newpass'] = "Veuillez entrer votre nouveau mot de passe";
                 }
                 
+                if (preg_match("#[^a-zA-Z0-9]+#", $newPass)) {
+
+                    $errors ['newpass'] = "Votre mot de passe doit comporter au moins une majuscule, 
+                    une minuscule, et un chiffre";
+        
+                }
+        
+                if (strlen($newPass) < 7) {
+        
+                    $errors ['newpass'] = "Votre mot de passe doit comporter au moins 7 caractères"; 
+                }
+        
                 if ($newPass != $confirmPass) {
 
                     $errors ['newpass'] = "Veuillez entrer deux mots de passes identiques";
@@ -486,127 +511,138 @@ class BackController {
         $errors = array();
     
         if (isset($_POST['add_new'])) {
+
+
+            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) 
+            AND !empty($_POST['token'])) {
+        
+                if ($_SESSION['token'] == $_POST['token']) {    
+
+                    $addpost = htmlspecialchars($_POST['add_new']);
+                    $title = htmlspecialchars($_POST['post_title']);
+                    $author = htmlspecialchars($_POST['post_author']);
+                    $resume = htmlspecialchars($_POST['resume_post']);
+                    $content = htmlspecialchars($_POST['content']);
             
-            $addpost = htmlspecialchars($_POST['add_new']);
-            $title = htmlspecialchars($_POST['post_title']);
-            $author = htmlspecialchars($_POST['post_author']);
-            $resume = htmlspecialchars($_POST['resume_post']);
-            $content = htmlspecialchars($_POST['content']);
+                    if (!array_key_exists('post_author', $_POST) || empty($author)) {
             
+                        $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
+                    }
         
-        
-            if (!array_key_exists('post_author', $_POST) || empty($author)) {
+                    if (strlen($author > 30)) {
             
-                $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
-            }
+                        $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
+                    }
         
-            if (strlen($author > 30)) {
+                    if (!array_key_exists('post_title', $_POST) || empty($title)) {
             
-                $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
-            }
+                        $errors ['post_title'] = "veuillez saisir le titre de l'article";
+                    }
         
-            if (!array_key_exists('post_title', $_POST) || empty($title)) {
+                    if (strlen($title > 30)) {
             
-                $errors ['post_title'] = "veuillez saisir le titre de l'article";
-            }
+                        $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
+                    }
         
-            if (strlen($title > 30)) {
+                    if (!array_key_exists('resume_post', $_POST) || empty($resume)) {
             
-                $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
-            }
+                        $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
+                    }
         
-            if (!array_key_exists('resume_post', $_POST) || empty($resume)) {
+                    if (strlen($resume > 200)) {
             
-                $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
-            }
+                        $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
+                    }
         
-            if (strlen($resume > 200)) {
+                    if (!array_key_exists('content', $_POST) || empty($content)) {
             
-                $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
-            }
+                        $errors ['content'] = "veuillez saisir le contenu de votre article";
+                    }
         
-            if (!array_key_exists('content', $_POST) || empty($content)) {
-            
-                $errors ['content'] = "veuillez saisir le contenu de votre article";
-            }
+                    $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
+                    $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
         
-            $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
-            $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
-        
-            if (empty($_FILES['image_post'])) {
+                    if (empty($_FILES['image_post'])) {
                     
-                $errors ['image_post'] = "vous n'avez ajouté aucune image";
+                        $errors ['image_post'] = "vous n'avez ajouté aucune image";
                 
-            }
+                    }
         
-            if ($_FILES['image_post']['error'] > 0) {
+                    if ($_FILES['image_post']['error'] > 0) {
                     
-                $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
-            }
+                        $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
+                    }
         
-            if ($_FILES['image_post']['size'] > 2097152) {
+                    if ($_FILES['image_post']['size'] > 2097152) {
             
-                $errors ['image_post'] = "l'image choisie est trop lourde";
-            }
+                        $errors ['image_post'] = "l'image choisie est trop lourde";
+                    }
         
-            $imagePost = $_FILES['image_post']['name'];
-            $ExtensionPresumee = explode('.', $imagePost);
-            $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+                    $imagePost = $_FILES['image_post']['name'];
+                    $ExtensionPresumee = explode('.', $imagePost);
+                    $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
         
-            if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
+                    if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
             
-                $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
-            }
+                        $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
+                    }
         
-            $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
+                    $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
         
-            if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
+                    if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
             
-                $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
-            }
+                        $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
+                    }
         
-            if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
+                    if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
             
-                $errors ['image_post'] = "aucune image téléchargé"; 
-            }
+                        $errors ['image_post'] = "aucune image téléchargé"; 
+                    }
         
-            if (!empty($errors)) {
+                    if (!empty($errors)) {
             
-                $_SESSION['errors'] = $errors;
+                        $_SESSION['errors'] = $errors;
                     
-                header('Location: ../public/index.php?action=addarticle');
+                        header('Location: ../public/index.php?action=addarticle');
                     
-            }   
+                    }   
         
+                    else {
+                
+                        $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+                        $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+                        $newImageWidth = 900;
+                        $newImageHeight = 650;
+                        $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
+                        imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+                        imagedestroy($imageSelected);
+                        $imageSelectedName = explode('.', $imagePost);
+                        $_POST['image_post'] = time();
+                        imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+                        $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+                        $insertPost = new ArticleDAO();
+                        $insertPost->addArticles($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post']);
+                        $_SESSION['insert_success'] = 1;
+                         header('Location:../public/index.php?action=adminspace');
+
+                    }    
+                }      
+            }
+            
             else {
-            
-                $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
-                $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
-                $newImageWidth = 900;
-                $newImageHeight = 650;
-                $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight) or die ("Erreur");
-                imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
-                imagedestroy($imageSelected);
-                $imageSelectedName = explode('.', $imagePost);
-                $_POST['image_post'] = time();
-                imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
-                $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
-                $insertPost = new ArticleDAO();
-                $insertPost->addArticles($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post']);
-                $_SESSION['insert_success'] = 1;
-                header('Location:../public/index.php?action=adminspace');
-                    
-                    
+
+                header('Location:../public/index.php');
             }
         }
-        
+    
         else {
 
             $this->view->render('addpost');
-        }
         
-    }
-
+        }
+    
+    }    
+    
     // Permet de modifier un article.
     public function updateArticle($idArt) {
 
@@ -616,128 +652,159 @@ class BackController {
         $singlepost = $this->articleDAO->getArticle($idArt);
     
         if (isset($_POST['add_new'])) {
+
+
+            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) 
+            AND !empty($_POST['token'])) {
         
-            $addnew = htmlspecialchars($_POST['add_new']);
-            $resume = htmlspecialchars($_POST['resume_post']);
-            $content = htmlspecialchars($_POST['content']);
-            $author = htmlspecialchars($_POST['post_author']);
-            $title = htmlspecialchars($_POST['post_title']);
+                if ($_SESSION['token'] == $_POST['token']) {   
+        
+                    $addnew = htmlspecialchars($_POST['add_new']);
+                    $resume = htmlspecialchars($_POST['resume_post']);
+                    $content = htmlspecialchars($_POST['content']);
+                    $author = htmlspecialchars($_POST['post_author']);
+                    $title = htmlspecialchars($_POST['post_title']);
             
-        
-            if (!array_key_exists('post_author', $_POST) || empty($author)) {
+                    if (!array_key_exists('post_author', $_POST) || empty($author)) {
             
-                $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
-            }
+                        $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
+                    }
         
-            if (strlen($author > 30)) {
+                    if (strlen($author > 30)) {
             
-                $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
-            }
+                        $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
+                    }
         
-            if (!array_key_exists('post_title', $_POST) || empty($title)) {
+                    if (!array_key_exists('post_title', $_POST) || empty($title)) {
             
-                $errors ['post_title'] = "veuillez saisir le titre de l'article";
-            }
+                        $errors ['post_title'] = "veuillez saisir le titre de l'article";
+                    }
         
-            if (strlen($title > 30)) {
+                    if (strlen($title > 30)) {
             
-                $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
-            }
+                        $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
+                    }
         
-            if (!array_key_exists('resume_post', $_POST) || empty($resume)) {
+                    if (!array_key_exists('resume_post', $_POST) || empty($resume)) {
             
-                $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
-            }
+                        $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
+                    }
         
-            if (strlen($resume > 200)) {
+                    if (strlen($resume > 200)) {
             
-                $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
-            }
+                        $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
+                    }
         
-            if (!array_key_exists('content', $_POST) || empty($content)) {
+                    if (!array_key_exists('content', $_POST) || empty($content)) {
             
-                $errors ['content'] = "veuillez saisir le contenu de votre article";
-            }
+                        $errors ['content'] = "veuillez saisir le contenu de votre article";
+                    }
         
-            $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
-            $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
+                    $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
+                    $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
         
-            if (empty($_FILES['image_post'])) {
+                    if (empty($_FILES['image_post'])) {
             
-                $errors ['image_post'] = "vous n'avez ajouté aucune image";
-            }
+                    $errors ['image_post'] = "vous n'avez ajouté aucune image";
+                    }
         
-            if ($_FILES['image_post']['error'] > 0) {
+                    if ($_FILES['image_post']['error'] > 0) {
             
-                $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
-            }
+                        $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
+                    }
         
-            if ($_FILES['image_post']['size'] > 2097152) {
+                    if ($_FILES['image_post']['size'] > 2097152) {
             
-                $errors ['image_post'] = "l'image choisie est trop lourde";
-            }
-        
-            $imagePost = $_FILES['image_post']['name'];
-            $ExtensionPresumee = explode('.', $imagePost);
-            $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
-        
-            if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
-            
-                $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
-            }
-        
-            $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
-        
-            if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
-            
-                $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
-            }
-        
-            if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
-            
-                $errors ['image_post'] = "aucune image téléchargé"; 
-            }
-        
-            if (!empty($errors)) {
-            
-                $_SESSION['errors'] = $errors;
+                    $errors ['image_post'] = "l'image choisie est trop lourde";
                     
-                header('Location: index.php?action=updatepost&id='.$_GET['id']);
-                    
-            }   
+                    }
         
+                    $imagePost = $_FILES['image_post']['name'];
+                    $ExtensionPresumee = explode('.', $imagePost);
+                    $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+        
+                    if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
+            
+                        $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
+                    }
+        
+                    $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
+        
+                    if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
+            
+                        $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
+                    }
+        
+                    if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
+            
+                        $errors ['image_post'] = "aucune image téléchargé"; 
+                    }
+        
+                    if (!empty($errors)) {
+            
+                        $_SESSION['errors'] = $errors;
+                    
+                        header('Location: index.php?action=updatepost&id='.$_GET['id']);
+                    
+                    }   
+        
+                    else {
+            
+                        $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+                        $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+                        $newImageWidth = 900;
+                        $newImageHeight = 650;
+                        $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight);
+                        imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+                        imagedestroy($imageSelected);
+                        $imageSelectedName = explode('.', $imagePost);
+                        $_POST['image_post'] = time();
+                        imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+                        $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+                        $updatePost = $this->articleDAO->updatePost($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post'], $idPost);
+                        $_SESSION['success_update'] = 1;
+                        header('Location:index.php?action=adminspace');        
+                    }
+                }
+            }
+            
             else {
-            
-                $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
-                $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
-                $newImageWidth = 900;
-                $newImageHeight = 650;
-                $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight);
-                imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
-                imagedestroy($imageSelected);
-                $imageSelectedName = explode('.', $imagePost);
-                $_POST['image_post'] = time();
-                imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
-                $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
-                $updatePost = $this->articleDAO->updatePost($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post'], $idPost);
-                $_SESSION['success_update'] = 1;
-                header('Location:index.php?action=adminspace');        
+
+                header('Location:../public/index.php');
             }
-        }
+        }    
         
         else {
 
             $this->view->render('updatepost', ['singlepost' => $singlepost]);
+            
         }
     }
 
     // Permet de supprimer un article.
     public function deleteArticle() 
     {
-            $idPost = $_GET['id'];
-            $this->articleDAO->deletePost($idPost);
-            $_SESSION['delete_post'] = 1;
-            header('Location: ../public/index.php?action=adminspace');
+        $idPost = htmlspecialchars($_GET['id']);
+            
+        if (isset($_SESSION['token']) AND isset($_POST['token']) 
+        AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+            
+            $_POST['token'] = htmlspecialchars($_POST['token']);
+        
+            if ($_SESSION['token'] == $_POST['token']) {
+                
+                $this->articleDAO->deletePost($idPost);
+                $_SESSION['delete_post'] = 1;
+                header('Location: ../public/index.php?action=adminspace');
+    
+            }
+
+        }
+    
+        else {
+
+            header('Location:../public/index.php');
+        }
     }
 
     // Renvoi la liste des commentaires dans l'espace de gestion des commentaires.
@@ -750,24 +817,53 @@ class BackController {
 
     // Permet d'approuver les commentaires
     public function approveComment($idCommentaire) 
-    {
-        $approve = $this->commentDAO->approveComment($idCommentaire);
-        $_SESSION['comment_approved'] = 1;
-        header('Location: ../public/index.php?action=managecomment');
+    {   
+        $idCommentaire = htmlspecialchars($_GET['id']);
+
+        if (isset($_SESSION['token']) AND isset($_POST['token']) 
+        AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+            
+            $_POST['token'] = htmlspecialchars($_POST['token']);
+        
+            if ($_SESSION['token'] == $_POST['token']) {
+    
+                $approve = $this->commentDAO->approveComment($idCommentaire);
+                $_SESSION['comment_approved'] = 1;
+                header('Location: ../public/index.php?action=managecomment');
+            }
+        }
+        
+        else {
+            
+            header('Location:../public/index.php');
+        }
     }
 
     //Permet de supprimer les commentaires.
     public function deleteComment($idCommentaire) 
-    {
-        $delete = $this->commentDAO->deleteComment($idCommentaire);
-        $_SESSION['comment_delete'] = 1;
-        header('Location: ../public/index.php?action=managecomment');
-
+    {   
+        $idCommentaire = htmlspecialchars($_GET['id']);
+        
+        if (isset($_SESSION['token']) AND isset($_POST['token']) 
+        AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+            
+            $_POST['token'] = htmlspecialchars($_POST['token']);
+        
+            if ($_SESSION['token'] == $_POST['token']) {
+        
+                $delete = $this->commentDAO->deleteComment($idCommentaire);
+                $_SESSION['comment_delete'] = 1;
+                header('Location: ../public/index.php?action=managecomment');
+            
+            }   
+        }
+        
+        else {
+            
+            header('Location:../public/index.php');
+        }
     }
-
-}
-
-   
+}  
     
   
     

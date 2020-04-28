@@ -28,7 +28,6 @@ class FrontController {
     //Permet l'affichage de la liste des articles.
     public function articles() 
     {
-
         $article = $this->articleDAO->getArticles();
         $this->view->render('posts', ['article' => $article]);
     }
@@ -71,9 +70,9 @@ class FrontController {
             
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-            $headers .= 'FROM:' . htmlspecialchars($_POST['name']);
+            $headers .= 'FROM:' . $name;
             $to = "espiritokamer237@gmail.com";
-            $subject = 'Message envoyé par ' . htmlspecialchars($_POST['name']) .' - <i>' . htmlspecialchars($_POST['email']) .'</i>';
+            $subject = 'Message envoyé par ' . $name .' - <i>' . $email .'</i>';
             $message_content = '
             <table>
                 <tr>
@@ -86,7 +85,7 @@ class FrontController {
                     <td><b>Contenu du message:</b></td>
                 </tr>
                 <tr>
-                    <td>'. htmlspecialchars($_POST['message']) .'</td>
+                    <td>'. $message .'</td>
                 </tr>
             </table>
             ';
@@ -100,7 +99,8 @@ class FrontController {
     //Permet l'affichage d'un article en particulier.
     public function single($idArt) 
     {
-
+        $idArt = htmlspecialchars($_GET['id']);
+        
         $singlepost = $this->articleDAO->getArticle($idArt);
         $comment = $this->commentDAO->getCommentsFromArticle($idArt);
         
