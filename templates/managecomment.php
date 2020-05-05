@@ -33,7 +33,7 @@ $_SESSION['token'] = $token;
     <?php
     
     
-    foreach($comment as $resultat) {
+    foreach ($comment as $resultat) {
         
     
         ?>

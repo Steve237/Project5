@@ -15,7 +15,7 @@ abstract class DAO
     private function checkConnection()
     {
         //Vérifie si la connexion est nulle et fait appel à getConnection()
-        if($this->connection === null) {
+        if ($this->connection === null) {
             
             return $this->getConnection();
         }
@@ -30,18 +30,18 @@ abstract class DAO
      */
     protected function sql($sql, $parameters = null)
     {
-        if($parameters)
+        if ($parameters)
         {
             $result = $this->checkConnection()->prepare($sql);
             $result->execute($parameters);
             return $result;
-        }
-        else{
+        
+        } else {
+            
             $result = $this->checkConnection()->query($sql);
             return $result;
         }
     }
-    
     
     /**
      * Fonction de connexion à la base de données

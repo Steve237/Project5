@@ -150,9 +150,6 @@
 
         <!-- Theme JavaScript -->
         <script src="../public/js/freelancer.min.js"></script>
-
-
-
     </body>
 
 </html>              

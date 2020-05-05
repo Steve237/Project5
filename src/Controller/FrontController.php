@@ -1,6 +1,6 @@
 <?php
-
 namespace App\src\Controller;
+
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
 use App\src\model\View;
@@ -64,9 +64,7 @@ class FrontController {
         
             header('Location: ../public/index.php#formContact');
         
-        }
-    
-        else {
+        } else {
             
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
@@ -125,18 +123,16 @@ class FrontController {
                 
                 $_SESSION['errors'] = $errors;
                 header('Location: ../public/index.php?action=article&id='.$idArt.'');
-            }
             
-            else {        
+            } else {        
                 
                 $insertComment = $this->commentDAO->addComment($idArt, $pseudo, $userComment);
                 
                 $_SESSION['send_comment'] = 1;
                 header('Location: ../public/index.php?action=article&id='.$idArt.'');
             }
-        }
         
-        else {
+        } else {
 
             $this->view->render('single', [
                 'singlepost' => $singlepost,

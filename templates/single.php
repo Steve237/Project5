@@ -46,7 +46,7 @@
                         <h3>Laissez un commentaire </h3>
 
                         <?php
-                        if(array_key_exists('allowcomments', $_SESSION)) {
+                        if (array_key_exists('allowcomments', $_SESSION)) {
                             ?>
                         
                             <form action="../public/index.php?action=article&amp;id=<?= $singlepost->getIdPost()?>" id="comment" method="post">
@@ -77,8 +77,8 @@
                             <h3>Liste des commentaires</h3>
                         
                             <?php
-                            foreach($comment as $comment)
-                            {
+                            foreach ($comment as $comment) {
+                                
                                 ?>
                                 <div class="list_comments" >
 
@@ -91,8 +91,7 @@
                                 <?php
                             }
                         
-                        }
-                        else {
+                        } else {
                             
                             ?>
                             <p>Veuillez vous <a href = "../public/index.php?action=connexion">connecter pour poster un commentaire<p></a>
@@ -100,9 +99,6 @@
                             <?php
                         }
                         ?>
-                        
-
-                        
                     </div>
                 </div>
             </div>

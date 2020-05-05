@@ -26,7 +26,7 @@ class BackController {
     {
         $errors = array();
         
-        if(isset($_POST['inscription'])) {    
+        if (isset($_POST['inscription'])) {    
         
         $inscription = htmlspecialchars($_POST['inscription']);
         $pseudo = htmlspecialchars($_POST['pseudo']);    
@@ -88,10 +88,7 @@ class BackController {
             $_SESSION['errors'] = $errors;
             header('Location: ../public/index.php?action=inscription#formInscription');
             
-        }
-        
-        // Envoi d'un mail pour activer le compte
-        else {
+        } else {
             
             $newmember = new UsersDAO();
             $newmember->addUser($pseudo, $password, $email);
@@ -148,9 +145,8 @@ class BackController {
             header('Location: ../public/index.php?action=inscription#formInscription');
             
         }
-    } 
     
-    else {
+    } else {
         
         $this->view->render('inscription');
     }
@@ -174,16 +170,14 @@ class BackController {
             $verif = $verifKey->checkConfirmKey($pseudo);
             
 
-            if($verifcount == 1) {
+            if ($verifcount == 1) {
             $_SESSION['activation'] = 1;
 
             header('Location: ../public/index.php?action=connexion');
             
-            }
-
-            else {
+            } else {
             
-                if($verif == $confirmkey) {
+                if ($verif == $confirmkey) {
                
                     $confirm = new UsersDAO();
                     $confirm->confirmCount($pseudo);
@@ -191,18 +185,15 @@ class BackController {
                     $_SESSION['confirmation'] = 1;
                 
                     header('Location: ../public/index.php?action=connexion');
-                }
-
-                else {
+                
+                } else {
 
                     $_SESSION['erroractivation'] = 1;
                     header('Location: ../public/index.php?action=connexion');
                 }
             }
     
-        }
-    
-        else {    
+        } else {    
             
             $this->view->render('connexion');
         }
@@ -214,7 +205,7 @@ class BackController {
 
         $errors = array();
         
-        if(isset($_POST['email']) AND isset($_POST['password'])) {
+        if (isset($_POST['email']) AND isset($_POST['password'])) {
 
             sleep(1);    
             
@@ -227,35 +218,32 @@ class BackController {
             $checkPass = new UsersDAO();
             $verifPass = $checkPass->checkPassword($email);
             
-            if(empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $verifLogin == null ) {
+            if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || $verifLogin == null ) {
 
                 $errors ['email'] = "Adresse email non renseigné ou invalide";
 
             }
 
-            if(empty($password) || $verifPass == false) {
+            if (empty($password) || $verifPass == false) {
 
                 $errors ['password'] = "Mot de passe invalide ou non renseigné";
 
             }
 
-            if(!empty($errors)) {
+            if (!empty($errors)) {
             
                $_SESSION['errors'] = $errors;
                 header('Location:../public/index.php?action=connexion');
 
-            }
-
-            else {
+            } else {
             
                 $_SESSION['success_connect'] = 1;
                 $_SESSION['allowcomments'] = 1;
                 header('Location:../public/index.php');
             
             }
-        }  
         
-        else {
+        }  else {
                 
                 $this->view->render('connexion');
         }  
@@ -270,15 +258,14 @@ class BackController {
         if (isset($_GET['section'])) {
         
             $section = htmlspecialchars($_GET['section']);   
-        }
         
-        else {
+        } else {
         
             $section=""; 
         }
 
         // On vérifie le mail de récupération du mot de passe.
-        if(isset($_POST['recoverysubmit'])) {   
+        if (isset($_POST['recoverysubmit'])) {   
         
             $recoverysubmit = htmlspecialchars($_POST['recoverysubmit']); 
             
@@ -298,10 +285,8 @@ class BackController {
                
                 $_SESSION['errors'] = $errors;
                 header('Location../public/index.php?action=recoverypass');
-            }     
-
-            // Si le mail est valide, on envoie mail de récupération du mot de passe.
-            else {
+            
+            } else {
                 
                 $_SESSION['email'] = $email;
                 $recoveryPass = sha1(time());
@@ -399,9 +384,7 @@ class BackController {
                     $_SESSION['errors'] = $errors;
                     header('Location: ../public/index.php?action=recoverypass&section=updatepassword');
                     
-                }  
-                
-                else {
+                } else {
                     
                         $updatePass = new UsersDAO();
                         $updatePass->updatePass($newPass, $email);
@@ -411,12 +394,10 @@ class BackController {
                     }      
                 
                 }
-            }
             
-        else {
+            } else {
 
             $this->view->render('recoverypass', ['section' => $section]);
-
         }
         
     }
@@ -477,9 +458,7 @@ class BackController {
                 $_SESSION['errors'] = $errors;
                 header('Location: ../public/index.php?action=adminconnection#form_admin');
             
-            }  
-        
-            else {
+            }  else {
 
                 session_regenerate_id();
                 
@@ -488,9 +467,7 @@ class BackController {
                 header('Location: ../public/index.php?action=adminspace');
             } 
             
-        }
-        
-        else {
+        } else {
         
             $this->view->render('adminconnection');
         }
@@ -605,9 +582,7 @@ class BackController {
                     
                         header('Location: ../public/index.php?action=addarticle');
                     
-                    }   
-        
-                    else {
+                    } else {
                 
                         $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
                         $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
@@ -627,15 +602,13 @@ class BackController {
 
                     }    
                 }      
-            }
             
-            else {
+            } else {
 
                 header('Location:../public/index.php');
             }
-        }
-    
-        else {
+        
+        } else {
 
             $this->view->render('addpost');
         
@@ -746,9 +719,7 @@ class BackController {
                     
                         header('Location: index.php?action=updatepost&id='.$_GET['id']);
                     
-                    }   
-        
-                    else {
+                    } else {
             
                         $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
                         $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
@@ -766,15 +737,13 @@ class BackController {
                         header('Location:index.php?action=adminspace');        
                     }
                 }
-            }
             
-            else {
+            } else {
 
                 header('Location:../public/index.php');
             }
-        }    
         
-        else {
+        } else {
 
             $this->view->render('updatepost', ['singlepost' => $singlepost]);
             
@@ -799,9 +768,7 @@ class BackController {
     
             }
 
-        }
-    
-        else {
+        } else {
 
             header('Location:../public/index.php');
         }
@@ -831,9 +798,8 @@ class BackController {
                 $_SESSION['comment_approved'] = 1;
                 header('Location: ../public/index.php?action=managecomment');
             }
-        }
         
-        else {
+        } else {
             
             header('Location:../public/index.php');
         }
@@ -856,9 +822,8 @@ class BackController {
                 header('Location: ../public/index.php?action=managecomment');
             
             }   
-        }
         
-        else {
+        } else {
             
             header('Location:../public/index.php');
         }

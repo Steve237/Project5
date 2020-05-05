@@ -1,5 +1,4 @@
 <?php
-
 namespace App\src\model;
 
 class Article
@@ -37,7 +36,6 @@ class Article
         }
     }
 
-
     /**
      * @return int
      */
@@ -46,7 +44,6 @@ class Article
         return $this->_idPost;
 
     }
-
 
     /**
      * @return string
@@ -57,7 +54,6 @@ class Article
 
     }
 
-
     /**
      * @return string
      */
@@ -67,7 +63,6 @@ class Article
 
     }
 
-
     /**
      * @return string
      */
@@ -76,7 +71,6 @@ class Article
         return $this->_descriptifArticle;
 
     }
-
 
     /**
      * @return string
@@ -96,7 +90,6 @@ class Article
 
     }
 
-
     /**
      * @return string
      */
@@ -106,7 +99,6 @@ class Article
 
     }
 
-    
     /**
      * @return string
      */
@@ -133,8 +125,7 @@ class Article
         }
 
     }
-
-
+    
     /**
      * @param mixed $titreArticle
      * 

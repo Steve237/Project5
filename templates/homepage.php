@@ -46,7 +46,7 @@
             </div>
 
             <div class="col-lg-8 col-lg-offset-2 text-center">
-                <a href="public/cv_steve.pdf" class="btn btn-lg btn-outline"><i class="fa fa-download"></i> Voir mon cv </a>
+                <a href="../public/cv_steve.pdf" class="btn btn-lg btn-outline"><i class="fa fa-download"></i> Voir mon cv </a>
             </div>
         </div>
     </div>

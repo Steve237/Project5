@@ -4,7 +4,7 @@ function inscription()
    
     $errors = array();
 
-    if(isset($_POST['inscription'])) {    
+    if (isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
@@ -52,9 +52,7 @@ function inscription()
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=inscription#formInscription');
             
-        }
-        
-        else {
+        } else {
             
             $_SESSION['success'] = 1;    
             $inscription = new UsersManager();
@@ -62,9 +60,8 @@ function inscription()
             header('Location: index.php?action=inscription#formInscription');
             
         }
-    } 
     
-    else {
+    }   else {
         
         require ABSOLUTE_PATH.'/view/view_inscription.php';
     }
@@ -113,23 +110,19 @@ function connection()
         }
         
         if ($verifPass == true) {
+            
             session_regenerate_id();
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php');
-            
-           
         }
         
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=connection#formInscription');
-            
-        
         }    
-    }
     
-    else {
+    } else {
         
         require ABSOLUTE_PATH.'/view/view_connection.php';
     }

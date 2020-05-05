@@ -20,8 +20,8 @@
 
                 <?php if (array_key_exists('success', $_SESSION)): ?>
                 <div class="alert alert-success">
-                Pour confirmer votre inscription veuillez cliquez 
-                sur lien d'activation que nous vous avons envoyé par mail.
+                    Pour confirmer votre inscription veuillez cliquez 
+                    sur lien d'activation que nous vous avons envoyé par mail.
                 </div>
                 <?php endif; ?>
 
@@ -52,7 +52,8 @@
                             <label for="password2">Confirmez votre mot de passe</label>
                             <input required type="password" placeholder="Entrez votre mot de passe" name="password_confirm" class="form-control">
                         </div>
-                    </div><br>
+                    </div>
+                    <br>
 
                     <div id="success"></div>
                     <div class="row">

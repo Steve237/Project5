@@ -1,7 +1,5 @@
 <?php
-
 namespace App\src\model;
-use App\src\DAO\ArticleDAO;
 
 class Comment
 {

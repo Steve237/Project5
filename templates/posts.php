@@ -12,9 +12,8 @@
 
         <div class="row">
             <?php
-            foreach($article as $article) 
-            {
-            ?>
+            foreach ($article as $article) {
+                ?>
                 <div class="col-sm-6 col-md-4 col-lg-4 portfolio-item">
                     <a href="../public/index.php?action=article&amp;id=<?= $article->getIdPost() ?>&amp;titre=<?= $article->getTitreArticle()?>" class="portfolio-link">
                         <div class="caption">

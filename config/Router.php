@@ -5,7 +5,6 @@ use App\src\Controller\FrontController;
 use App\src\Controller\ErrorController;
 use App\src\Controller\BackController;
 
-
 class Router
 {
 
@@ -23,116 +22,103 @@ class Router
     public function run()
     {
         try{
-            if(isset($_GET['action']))
-            {
-                if($_GET['action'] === 'article'){
+            
+            if(isset($_GET['action'])) {
+                
+                if($_GET['action'] === 'article') {
                     
-                    if(isset($_GET['id']) AND $_GET['id'] > 0){
+                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
 
                         $this->frontController->single($_GET['id']);
 
-                    }
-                    else{
+                    } else {
                         
                         $this->errorController->unknown();
                     }
                 
-                }
-                elseif($_GET['action'] === 'listposts') {
+                } elseif($_GET['action'] === 'listposts') {
                     
                     $this->frontController->articles();
                     
-                }
-
-                elseif($_GET['action'] === 'sendmail') {
+                } elseif($_GET['action'] === 'sendmail') {
 
                     $this->frontController->sendMail();
-                }
-                elseif($_GET['action'] === 'inscription') {
+                
+                } elseif($_GET['action'] === 'inscription') {
 
                     $this->backController->inscription();
-                }
-            
-                elseif($_GET['action'] === 'confirminscription') {
+                
+                } elseif($_GET['action'] === 'confirminscription') {
 
                     $this->backController->countActivation();
-                }
-                elseif($_GET['action'] === 'connexion') {
+                
+                } elseif($_GET['action'] === 'connexion') {
 
                     $this->backController->connexion();
-                }
-                elseif($_GET['action'] === 'recoverypass') {
+                
+                } elseif($_GET['action'] === 'recoverypass') {
 
                     $this->backController->recoveryPass();
-                }
-                elseif($_GET['action'] === 'disconnect') {
+                
+                } elseif($_GET['action'] === 'disconnect') {
 
                     $this->backController->disconnect();
-                }
-                elseif($_GET['action'] === 'adminconnection') {
+                
+                } elseif($_GET['action'] === 'adminconnection') {
 
                     $this->backController->adminConnection();
-                }
                 
-                elseif($_GET['action'] === 'adminspace') {
+                } elseif($_GET['action'] === 'adminspace') {
 
                     $this->backController->adminSpace();
-                }
                 
-                elseif($_GET['action'] === 'addarticle') {
+                } elseif($_GET['action'] === 'addarticle') {
 
                     $this->backController->addArticle();
-                }
-                elseif($_GET['action'] === 'updatepost') {
+                
+                } elseif($_GET['action'] === 'updatepost') {
 
                     $this->backController->updateArticle($_GET['id']);
-                }
-                elseif($_GET['action'] === 'deletepost') {
+                
+                } elseif($_GET['action'] === 'deletepost') {
                     
                     if(isset($_GET['id']) AND $_GET['id'] > 0) {
 
                         $this->backController->deleteArticle();
 
-                    }
-
-                    else {
+                    } else {
                         
                         $this->errorController->unknown();
                     }
                     
-                }
-                elseif($_GET['action'] === 'managecomment') {
+                } elseif($_GET['action'] === 'managecomment') {
 
                     $this->backController->manageComment();
-                }
-                elseif($_GET['action'] === 'approve') {
+                
+                } elseif($_GET['action'] === 'approve') {
                     
                     if(isset($_GET['id']) AND $_GET['id'] > 0) {
                         
                         $this->backController->approveComment($_GET['id']);
                     
-                    }
-
-                    else {
+                    } else {
                         
                         $this->errorController->unknown();
                     }
-                }
-                elseif($_GET['action'] === 'deletecomment') {
+                
+                } elseif($_GET['action'] === 'deletecomment') {
                     
                     if(isset($_GET['id']) AND $_GET['id'] > 0) {
                         
                         $this->backController->deleteComment($_GET['id']);
                     
-                    }
-
-                    else {
+                    } else {
                         
                         $this->errorController->unknown();
                     }
                 }
-            }
-            else{
+            
+            } else {
                 
                 $this->frontController->home();
             }

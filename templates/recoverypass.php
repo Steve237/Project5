@@ -22,30 +22,28 @@
                     <?php endif; ?>
                 
                     <form action="../public/index.php?action=recoverypass" id="form_recovery" method="post" class="col-xs-12">
-                    <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label for="password">Votre nouveau mot de passe </label>
-                            <input required placeholder="Entrez votre nouveau mot de passe" type="password" name="newpass" class="form-control">
-                            <label for="password"> Confirmation du nouveau mot de passe </label>
-                            <input required placeholder="Confirmez votre nouveau mot de passe" type="password" name="confirmpass" class="form-control">
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label for="password">Votre nouveau mot de passe </label>
+                                <input required placeholder="Entrez votre nouveau mot de passe" type="password" name="newpass" class="form-control">
+                                <label for="password"> Confirmation du nouveau mot de passe </label>
+                                <input required placeholder="Confirmez votre nouveau mot de passe" type="password" name="confirmpass" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg" name="pass_submit">Valider</button>
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg" name="pass_submit">Valider</button>
+                            </div>
                         </div>
-                    </div>
-
                     </form>
 
                     <?php 
-                }
-
-                else { 
+                
+                } else { 
                     
                     ?>
-
+                    
                     <?php if (array_key_exists('errors', $_SESSION)): ?>
                     <div class="alert alert-danger">
                         <?= implode('<br>', $_SESSION['errors']); ?>
@@ -58,21 +56,21 @@
                     </div>
                     <?php endif; ?>
 
-                    <form action="../public/index.php?action=recoverypass" id="form_recovery" method="post">
-                    <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label for="email">Votre adresse email</label>
-                            <input required placeholder="Entrez votre adresse email" type="email" name="email" class="form-control">
-                        </div>
-                    </div>
-                    <br>
+                        <form action="../public/index.php?action=recoverypass" id="form_recovery" method="post">
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label for="email">Votre adresse email</label>
+                                    <input required placeholder="Entrez votre adresse email" type="email" name="email" class="form-control">
+                                </div>
+                            </div>
+                            <br>
                     
-                    <div class="row">
-                        <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg" name="recoverysubmit">Envoyer</button>
-                        </div>
-                    </div>
-                    </form>
+                            <div class="row">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-success btn-lg" name="recoverysubmit">Envoyer</button>
+                                </div>
+                            </div>
+                        </form>
                     <?php 
                 } 
                 ?>

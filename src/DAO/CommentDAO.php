@@ -4,7 +4,6 @@ namespace App\src\DAO;
 use App\src\model\Comment;
 use PDO;
 
-
 class CommentDAO extends DAO 
 {
 
@@ -16,11 +15,11 @@ class CommentDAO extends DAO
     public function getCommentsFromArticle($idArt) 
     {
 
-    $sql = 'SELECT idCommentaire, idPost, pseudoAuteur, contenuCommentaire, 
-    DATE_FORMAT(dateCreation, "%d/%m/%Y %Hh%imin%ss") AS dateCreation FROM commentaires 
-    WHERE validation = 1 AND idPost = ?';
-    $result = $this->sql($sql, [$idArt]);
-    $comments = [];
+        $sql = 'SELECT idCommentaire, idPost, pseudoAuteur, contenuCommentaire, 
+        DATE_FORMAT(dateCreation, "%d/%m/%Y %Hh%imin%ss") AS dateCreation FROM commentaires 
+        WHERE validation = 1 AND idPost = ?';
+        $result = $this->sql($sql, [$idArt]);
+        $comments = [];
         foreach ($result as $row) {
             $commentId = $row['idCommentaire'];
             $comments[$commentId] = $this->buildObject($row);
