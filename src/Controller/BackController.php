@@ -26,9 +26,10 @@ class BackController {
     {
         $errors = array();
         
-        if (isset($_POST['inscription'])) {    
-        
         $inscription = htmlspecialchars($_POST['inscription']);
+        
+        if (isset($inscription)) {    
+
         $pseudo = htmlspecialchars($_POST['pseudo']);    
         $email = htmlspecialchars($_POST['email']);    
         $password = htmlspecialchars($_POST['password']);    
