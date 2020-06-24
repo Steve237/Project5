@@ -40,7 +40,7 @@ class BackController {
         $nbPseudo = $addPseudo->checkPseudo($pseudo);
         $nbMail = $addMail->checkEmail($email);
         
-        if (!isset($pseudo) || empty($pseudo) || $nbPseudo != null) {
+        if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
             
             $errors ['pseudo'] = "Pseudo non renseigné ou déjà utilisé";
         }
@@ -55,12 +55,12 @@ class BackController {
             $errors ['pseudo'] = "Le pseudo doit être composé seulement de lettres minuscules et d'au moins un chiffre";  
         }
         
-        if (!isset($email) || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!array_key_exists('email', $_POST) || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $errors ['email'] = "Adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!isset($password) || empty($password) || empty($password_confirm)) {
+        if (!array_key_exists('password', $_POST) || empty($password) || empty($password_confirm)) {
             
             $errors ['password'] = "Veuillez entrer votre mot de passe";
         }
@@ -207,7 +207,6 @@ class BackController {
         
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
-        
         if (isset($email) AND isset($password) AND !empty($email) AND !empty($password)) {
 
             sleep(1);    
