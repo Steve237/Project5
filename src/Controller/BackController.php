@@ -38,6 +38,7 @@ class BackController {
         $addMail = new UsersDAO();
         $nbPseudo = $addPseudo->checkPseudo($pseudo);
         $nbMail = $addMail->checkEmail($email);
+
         
         if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
             
