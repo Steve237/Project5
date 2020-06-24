@@ -28,7 +28,7 @@ class BackController {
         
         $inscription = htmlspecialchars($_POST['inscription']);
         
-        if (isset($inscription)) {    
+        if (isset($inscription) || !empty($inscription)) {    
 
         $pseudo = htmlspecialchars($_POST['pseudo']);    
         $email = htmlspecialchars($_POST['email']);    
@@ -40,7 +40,7 @@ class BackController {
         $nbPseudo = $addPseudo->checkPseudo($pseudo);
         $nbMail = $addMail->checkEmail($email);
         
-        if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
+        if (!isset($pseudo) || empty($pseudo) || $nbPseudo != null) {
             
             $errors ['pseudo'] = "Pseudo non renseigné ou déjà utilisé";
         }
@@ -55,12 +55,12 @@ class BackController {
             $errors ['pseudo'] = "Le pseudo doit être composé seulement de lettres minuscules et d'au moins un chiffre";  
         }
         
-        if (!array_key_exists('email', $_POST) || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!isset($email) || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $errors ['email'] = "Adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($password) || empty($password_confirm)) {
+        if (!isset($password) || empty($password) || empty($password_confirm)) {
             
             $errors ['password'] = "Veuillez entrer votre mot de passe";
         }
@@ -154,12 +154,12 @@ class BackController {
 
     // Méthode pour l'activation d'un compte.
     public function countActivation() 
-    {
-        if (isset($_GET['log']) AND isset($_GET['cle']) AND !empty($_GET['log']) 
-        AND !empty($_GET['cle'])) {
-            
-            $pseudo = htmlspecialchars($_GET['log']);
-            $confirmkey = htmlspecialchars($_GET['cle']);
+    {   
+        $pseudo = htmlspecialchars($_GET['log']);
+        $confirmkey = htmlspecialchars($_GET['cle']);
+        
+        if (isset($pseudo) AND isset($confirmkey) AND !empty($pseudo) 
+        AND !empty($confirmkey)) {
 
             //permet de vérifier si le compte est déjà activé
             $checkCount = new UsersDAO();
@@ -205,13 +205,13 @@ class BackController {
 
         $errors = array();
         
-        if (isset($_POST['email']) AND isset($_POST['password'])) {
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        
+        if (isset($email) AND isset($password) AND !empty($email) AND !empty($password)) {
 
             sleep(1);    
             
-            $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-
             $checkLogin = new UsersDAO();
             $verifLogin = $checkLogin->checkEmail($email);
 
