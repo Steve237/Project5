@@ -2,8 +2,9 @@
 function inscription()
 {
    
-    
-    if(isset($_POST['inscription'])) {    
+    $errors = array();
+
+    if (isset($_POST['inscription'])) {    
         
         $_POST['inscription'] = htmlspecialchars($_POST['inscription']);
         $_POST['pseudo'] = htmlspecialchars($_POST['pseudo']);    
@@ -36,7 +37,7 @@ function inscription()
             $errors ['email'] = "adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                     empty($_POST['password_confirm'])) {
+        if (!array_key_exists('password', $_POST) || empty($_POST['password']) || !array_key_exists('password_confirm', $_POST) ||                                       empty($_POST['password_confirm'])) {
             
             $errors ['password'] = "veuillez entrer votre mot de passe";
         }
@@ -51,9 +52,7 @@ function inscription()
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=inscription#formInscription');
             
-        }
-        
-        else {
+        } else {
             
             $_SESSION['success'] = 1;    
             $inscription = new UsersManager();
@@ -61,9 +60,8 @@ function inscription()
             header('Location: index.php?action=inscription#formInscription');
             
         }
-    } 
     
-    else {
+    }   else {
         
         require ABSOLUTE_PATH.'/view/view_inscription.php';
     }
@@ -71,10 +69,12 @@ function inscription()
 
 function connection()
 {
+    
+    $errors = array();
+
     if (array_key_exists("success_connect", $_SESSION)) {
         
         header('Location: index.php');
-        
     }
     
     if (isset($_POST['connection'])) {
@@ -110,35 +110,33 @@ function connection()
         }
         
         if ($verifPass == true) {
+            
             session_regenerate_id();
             $_SESSION['success_connect'] = "Vous êtes connecté";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php');
-            
-           
         }
         
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
             header('Location: index.php?action=connection#formInscription');
-            
-        
         }    
-    }
     
-    else {
+    } else {
         
         require ABSOLUTE_PATH.'/view/view_connection.php';
     }
 }
 
 function recovery()
-{
+{   
+    
+   $errors = array();
+
    if (isset($_GET['section'])) {
         
         $section = htmlspecialchars($_GET['section']);   
     }
-    
     else {
         
         $section=""; 
@@ -152,6 +150,8 @@ function recovery()
         $errors = array();
         $verifEmail = new UsersManager();
         $nbEmail = $verifEmail->checkEmail($_POST['email']);
+
+
         
         if (!array_key_exists('email', $_POST) || empty($_POST['email']) || !$nbEmail || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $errors ['email'] = "adresse email non renseigné ou inconnu du système";
@@ -192,7 +192,7 @@ function recovery()
                                                 Bonjour, vous avez indiqué avoir oublié votre mot de passe 
                                             </p>
                                             <p>
-                                                Cliquez <a href="http://localhost/test/index.php?                                                                                                               action=recovery_pass&section=update_password&code='.$recoveryPass.'">
+                                                Cliquez <a href="https://steveessama.com/index.php?action=recovery_pass&section=update_password&code='.$recoveryPass.'">
                                                 ici pour réinitialiser votre mot de passe</a> </br>
                                                 A bientôt sur <a href="index.php/">Notre blog!</a>
                                             </p>
@@ -285,13 +285,13 @@ function disconnect()
 
 function connectionAdmin()
 {
+    $errors = array();
     
-    if (array_key_exists('success_connect', $_SESSION)) {
+    if (array_key_exists('success_connect1', $_SESSION)) {
         
-        header('Location: index.php?action=admin_space');
+        header('Location: ../public/index.php?action=adminspace');
         
     }
-    
     
     if (isset($_POST['connect_admin'])) {
         
@@ -317,7 +317,7 @@ function connectionAdmin()
         }
         
         $connectAdmin = new UsersManager();
-        $verifPass = $connectAdmin ->connectUser();
+        $verifPass = $connectAdmin ->connectAdmin();
         
         if ($verifPass == false) {
             $errors ['password'] = "mauvais identifiant ou mot de passe";
@@ -325,7 +325,7 @@ function connectionAdmin()
         
         if ($verifPass == true) {
             session_regenerate_id();
-            $_SESSION['success_connect'] = "Vous êtes connecté";
+            $_SESSION['success_connect1'] = "1";
             $_SESSION['pseudo'] = $_POST["pseudo"];
             header('Location: index.php?action=admin_space');
             
@@ -348,7 +348,7 @@ function connectionAdmin()
 function adminSpace()
 {
        
-   if (!array_key_exists('success_connect', $_SESSION)) {
+   if (!array_key_exists('success_connect1', $_SESSION)) {
         
        header('Location: index.php');
        
@@ -361,7 +361,11 @@ function adminSpace()
 
 function addArticle()
 {
-    if (!array_key_exists('success_connect', $_SESSION)) {
+    
+    $errors = array();
+
+    
+    if (!array_key_exists('success_connect1', $_SESSION)) {
         
         header('Location: index.php');
         
@@ -535,8 +539,10 @@ function delete()
 
 function update()
 {
-   
-    if (!array_key_exists('success_connect', $_SESSION)) {
+    
+    $errors = array();
+
+    if (!array_key_exists('success_connect1', $_SESSION)) {
         
         header('Location: index.php');
         
@@ -677,7 +683,7 @@ function update()
 
 function manageComment()
 {
-   if (!array_key_exists('success_connect', $_SESSION)) {
+   if (!array_key_exists('success_connect1', $_SESSION)) {
         
        header('Location:index.php');
         

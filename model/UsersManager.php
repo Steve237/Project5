@@ -77,7 +77,24 @@ class UsersManager extends Manager
         return $isPasswordCorrect;
     }
 
+       /** 
+     * permet de vérifier si le mot de passe de l'admin est correct
+     */
+    public function connectAdmin()
+    {
+        $dtb = $this->dbConnect();
 
+        $req = $dtb->prepare('SELECT idMembre, password FROM membres WHERE pseudo = ? AND admin = 1');
+        $req->execute(array($_POST['pseudo']));
+        $resultat = $req->fetch(PDO::FETCH_ASSOC);
+        $check_user = new Users();
+        $check_user->hydrate($resultat);
+        $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
+        return $isPasswordCorrect;
+    }
+
+    
+    
     /** 
      * permet de vérifier si le pseudo du membre est en base de données
      */

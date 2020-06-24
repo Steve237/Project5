@@ -2,6 +2,7 @@
 
 <?php ob_start(); ?>
 
+
 <div class="container">
     <section class="errorpage">
         <h1 class="error">Error 404 </h1>

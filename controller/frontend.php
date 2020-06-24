@@ -38,7 +38,7 @@ function sendMail()
         $headers  = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
         $headers .= 'FROM:' . htmlspecialchars($_POST['email']);
-        $to = 'adouessono@steveessama.com';
+        $to = 'espiritokamer237@gmail.com';
         $subject = 'Message envoyé par ' . htmlspecialchars($_POST['name']) .' - <i>' . htmlspecialchars($_POST['email']) .'</i>';
         $message_content = '
             <table>
@@ -66,7 +66,7 @@ function listPosts()
 {
 
     $newsList = new NewsManager(); // Création d'un objet
-    $posts = $newsList->getListPosts(); //Appel d'une fonction de cet objet
+    $newsList->getListPosts(); //Appel d'une fonction de cet objet
     require ABSOLUTE_PATH.'/view/view_listposts.php';
 }
 
@@ -74,9 +74,10 @@ function post()
 {
 
     $post = new NewsManager();
-    $post = new NewsManager();
+    
 
     $news = $post->getPostById($_GET['id']);
+    
     $commentManager = new CommentManager();
     $listComments = $commentManager->getListCommentById($_GET['id']);
     
@@ -84,7 +85,7 @@ function post()
         
         $_POST['submit_comment'] = htmlspecialchars($_POST['submit_comment']);
        
-        if (!array_key_exists('success_connect', $_SESSION)) {
+        if (!array_key_exists('success_connect', $_SESSION) AND !array_key_exists('success_connect1', $_SESSION)) {
             
             $errors ['sucess_connect'] = "Veuillez vous connecter pour poster un commentaire";   
         }

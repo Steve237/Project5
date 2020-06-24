@@ -9,17 +9,6 @@ $_SESSION['token'] = $token;
 <?php $title = 'Mon blog'; ?>
 <?php ob_start(); ?>
 
-<?php if (array_key_exists('success_connect', $_SESSION)): ?>
-
-<section class="section_connection">
-    <div class="connect-sign hidden-sm"><?= $_SESSION['success_connect']; ?></div>
-    <form action="index.php?action=disconnected" method="post">
-        <button type="submit" class="btn btn-success btn-default button-disconnect hidden-sm" name="disconnect">Déconnexion</button>
-    </form>
-</section>    
-<?php endif; ?>
-
-
 
 <!-- Contact Section -->
 <section id="contact">

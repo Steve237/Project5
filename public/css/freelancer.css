@@ -332,19 +332,35 @@ form .row:first-child .floating-label-form-group {
 
 footer {
   color: white;
+
 }
 
-footer h3 {
+html, body { 
+   margin:0; 
+   padding:0; 
+   height:100%; 
+} 
+
+footer { 
+   position:absolute; 
+   bottom:0;  
+   width:100%; 
+   height:100px; 
+}
+
+#main { 
+   min-height:100%; 
+   position:relative; 
+   padding-bottom:100px; 
+} 
+
+
+h3 {
   margin-bottom: 30px;
 }
 
 footer .footer-above {
-  padding-top: 50px;
   background-color: #2C3E50;
-}
-
-footer .footer-col {
-  margin-bottom: 50px;
 }
 
 footer .footer-below {
@@ -649,7 +665,17 @@ fieldset[disabled] .btn-success.active {
         
     }
 
-}
+    .title_comment {
+
+      
+      margin-bottom : 100px;
+      margin-top : 130px;
+      
+    
+    }
+
+
+  }
 
 @media all and (min-width: 577px) and (max-width: 767px) {   
     
@@ -690,11 +716,32 @@ fieldset[disabled] .btn-success.active {
         
     }
 
-}
+    .title_comment {
 
-@media all and (min-width: 768px) and (max-width: 991px) {
+      
+      margin-bottom : 100px;
+      
+      
+    
+    }
 
-    .description_text {    
+
+  }
+
+@media all and (min-width: 768px) and (max-width: 992px) {
+
+    
+  .title_comment {
+
+      
+    margin-bottom : 100px;
+    
+    
+  }
+  
+  
+  
+  .description_text {    
         
         font-size: 20px;
     }
@@ -747,10 +794,43 @@ fieldset[disabled] .btn-success.active {
     }
 
 
-}
+    .addpost{
+
+      margin-top:125px;
+    
+    }
+
+
+    .title_comment {
+
+      
+      margin-bottom : 70px;
+      padding-top: 50px;
+     
+    }
+
+  
+    .update_title {
+
+      margin-top : 100px;
+
+
+    }
+  
+  }
 
 @media all and (min-width: 992px) and (max-width:1200px) {
+  
+    .addpost {
 
+      margin-top : 50px;
+    }
+  
+    .update_title {
+
+      margin-top : 50px;
+    }
+    
     .description_text {    
         
         font-size: 17px;
@@ -832,7 +912,15 @@ fieldset[disabled] .btn-success.active {
         
     }
 
-}
+
+    .title_comment {
+      
+      margin-bottom : 110px;
+      padding-top: 50px;
+     
+    }
+
+  }
 
 @media all and (min-width: 1201px) {
 
@@ -905,14 +993,17 @@ fieldset[disabled] .btn-success.active {
         
     }
 
-}
 
-.footer {
-    
-position: absolute;
-bottom: 0px;
-left: 0px;
-right: 0px;
+    .update_title {
+
+      margin-top : 50px;
+    }
+
+    .addpost {
+
+      margin-top : 50px;
+    }
+
 
 }
 
@@ -927,15 +1018,24 @@ margin-bottom: 15px;
 
 .list_news {
 border: 2px solid black;
-margin-bottom:15px;
+margin-bottom:60px;
 background-color:cyan;padding:10px;
     
 }
 
 .admin_title {
     
-text-align: center;
-    
+text-align: center;  
+margin-top: 170px ;
+
+}
+
+.admin_list {
+
+  text-align: center;  
+  margin-top: 30px ;
+
+
 }
 
 
@@ -964,5 +1064,30 @@ margin-top: 150px;
 
 height:450px;
 
+}
+
+.disconnect {
+
+  color:red;
+  margin-left:13px
+
+}
+
+.title_comment {
+
+  text-align:center;
+  margin-top:180px;
+  margin-bottom:65px;
+
+}
+
+.descriptif {
+
+  text-align:left'
+}
+
+.contenu{
+
+  text-align:left;
 }
 
