@@ -38,10 +38,6 @@ class BackController {
         $addMail = new UsersDAO();
         $nbPseudo = $addPseudo->checkPseudo($pseudo);
         $nbMail = $addMail->checkEmail($email);
-<<<<<<< HEAD
-
-=======
->>>>>>> 9602d38bd7e6fbf662499dc9d8c53f4fb0455d46
         
         if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
             
@@ -164,10 +160,11 @@ class BackController {
             $pseudo = htmlspecialchars($_GET['log']);
             $confirmkey = htmlspecialchars($_GET['cle']);
 
+            //permet de vérifier si le compte est déjà activé
             $checkCount = new UsersDAO();
             $verifcount = $checkCount->checkConfirmed($pseudo);
             
-            
+            //permet de vérifier si la clef d'activation existe en base de données
             $verifKey = new UsersDAO();
             $verif = $verifKey->checkConfirmKey($pseudo);
             
@@ -257,15 +254,6 @@ class BackController {
 
         $errors = array();
 
-        if (isset($_GET['section'])) {
-        
-            $section = htmlspecialchars($_GET['section']);   
-        
-        } else {
-        
-            $section=""; 
-        }
-
         // On vérifie le mail de récupération du mot de passe.
         if (isset($_POST['recoverysubmit'])) {   
         
@@ -286,7 +274,7 @@ class BackController {
             if (!empty($errors)) {
                
                 $_SESSION['errors'] = $errors;
-                header('Location../public/index.php?action=recoverypass');
+                header('Location:../public/index.php?action=recoverypass');
             
             } else {
                 
@@ -318,7 +306,7 @@ class BackController {
                                                 Bonjour, vous avez indiqué avoir oublié votre mot de passe 
                                             </p>
                                             <p>
-                                                <a href="http://localhost/project5/public/index.php?action=recoverypass&amp;section=updatepassword&code='.$recoveryPass.'" target="_blank">
+                                                <a href="http://localhost/project5/public/index.php?action=updatepass&amp;code='.urlencode($recoveryPass).'" target="_blank">
                                                 Cliquez ici pour réinitialiser votre mot de passe</a></br>
                                                 A bientôt sur <a href="../public/index.php/">Notre blog!</a> 
                                             </p>
@@ -340,53 +328,65 @@ class BackController {
                
                 mail($email, "Récupération de mot de passe", $message, $header);
                 $_SESSION['sendrecovery'] = 1;
-                header('Location../public/index.php?action=recoverypass');
+                header('Location:../public/index.php?action=recoverypass');
                 
-            }
+            } 
+        
+        } else {
+
+            $this->view->render('recoverypass');
         }
-        
-        // Permet l'ajout d'un nouveau mot de passe.
-        if (isset($_POST['pass_submit'])) {
-            
-            sleep(1); 
-            
-            $email = $_SESSION['email'];
-            
-            $submitPass = htmlspecialchars($_POST['pass_submit']); 
-            
-            if (isset($_POST['newpass']) AND isset($_POST['confirmpass'])) {
-                $newPass = htmlspecialchars($_POST['newpass']);
-                $confirmPass = htmlspecialchars($_POST['confirmpass']);
-                
-                if (empty($newPass) || empty($confirmPass)) {
-                    
-                    $errors ['newpass'] = "Veuillez entrer votre nouveau mot de passe";
-                }
-                
-                if (preg_match("#[^a-zA-Z0-9]+#", $newPass)) {
+    }
 
-                    $errors ['newpass'] = "Votre mot de passe doit comporter au moins une majuscule, 
-                    une minuscule, et un chiffre";
+    public function updatePass() {
         
-                }
+        $code = htmlspecialchars($_GET['code']);
+        $checkCode = new UsersDAO();
+        $codeChecking = $checkCode->checkRecoveryCode($code);
         
-                if (strlen($newPass) < 7) {
-        
-                    $errors ['newpass'] = "Votre mot de passe doit comporter au moins 7 caractères"; 
-                }
-        
-                if ($newPass != $confirmPass) {
-
-                    $errors ['newpass'] = "Veuillez entrer deux mots de passes identiques";
-                    
-                }
+        if (isset($code) || !empty($code) || $codeChecking != null) {
+            
+            if (isset($_POST['pass_submit'])) {
+            
+                sleep(1); 
+            
+                $email = $_SESSION['email'];
+            
+                $submitPass = htmlspecialchars($_POST['pass_submit']); 
+            
+                if (isset($_POST['newpass']) AND isset($_POST['confirmpass'])) {
+                    $newPass = htmlspecialchars($_POST['newpass']);
+                    $confirmPass = htmlspecialchars($_POST['confirmpass']);
                 
-                if (!empty($errors)) {
+                    if (empty($newPass) || empty($confirmPass)) {
                     
-                    $_SESSION['errors'] = $errors;
-                    header('Location: ../public/index.php?action=recoverypass&section=updatepassword');
+                        $errors ['newpass'] = "Veuillez entrer votre nouveau mot de passe";
+                    }
+                
+                    if (preg_match("#[^a-zA-Z0-9]+#", $newPass)) {
+
+                        $errors ['newpass'] = "Votre mot de passe doit comporter au moins une majuscule, 
+                        une minuscule, et un chiffre";
+        
+                    }
+        
+                    if (strlen($newPass) < 7) {
+        
+                        $errors ['newpass'] = "Votre mot de passe doit comporter au moins 7 caractères"; 
+                    }
+        
+                    if ($newPass != $confirmPass) {
+
+                        $errors ['newpass'] = "Veuillez entrer deux mots de passes identiques";
                     
-                } else {
+                    }
+                
+                    if (!empty($errors)) {
+                    
+                        $_SESSION['errors'] = $errors;
+                        header('Location: ../public/index.php?action=updatepass');
+                    
+                    } else {
                     
                         $updatePass = new UsersDAO();
                         $updatePass->updatePass($newPass, $email);
@@ -399,9 +399,13 @@ class BackController {
             
             } else {
 
-            $this->view->render('recoverypass', ['section' => $section]);
-        }
-        
+                $this->view->render('updatepass');
+            }
+
+        } else {
+
+            header('Location: ../public/index.php');
+        } 
     }
 
     //Permet de se déconnecter
