@@ -26,21 +26,21 @@ class BackController {
     {
         $errors = array();
         
-        $inscription = htmlspecialchars($_POST['inscription']);
+        $inscription = filter_input(INPUT_POST, 'inscription', FILTER_SANITIZE_STRING);
         
         if (isset($inscription) || !empty($inscription)) {    
 
-        $pseudo = htmlspecialchars($_POST['pseudo']);    
-        $email = htmlspecialchars($_POST['email']);    
-        $password = htmlspecialchars($_POST['password']);    
-        $password_confirm = htmlspecialchars($_POST['password_confirm']);
+        $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);  
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);   
+        $password_confirm = filter_input(INPUT_POST, 'password_confirm', FILTER_SANITIZE_STRING); 
         
         $addPseudo = new UsersDAO();
         $addMail = new UsersDAO();
         $nbPseudo = $addPseudo->checkPseudo($pseudo);
         $nbMail = $addMail->checkEmail($email);
         
-        if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
+        if (!$pseudo || empty($pseudo) || $nbPseudo != null) {
             
             $errors ['pseudo'] = "Pseudo non renseigné ou déjà utilisé";
         }
@@ -55,12 +55,12 @@ class BackController {
             $errors ['pseudo'] = "Le pseudo doit être composé seulement de lettres minuscules et d'au moins un chiffre";  
         }
         
-        if (!array_key_exists('email', $_POST)  || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!$email  || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $errors ['email'] = "Adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST)  || empty($password) || empty($password_confirm)) {
+        if (!$password  || empty($password) || empty($password_confirm)) {
             
             $errors ['password'] = "Veuillez entrer votre mot de passe";
         }
@@ -155,8 +155,8 @@ class BackController {
     // Méthode pour l'activation d'un compte.
     public function countActivation() 
     {   
-        $pseudo = htmlspecialchars($_GET['log']);
-        $confirmkey = htmlspecialchars($_GET['cle']);
+        $pseudo = filter_input(INPUT_GET, 'log', FILTER_SANITIZE_STRING); 
+        $confirmkey = filter_input(INPUT_GET, 'cle', FILTER_SANITIZE_STRING); 
         
         if (isset($pseudo) AND isset($confirmkey) AND !empty($pseudo) 
         AND !empty($confirmkey)) {
@@ -169,7 +169,6 @@ class BackController {
             $verifKey = new UsersDAO();
             $verif = $verifKey->checkConfirmKey($pseudo);
             
-
             if ($verifcount == 1) {
             $_SESSION['activation'] = 1;
 
