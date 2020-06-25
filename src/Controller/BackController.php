@@ -40,7 +40,7 @@ class BackController {
         $nbPseudo = $addPseudo->checkPseudo($pseudo);
         $nbMail = $addMail->checkEmail($email);
         
-        if (!array_key_exists('pseudo', $_POST) || empty($pseudo) || $nbPseudo != null) {
+        if (!$pseudo || empty($pseudo) || $nbPseudo != null) {
             
             $errors ['pseudo'] = "Pseudo non renseigné ou déjà utilisé";
         }
@@ -55,12 +55,12 @@ class BackController {
             $errors ['pseudo'] = "Le pseudo doit être composé seulement de lettres minuscules et d'au moins un chiffre";  
         }
         
-        if (!array_key_exists('email', $_POST) || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!$email || empty($email) || $nbMail != null || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $errors ['email'] = "Adresse email non renseigné ou déjà utilisé";
         }
         
-        if (!array_key_exists('password', $_POST) || empty($password) || empty($password_confirm)) {
+        if (!$password || empty($password) || empty($password_confirm)) {
             
             $errors ['password'] = "Veuillez entrer votre mot de passe";
         }
@@ -264,7 +264,7 @@ class BackController {
             $verifEmail = new UsersDAO();
             $nbEmail = $verifEmail->checkEmail($email);
 
-            if (!array_key_exists('email', $_POST) || empty($email) 
+            if (!$email || empty($email) 
             || $nbEmail == null || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 
                 $errors ['email'] = "adresse email non renseigné ou inconnu du système";
@@ -339,6 +339,8 @@ class BackController {
     }
 
     public function updatePass() {
+
+        $errors = array();
         
         $code = htmlspecialchars($_GET['code']);
         $checkCode = new UsersDAO();
@@ -434,12 +436,12 @@ class BackController {
             $email = htmlspecialchars($_POST['email']);  
             $password = htmlspecialchars($_POST['password']);       
         
-            if (!array_key_exists('email', $_POST) || empty($email)) {
+            if (!$email || empty($email)) {
             
                 $errors ['email'] = "veuillez entrer votre adresse email";    
             }
         
-            if (!array_key_exists('password', $_POST) || empty($password)) {
+            if (!$password || empty($password)) {
             
                 $errors ['password'] = "veuillez entrer votre mot de passe";  
             }
