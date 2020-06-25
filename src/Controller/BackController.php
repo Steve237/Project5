@@ -93,7 +93,7 @@ class BackController {
             $newmember->addUser($pseudo, $password, $email);
 
             $confirmkey = md5(microtime(TRUE)*100000);
-            $pseudo = htmlspecialchars($_POST['pseudo']);
+            $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING); 
             $addVerifKey = new UsersDAO();
             $addVerifKey->addKey($confirmkey, $pseudo);
             
@@ -204,8 +204,8 @@ class BackController {
 
         $errors = array();
         
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL); 
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING); 
         if (isset($email) AND isset($password) AND !empty($email) AND !empty($password)) {
 
             sleep(1);    
@@ -254,16 +254,15 @@ class BackController {
         $errors = array();
 
         // On vérifie le mail de récupération du mot de passe.
-        if (isset($_POST['recoverysubmit'])) {   
-        
-            $recoverysubmit = htmlspecialchars($_POST['recoverysubmit']); 
-            
-            $email = htmlspecialchars($_POST['email']);   
+        $recoverysubmit = filter_input(INPUT_POST, 'recoverysubmit', FILTER_SANITIZE_STRING);
+        if (isset($recoverysubmit)) {   
+         
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);   
             
             $verifEmail = new UsersDAO();
             $nbEmail = $verifEmail->checkEmail($email);
 
-            if (!array_key_exists('email', $_POST)  || empty($email) 
+            if (!$email  || empty($email) 
             || $nbEmail == null || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 
                 $errors ['email'] = "adresse email non renseigné ou inconnu du système";
@@ -341,23 +340,24 @@ class BackController {
 
         $errors = array();
         
-        $code = htmlspecialchars($_GET['code']);
+        $code = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
         $checkCode = new UsersDAO();
         $codeChecking = $checkCode->checkRecoveryCode($code);
         
         if (isset($code) || !empty($code) || $codeChecking != null) {
             
-            if (isset($_POST['pass_submit'])) {
+            $submitPass = filter_input(INPUT_POST, 'pass_submit', FILTER_SANITIZE_STRING);
+
+            if (isset($submitPass)) {
             
                 sleep(1); 
             
                 $email = $_SESSION['email'];
-            
-                $submitPass = htmlspecialchars($_POST['pass_submit']); 
-            
-                if (isset($_POST['newpass']) AND isset($_POST['confirmpass'])) {
-                    $newPass = htmlspecialchars($_POST['newpass']);
-                    $confirmPass = htmlspecialchars($_POST['confirmpass']);
+                   
+                $newPass = filter_input(INPUT_POST, 'newpass', FILTER_SANITIZE_STRING);
+                $confirmPass = filter_input(INPUT_POST, 'confirmpass', FILTER_SANITIZE_STRING);
+                
+                if (isset($newPass) AND isset($confirmPass)) {
                 
                     if (empty($newPass) || empty($confirmPass)) {
                     
@@ -414,7 +414,7 @@ class BackController {
     {
         if (isset($_POST['disconnect'])) {
         
-            $disconnect = htmlspecialchars($_POST['disconnect']); 
+            $disconnect = filter_input(INPUT_POST, 'disconnect', FILTER_SANITIZE_STRING);
             $_SESSION = array();
             session_destroy();
             
@@ -426,21 +426,21 @@ class BackController {
     public function adminConnection() {
 
         $errors = array();
+    
+    $connectAdmin = filter_input(INPUT_POST, 'connectadmin', FILTER_SANITIZE_STRING);
+
+    if (isset($connectAdmin)) {
         
-    if (isset($_POST['connectadmin'])) {
-        
-            sleep(1); 
-            $connectAdmin = htmlspecialchars($_POST['connectadmin']); 
-        
-            $email = htmlspecialchars($_POST['email']);  
-            $password = htmlspecialchars($_POST['password']);       
-        
+            sleep(1);         
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);  
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_EMAIL);
+            
             if (!$email || empty($email)) {
             
                 $errors ['email'] = "veuillez entrer votre adresse email";    
             }
         
-            if (!array_key_exists('password', $_POST)  || empty($password)) {
+            if (!$password  || empty($password)) {
             
                 $errors ['password'] = "veuillez entrer votre mot de passe";  
             }
