@@ -18,7 +18,7 @@
                     </div>
                 <?php endif; ?>
                 
-                <form action="../public/index.php?action=updatepass" id="form_recovery" method="post" class="col-xs-12">
+                <form action="../public/index.php?action=confirmpass" id="form_recovery" method="post" class="col-xs-12">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label for="password">Votre nouveau mot de passe </label>

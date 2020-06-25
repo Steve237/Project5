@@ -304,7 +304,7 @@ class BackController {
                                                 Bonjour, vous avez indiqué avoir oublié votre mot de passe 
                                             </p>
                                             <p>
-                                                <a href="http://localhost/project5/public/index.php?action=updatepass&amp;code='.urlencode($recoveryPass).'" target="_blank">
+                                                <a href="http://localhost/project5/public/index.php?action=updatecode&amp;code='.urlencode($recoveryPass).'" target="_blank">
                                                 Cliquez ici pour réinitialiser votre mot de passe</a></br>
                                                 A bientôt sur <a href="../public/index.php/">Notre blog!</a> 
                                             </p>
@@ -336,7 +336,7 @@ class BackController {
         }
     }
 
-    public function updatePass() {
+    public function verifRecoveryCode() {
 
         $errors = array();
         
@@ -344,7 +344,19 @@ class BackController {
         $checkCode = new UsersDAO();
         $codeChecking = $checkCode->checkRecoveryCode($code);
         
-        if (isset($code) || !empty($code) || $codeChecking != null) {
+        if (!$code || empty($code) || $codeChecking == null) {
+
+            header('Location: ../public/index.php');
+
+        } else {
+
+            header('Location: ../public/index.php?action=confirmpass');
+        }
+    
+    }
+
+    public function confirmPass() {
+
             
             $submitPass = filter_input(INPUT_POST, 'pass_submit', FILTER_SANITIZE_STRING);
 
@@ -385,7 +397,7 @@ class BackController {
                     if (!empty($errors)) {
                     
                         $_SESSION['errors'] = $errors;
-                        header('Location: ../public/index.php?action=updatepass');
+                        header('Location: ../public/index.php?action=confirmpass');
                     
                     } else {
                     
@@ -398,23 +410,18 @@ class BackController {
                 
                 }
             
-            } else {
-
-                $this->view->render('updatepass');
-            }
-
-        } else {
-
-            header('Location: ../public/index.php');
+            } 
+            
+            $this->view->render('updatepass'); 
         } 
-    }
-
+    
     //Permet de se déconnecter
     public function disconnect() 
     {
-        if (isset($_POST['disconnect'])) {
+        $disconnect = filter_input(INPUT_POST, 'disconnect', FILTER_SANITIZE_STRING);
+
+        if (isset($disconnect)) {
         
-            $disconnect = filter_input(INPUT_POST, 'disconnect', FILTER_SANITIZE_STRING);
             $_SESSION = array();
             session_destroy();
             
@@ -425,15 +432,15 @@ class BackController {
     //Permet de se connecter à l'espace administrateur
     public function adminConnection() {
 
+        sleep(1);    
         $errors = array();
     
-    $connectAdmin = filter_input(INPUT_POST, 'connectadmin', FILTER_SANITIZE_STRING);
+        $connectAdmin = filter_input(INPUT_POST, 'connectadmin', FILTER_SANITIZE_STRING);
+         
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);  
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-    if (isset($connectAdmin)) {
-        
-            sleep(1);         
-            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);  
-            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_EMAIL);
+        if (isset($email) AND isset($password) AND !empty($email) AND !empty($password)) {
             
             if (!$email || empty($email)) {
             
@@ -473,12 +480,11 @@ class BackController {
                 $_SESSION['allowcomments'] = 1;
                 header('Location: ../public/index.php?action=adminspace');
             } 
-            
-        } else {
         
+        } else {
+
             $this->view->render('adminconnection');
-        }
-    
+        }  
     }
 
     // Renvoi la liste des articles à l'espace administrateur.
@@ -493,22 +499,23 @@ class BackController {
     public function addArticle() 
     {
         $errors = array();
-    
-        if (isset($_POST['add_new'])) {
-
-
-            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) 
-            AND !empty($_POST['token'])) {
         
-                if ($_SESSION['token'] == $_POST['token']) {    
+        $addNew = filter_input(INPUT_POST, 'add_new', FILTER_SANITIZE_STRING);
+        if (isset($addNew)) {
 
-                    $addpost = htmlspecialchars($_POST['add_new']);
-                    $title = htmlspecialchars($_POST['post_title']);
-                    $author = htmlspecialchars($_POST['post_author']);
-                    $resume = htmlspecialchars($_POST['resume_post']);
-                    $content = htmlspecialchars($_POST['content']);
+            $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
             
-                    if (!array_key_exists('post_author', $_POST) || empty($author)) {
+            if (isset($_SESSION['token']) AND isset($token) AND !empty($_SESSION['token']) 
+            AND !empty($token)) {
+        
+                if ($_SESSION['token'] == $token) {    
+
+                    $title = filter_input(INPUT_POST, 'post_title', FILTER_SANITIZE_STRING);
+                    $author = filter_input(INPUT_POST, 'post_author', FILTER_SANITIZE_STRING);
+                    $resume = filter_input(INPUT_POST, 'resume_post', FILTER_SANITIZE_STRING);
+                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+            
+                    if (!$author || empty($author)) {
             
                         $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
                     }
@@ -518,7 +525,7 @@ class BackController {
                         $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
                     }
         
-                    if (!array_key_exists('post_title', $_POST) || empty($title)) {
+                    if (!$title || empty($title)) {
             
                         $errors ['post_title'] = "veuillez saisir le titre de l'article";
                     }
@@ -528,7 +535,7 @@ class BackController {
                         $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
                     }
         
-                    if (!array_key_exists('resume_post', $_POST) || empty($resume)) {
+                    if (!$resume || empty($resume)) {
             
                         $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
                     }
@@ -538,7 +545,7 @@ class BackController {
                         $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
                     }
         
-                    if (!array_key_exists('content', $_POST) || empty($content)) {
+                    if (!$content || empty($content)) {
             
                         $errors ['content'] = "veuillez saisir le contenu de votre article";
                     }
@@ -628,24 +635,26 @@ class BackController {
 
         $errors = array();
 
-        $idPost = htmlspecialchars($_GET['id']);
+        $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         $singlepost = $this->articleDAO->getArticle($idArt);
-    
-        if (isset($_POST['add_new'])) {
+        
+        $addNew = filter_input(INPUT_POST, 'add_new', FILTER_SANITIZE_STRING);
 
+        if (isset($addNew)) {
 
-            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) 
-            AND !empty($_POST['token'])) {
+            $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+
+            if (isset($_SESSION['token']) AND isset($token) AND !empty($_SESSION['token']) 
+            AND !empty($token)) {
         
                 if ($_SESSION['token'] == $_POST['token']) {   
         
-                    $addnew = htmlspecialchars($_POST['add_new']);
-                    $resume = htmlspecialchars($_POST['resume_post']);
-                    $content = htmlspecialchars($_POST['content']);
-                    $author = htmlspecialchars($_POST['post_author']);
-                    $title = htmlspecialchars($_POST['post_title']);
+                    $title = filter_input(INPUT_POST, 'post_title', FILTER_SANITIZE_STRING);
+                    $author = filter_input(INPUT_POST, 'post_author', FILTER_SANITIZE_STRING);
+                    $resume = filter_input(INPUT_POST, 'resume_post', FILTER_SANITIZE_STRING);
+                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
             
-                    if (!array_key_exists('post_author', $_POST) || empty($author)) {
+                    if (!$author || empty($author)) {
             
                         $errors ['post_author'] = "veuillez saisir le nom de l'auteur";
                     }
@@ -655,7 +664,7 @@ class BackController {
                         $errors ['post_author'] = "le nom doit être composé au maximum de 30 caractères";
                     }
         
-                    if (!array_key_exists('post_title', $_POST) || empty($title)) {
+                    if (!$title || empty($title)) {
             
                         $errors ['post_title'] = "veuillez saisir le titre de l'article";
                     }
@@ -665,7 +674,7 @@ class BackController {
                         $errors ['post_title'] = "le titre doit contenir au maximum 30 caractères";
                     }
         
-                    if (!array_key_exists('resume_post', $_POST) || empty($resume)) {
+                    if (!$resume || empty($resume)) {
             
                         $errors ['resume_post'] = "veuillez saisir le résumé de l'article";
                     }
@@ -675,7 +684,7 @@ class BackController {
                         $errors ['resume_post'] = "le résumé doit contenir au maximum 200 caractères";
                     }
         
-                    if (!array_key_exists('content', $_POST) || empty($content)) {
+                    if (!$content || empty($content)) {
             
                         $errors ['content'] = "veuillez saisir le contenu de votre article";
                     }
@@ -760,14 +769,14 @@ class BackController {
     // Permet de supprimer un article.
     public function deleteArticle() 
     {
-        $idPost = htmlspecialchars($_GET['id']);
+        $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
             
-        if (isset($_SESSION['token']) AND isset($_POST['token']) 
-        AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
-            
-            $_POST['token'] = htmlspecialchars($_POST['token']);
+        if (isset($_SESSION['token']) AND isset($token) 
+        AND !empty($_SESSION['token']) AND !empty($token)) {
         
-            if ($_SESSION['token'] == $_POST['token']) {
+            if ($_SESSION['token'] == $token) {
                 
                 $this->articleDAO->deletePost($idPost);
                 $_SESSION['delete_post'] = 1;
@@ -792,14 +801,15 @@ class BackController {
     // Permet d'approuver les commentaires
     public function approveComment($idCommentaire) 
     {   
-        $idCommentaire = htmlspecialchars($_GET['id']);
+        $idCommentaire = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-        if (isset($_SESSION['token']) AND isset($_POST['token']) 
-        AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
-            
-            $_POST['token'] = htmlspecialchars($_POST['token']);
+        $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+
         
-            if ($_SESSION['token'] == $_POST['token']) {
+        if (isset($_SESSION['token']) AND isset($token) 
+        AND !empty($_SESSION['token']) AND !empty($token)) {
+        
+            if ($_SESSION['token'] == $token) {
     
                 $approve = $this->commentDAO->approveComment($idCommentaire);
                 $_SESSION['comment_approved'] = 1;
@@ -815,14 +825,14 @@ class BackController {
     //Permet de supprimer les commentaires.
     public function deleteComment($idCommentaire) 
     {   
-        $idCommentaire = htmlspecialchars($_GET['id']);
+        $idCommentaire = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
         
-        if (isset($_SESSION['token']) AND isset($_POST['token']) 
-        AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
-            
-            $_POST['token'] = htmlspecialchars($_POST['token']);
+        if (isset($_SESSION['token']) AND isset($token) 
+        AND !empty($_SESSION['token']) AND !empty($token)) {
         
-            if ($_SESSION['token'] == $_POST['token']) {
+            if ($_SESSION['token'] == $token) {
         
                 $delete = $this->commentDAO->deleteComment($idCommentaire);
                 $_SESSION['comment_delete'] = 1;

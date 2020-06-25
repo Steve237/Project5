@@ -60,9 +60,13 @@ class Router
 
                     $this->backController->recoveryPass();
                 
-                } elseif($_GET['action'] === 'updatepass') {
+                } elseif($_GET['action'] === 'updatecode') {
 
-                    $this->backController->updatePass();
+                    $this->backController->verifRecoveryCode();
+                
+                } elseif($_GET['action'] === 'confirmpass') {
+
+                    $this->backController->confirmPass();
                 
                 } elseif($_GET['action'] === 'disconnect') {
 
