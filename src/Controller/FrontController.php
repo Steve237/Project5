@@ -38,21 +38,21 @@ class FrontController {
     public function sendMail() 
     {
         $errors = array(); // on crée une vérif de champs
-        $name = htmlspecialchars($_POST['name']);
-        $email = htmlspecialchars($_POST['email']);
-        $message = htmlspecialchars($_POST['message']);
-    
-        if (!array_key_exists('name', $_POST) || empty($name)) {
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+        
+        if (!$name || empty($name)) {
         
             $errors ['name'] = "vous n'avez pas renseigné votre nom";
         }
     
-        if (!array_key_exists('email', $_POST) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!$email || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         
             $errors ['email'] = "vous n'avez pas renseigné votre email";
         }
     
-        if (!array_key_exists('message', $_POST) || empty($message)) {
+        if (!$message || empty($message)) {
         
             $errors ['message'] = "vous n'avez pas renseigné votre message";
         }
@@ -97,24 +97,24 @@ class FrontController {
     //Permet l'affichage d'un article en particulier.
     public function single($idArt) 
     {
-        $idArt = htmlspecialchars($_GET['id']);
+        $idArt = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         
         $singlepost = $this->articleDAO->getArticle($idArt);
         $comment = $this->commentDAO->getCommentsFromArticle($idArt);
         
-        if (isset($_POST['submit_comment'])) {
+        $submitComment = filter_input(INPUT_POST, 'submit_comment', FILTER_SANITIZE_STRING);
         
-            $submitComment = htmlspecialchars($_POST['submit_comment']);
+        if (isset($submitComment) {
             
-            $pseudo = htmlspecialchars($_POST['pseudo']);
-            $userComment = htmlspecialchars($_POST['user_comment']);
+            $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
+            $userComment = filter_input(INPUT_POST, 'user_comment', FILTER_SANITIZE_STRING);
             
-            if (!array_key_exists('pseudo', $_POST) || empty($pseudo)) {
+            if (!$pseudo || empty($pseudo)) {
                 
                 $errors ['pseudo'] = "Veuillez entrer un pseudo";   
             }
             
-            if (!array_key_exists('user_comment', $_POST) || empty($userComment)) {
+            if (!$userComment || empty($userComment)) {
                 
                 $errors ['user_comment'] = "Veuillez entrer un commentaire";   
             }
