@@ -794,9 +794,14 @@ class BackController {
 
     // Renvoi la liste des commentaires dans l'espace de gestion des commentaires.
     public function manageComment() 
-    {
+    {   
+        // Renvoi la liste des commentaires validés
         $comment = $this->commentDAO->getComments();
-        $this->view->render('managecomment', ['comment' => $comment]);
+
+        // Renvoi la liste des commentaires non validés
+        $commentNoValidated = $this->commentDAO->getCommentsNoValidated();
+
+        $this->view->render('managecomment', ['comment' => $comment, 'commentNoValidated' => $commentNoValidated]);
         
     }
 
@@ -806,7 +811,6 @@ class BackController {
         $idCommentaire = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
         $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
-
         
         if (isset($_SESSION['token']) AND isset($token) 
         AND !empty($_SESSION['token']) AND !empty($token)) {
@@ -815,6 +819,7 @@ class BackController {
     
                 $approve = $this->commentDAO->approveComment($idCommentaire);
                 $_SESSION['comment_approved'] = 1;
+                
                 header('Location: ../public/index.php?action=managecomment');
             }
         

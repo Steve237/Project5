@@ -31,11 +31,8 @@ $_SESSION['token'] = $token;
     <a href="../public/index.php?action=adminspace"><button type="button" class="btn btn-primary">Gestions des articles</button></a>
     <a href="../public/index.php?action=managecomment"><button type="button" class="btn btn-primary">Espace commentaire</button></a>
     <?php
-    
-    
-    foreach ($comment as $resultat) {
-        
-    
+
+    foreach ($commentNoValidated as $resultat) {
         ?>
         <div class="comments_list">
                     
@@ -57,6 +54,27 @@ $_SESSION['token'] = $token;
         </div>
         <?php
     }
+    
+    foreach ($comment as $resultat) {
+        ?>
+        <div class="comments_list">
+                    
+            <h2><?= $resultat->newtitle ?></h2>
+
+            <p><?= $resultat->commentcontent ?></p>
+       
+            <p>Auteur du commentaire : <?= $resultat->pseudocomment ?></p>
+                    
+            <p class="alert alert-success">Commentaire Validé</p>
+            
+            <form action="../public/index.php?action=deletecomment&amp;id=<?= $resultat->idcom ?>" method="post">
+                <input type="submit" class="btn btn-primary" value="Supprimer" style="margin-top:2px">
+                <input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
+            </form>
+        </div>
+        <?php
+    }
+
     ?>
 </div>
 
