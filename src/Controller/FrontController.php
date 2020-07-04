@@ -104,7 +104,7 @@ class FrontController {
         
         $submitComment = filter_input(INPUT_POST, 'submit_comment', FILTER_SANITIZE_STRING);
         
-        if (isset($submitComment) {
+        if (isset($submitComment)) {
             
             $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_STRING);
             $userComment = filter_input(INPUT_POST, 'user_comment', FILTER_SANITIZE_STRING);

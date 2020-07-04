@@ -336,6 +336,7 @@ class BackController {
         }
     }
 
+    //permet de vérifier la validité du code de recuperation du mot de passe
     public function verifRecoveryCode() {
 
         $errors = array();
@@ -355,6 +356,7 @@ class BackController {
     
     }
 
+    //permet la mise à jour du mot de passe
     public function confirmPass() {
 
             
@@ -510,10 +512,10 @@ class BackController {
         
                 if ($_SESSION['token'] == $token) {    
 
-                    $title = filter_input(INPUT_POST, 'post_title', FILTER_SANITIZE_STRING);
-                    $author = filter_input(INPUT_POST, 'post_author', FILTER_SANITIZE_STRING);
-                    $resume = filter_input(INPUT_POST, 'resume_post', FILTER_SANITIZE_STRING);
-                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+                    $title = filter_input(INPUT_POST, 'post_title', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+                    $author = filter_input(INPUT_POST, 'post_author', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+                    $resume = filter_input(INPUT_POST, 'resume_post', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
             
                     if (!$author || empty($author)) {
             
@@ -570,19 +572,13 @@ class BackController {
                     }
         
                     $imagePost = $_FILES['image_post']['name'];
+
                     $ExtensionPresumee = explode('.', $imagePost);
                     $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
         
                     if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
             
                         $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
-                    }
-        
-                    $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
-        
-                    if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
-            
-                        $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
                     }
         
                     if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
@@ -594,7 +590,7 @@ class BackController {
             
                         $_SESSION['errors'] = $errors;
                     
-                        header('Location: ../public/index.php?action=addarticle');
+                        header('Location:../public/index.php?action=addarticle');
                     
                     } else {
                 
@@ -612,7 +608,7 @@ class BackController {
                         $insertPost = new ArticleDAO();
                         $insertPost->addArticles($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post']);
                         $_SESSION['insert_success'] = 1;
-                         header('Location:../public/index.php?action=adminspace');
+                        header('Location:../public/index.php?action=adminspace');
 
                     }    
                 }      
@@ -649,10 +645,10 @@ class BackController {
         
                 if ($_SESSION['token'] == $_POST['token']) {   
         
-                    $title = filter_input(INPUT_POST, 'post_title', FILTER_SANITIZE_STRING);
-                    $author = filter_input(INPUT_POST, 'post_author', FILTER_SANITIZE_STRING);
-                    $resume = filter_input(INPUT_POST, 'resume_post', FILTER_SANITIZE_STRING);
-                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING);
+                    $title = filter_input(INPUT_POST, 'post_title', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+                    $author = filter_input(INPUT_POST, 'post_author', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+                    $resume = filter_input(INPUT_POST, 'resume_post', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+                    $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
             
                     if (!$author || empty($author)) {
             
@@ -688,69 +684,75 @@ class BackController {
             
                         $errors ['content'] = "veuillez saisir le contenu de votre article";
                     }
-        
-                    $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
-                    $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
-        
-                    if (empty($_FILES['image_post'])) {
-            
-                    $errors ['image_post'] = "vous n'avez ajouté aucune image";
-                    }
-        
-                    if ($_FILES['image_post']['error'] > 0) {
-            
-                        $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
-                    }
-        
-                    if ($_FILES['image_post']['size'] > 2097152) {
-            
-                    $errors ['image_post'] = "l'image choisie est trop lourde";
-                    
-                    }
-        
-                    $imagePost = $_FILES['image_post']['name'];
-                    $ExtensionPresumee = explode('.', $imagePost);
-                    $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
-        
-                    if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
-            
-                        $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
-                    }
-        
-                    $imagePost = getimagesize($_FILES['image_post']['tmp_name']);
-        
-                    if ($imagePost['mime'] != $ListeExtension[$ExtensionPresumee]  && $imagePost['mime'] != $ListeExtensionIE[$ExtensionPresumee]) {
-            
-                        $errors ['image_post'] = "Veuillez ajouter une image au format jpeg"; 
-                    }
-        
+
                     if (!is_uploaded_file($_FILES['image_post']['tmp_name'])) {
+
+                        if (!empty($errors)) {
             
-                        $errors ['image_post'] = "aucune image téléchargé"; 
-                    }
+                            $_SESSION['errors'] = $errors;
+                            header('Location: index.php?action=updatepost&id='.$_GET['id']);
+                        } 
+            
+                        else {
+
+                            $updateNew = $this->articleDAO->updateNew($title, $author, $resume, $content, $idPost);
+                            $_SESSION['success_update'] = 1;
+                            header('Location:index.php?action=adminspace');  
+                        } 
+                    
+                    } else if (is_uploaded_file($_FILES['image_post']['tmp_name'])) {
+
+                        $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg');
+                        $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
         
-                    if (!empty($errors)) {
+                        if (empty($_FILES['image_post'])) {
             
-                        $_SESSION['errors'] = $errors;
-                    
-                        header('Location: index.php?action=updatepost&id='.$_GET['id']);
-                    
-                    } else {
+                            $errors ['image_post'] = "vous n'avez ajouté aucune image";
+                        }
+        
+                        if ($_FILES['image_post']['error'] > 0) {
             
-                        $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
-                        $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
-                        $newImageWidth = 900;
-                        $newImageHeight = 650;
-                        $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight);
-                        imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
-                        imagedestroy($imageSelected);
-                        $imageSelectedName = explode('.', $imagePost);
-                        $_POST['image_post'] = time();
-                        imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
-                        $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
-                        $updatePost = $this->articleDAO->updatePost($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post'], $idPost);
-                        $_SESSION['success_update'] = 1;
-                        header('Location:index.php?action=adminspace');        
+                            $errors ['image_post'] = "Erreur lors du téléchargement de l'image";
+                        }
+        
+                        if ($_FILES['image_post']['size'] > 2097152) {
+            
+                            $errors ['image_post'] = "l'image choisie est trop lourde";
+                    
+                        }   
+        
+                        $imagePost = $_FILES['image_post']['name'];
+                        $ExtensionPresumee = explode('.', $imagePost);
+                        $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+        
+                        if ($ExtensionPresumee != 'jpg' && $ExtensionPresumee != 'jpeg') {
+            
+                            $errors ['image_post'] = "Veuillez ajouter une image au format Jpeg";
+                        
+                        } else if (!empty($errors)) {
+            
+                            $_SESSION['errors'] = $errors;
+                        
+                            header('Location: index.php?action=updatepost&id='.$_GET['id']);
+
+                        } else {
+            
+                            $imageSelected = imagecreatefromjpeg($_FILES['image_post']['tmp_name']);
+                            $sizeImageSelected = getimagesize($_FILES['image_post']['tmp_name']);
+                            $newImageWidth = 900;
+                            $newImageHeight = 650;
+                            $newImage = imagecreatetruecolor($newImageWidth , $newImageHeight);
+                            imagecopyresampled($newImage , $imageSelected, 0, 0, 0, 0, $newImageWidth, $newImageHeight, $sizeImageSelected[0],$sizeImageSelected[1]);
+                            imagedestroy($imageSelected);
+                            $imageSelectedName = explode('.', $imagePost);
+                            $_POST['image_post'] = time();
+                            imagejpeg($newImage , '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee, 100); 
+                            $_POST['MAX_FILE_SIZE'] = '../public/img/portfolio/'.$_POST['image_post'].'.'.$ExtensionPresumee;
+                            $updatePost = $this->articleDAO->updatePost($title, $author, $resume, $content, $_POST['MAX_FILE_SIZE'], $_POST['image_post'], $idPost);
+                            $_SESSION['success_update'] = 1;
+                            header('Location:index.php?action=adminspace');        
+                        }
+                    
                     }
                 }
             

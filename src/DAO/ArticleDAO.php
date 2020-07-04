@@ -66,7 +66,7 @@ class ArticleDAO extends DAO
      * @param mixed $imagename
      * @param mixed $idPost
      * 
-     * Permet la modification d'un article.
+     * Permet la modification d'un article en incluant une image.
      */
     public function updatePost($title, $author, $resume, $content, $image, $imagename, $idPost)
     {
@@ -76,6 +76,22 @@ class ArticleDAO extends DAO
 
     }
     
+      /**
+     * @param mixed $title
+     * @param mixed $author
+     * @param mixed $resume
+     * @param mixed $content
+     * @param mixed $idPost
+     * 
+     * Permet la modification d'un article sans inclure une image (en laissant l'image d'origine).
+     */
+    public function updateNew($title, $author, $resume, $content, $idPost)
+    {
+
+        $sql = 'UPDATE articles SET titreArticle = ?, pseudoAuteur = ?, descriptifArticle = ?, contenu = ?, dateModification = NOW() WHERE idPost = ?';
+        $this->sql($sql, [$title, $author, $resume, $content, $idPost]);
+
+    }
     
     /**
      * @param mixed $idPost

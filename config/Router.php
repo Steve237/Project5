@@ -23,74 +23,77 @@ class Router
     {
         try{
             
-            if(isset($_GET['action'])) {
+            $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+            $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+            
+            if (isset($action) AND !empty($action)) {
                 
-                if($_GET['action'] === 'article') {
+                if ($action === 'article') {
                     
-                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+                    if (isset($id) AND $id > 0) {
 
-                        $this->frontController->single($_GET['id']);
+                        $this->frontController->single($id);
 
                     } else {
                         
                         $this->errorController->unknown();
                     }
                 
-                } elseif($_GET['action'] === 'listposts') {
+                } elseif ($action === 'listposts') {
                     
                     $this->frontController->articles();
                     
-                } elseif($_GET['action'] === 'sendmail') {
+                } elseif ($action === 'sendmail') {
 
                     $this->frontController->sendMail();
                 
-                } elseif($_GET['action'] === 'inscription') {
+                } elseif ($action === 'inscription') {
 
                     $this->backController->inscription();
                 
-                } elseif($_GET['action'] === 'confirminscription') {
+                } elseif ($action === 'confirminscription') {
 
                     $this->backController->countActivation();
                 
-                } elseif($_GET['action'] === 'connexion') {
+                } elseif ($action === 'connexion') {
 
                     $this->backController->connexion();
                 
-                } elseif($_GET['action'] === 'recoverypass') {
+                } elseif ($action === 'recoverypass') {
 
                     $this->backController->recoveryPass();
                 
-                } elseif($_GET['action'] === 'updatecode') {
+                } elseif ($action === 'updatecode') {
 
                     $this->backController->verifRecoveryCode();
                 
-                } elseif($_GET['action'] === 'confirmpass') {
+                } elseif ($action === 'confirmpass') {
 
                     $this->backController->confirmPass();
                 
-                } elseif($_GET['action'] === 'disconnect') {
+                } elseif ($action === 'disconnect') {
 
                     $this->backController->disconnect();
                 
-                } elseif($_GET['action'] === 'adminconnection') {
+                } elseif ($action === 'adminconnection') {
 
                     $this->backController->adminConnection();
                 
-                } elseif($_GET['action'] === 'adminspace') {
+                } elseif ($action === 'adminspace') {
 
                     $this->backController->adminSpace();
                 
-                } elseif($_GET['action'] === 'addarticle') {
+                } elseif ($action === 'addarticle') {
 
                     $this->backController->addArticle();
                 
-                } elseif($_GET['action'] === 'updatepost') {
+                } elseif ($action === 'updatepost') {
 
-                    $this->backController->updateArticle($_GET['id']);
+                    $this->backController->updateArticle($id);
                 
-                } elseif($_GET['action'] === 'deletepost') {
+                } elseif ($action === 'deletepost') {
                     
-                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+                    if (isset($id) AND $id > 0) {
 
                         $this->backController->deleteArticle();
 
@@ -99,26 +102,26 @@ class Router
                         $this->errorController->unknown();
                     }
                     
-                } elseif($_GET['action'] === 'managecomment') {
+                } elseif ($action === 'managecomment') {
 
                     $this->backController->manageComment();
                 
-                } elseif($_GET['action'] === 'approve') {
+                } elseif ($action === 'approve') {
                     
-                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+                    if (isset($id) AND $id > 0) {
                         
-                        $this->backController->approveComment($_GET['id']);
+                        $this->backController->approveComment($id);
                     
                     } else {
                         
                         $this->errorController->unknown();
                     }
                 
-                } elseif($_GET['action'] === 'deletecomment') {
+                } elseif ($action === 'deletecomment') {
                     
-                    if(isset($_GET['id']) AND $_GET['id'] > 0) {
+                    if (isset($id) AND $id > 0) {
                         
-                        $this->backController->deleteComment($_GET['id']);
+                        $this->backController->deleteComment($id);
                     
                     } else {
                         
