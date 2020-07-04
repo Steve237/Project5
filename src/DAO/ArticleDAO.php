@@ -12,7 +12,7 @@ class ArticleDAO extends DAO
     public function getArticles()
     {
        
-        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, imageArticle FROM articles ORDER BY idPost ASC';
+        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y") AS dateModification, imageArticle FROM articles ORDER BY idPost ASC';
         
         $result = $this->sql($sql);
         
@@ -31,7 +31,7 @@ class ArticleDAO extends DAO
      */
     public function getArticle($idArt)
     {
-        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, imageArticle FROM articles WHERE idPost = ?';
+        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y") AS dateModification, imageArticle FROM articles WHERE idPost = ?';
         $result = $this->sql($sql, [$idArt]);
         
         $row = $result->fetch();

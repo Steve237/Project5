@@ -16,7 +16,7 @@ class CommentDAO extends DAO
     {
 
         $sql = 'SELECT idCommentaire, idPost, pseudoAuteur, contenuCommentaire, 
-        DATE_FORMAT(dateCreation, "%d/%m/%Y %Hh%imin%ss") AS dateCreation FROM commentaires 
+        DATE_FORMAT(dateCreation, "%d/%m/%Y") AS dateCreation FROM commentaires 
         WHERE validation = 1 AND idPost = ?';
         $result = $this->sql($sql, [$idArt]);
         $comments = [];
