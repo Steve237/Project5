@@ -29,7 +29,7 @@ alors de se rendre dans la fonction sendmail et d'inscrire l'adresse email de l'
 Etape 5 : l'application est désormais correctement installé! 
 Si vous avez installé le projet en local sur WampServer, vous pourrez accéder au site via l'url suivante : localhost/public/index.php. 
 
-Sinon le site est aussi accessible via cette url https:\\www.steveessama.com
+Sinon le site est aussi accessible via cette url https://www.steveessama.com
 
 Vous pouvez désormais utiliser toutes les fonctionnalités du blog! Vous pouvez désormais vous inscrire et vous connecter à l'espace membre, puis publier un commentaire.
 Si vous souhaitez qu'un utilisateur puisse se connecter à l'espace administration, vous devez accéder à la table membres de la base de données, puis entrer la valeur 1 dans la colonne admin de l'utilisateur que vous souhaitez, et enregistrez. Il sera alors possible
