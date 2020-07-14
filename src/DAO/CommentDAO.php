@@ -16,7 +16,7 @@ class CommentDAO extends DAO
     {
 
         $sql = 'SELECT idCommentaire, idPost, pseudoAuteur, contenuCommentaire, 
-        DATE_FORMAT(dateCreation, "%d/%m/%Y %Hh%imin%ss") AS dateCreation FROM commentaires 
+        DATE_FORMAT(dateCreation, "%d/%m/%Y") AS dateCreation FROM commentaires 
         WHERE validation = 1 AND idPost = ?';
         $result = $this->sql($sql, [$idArt]);
         $comments = [];
@@ -28,15 +28,15 @@ class CommentDAO extends DAO
     }
 
     /**
-     * Permet d'afficher la liste des commentaires sur l'espace admin
+     * Permet d'afficher la liste des commentaires approuvés sur l'espace admin
      */
     public function getComments() 
     {
 
         $sql = 'SELECT commentaires.idCommentaire as idcom, commentaires.pseudoAuteur 
         as pseudocomment, commentaires.contenuCommentaire as commentcontent, 
-        commentaires.dateCreation as datecomment, articles.titreArticle as newtitle
-        FROM commentaires INNER JOIN articles ON commentaires.idPost = articles.idPost';
+        commentaires.dateCreation as datecomment, commentaires.validation as validation, articles.titreArticle as newtitle
+        FROM commentaires INNER JOIN articles ON commentaires.idPost = articles.idPost WHERE commentaires.validation = 1 ';
         $result = $this->sql($sql);
         $comments = $result->fetchAll(PDO::FETCH_OBJ);
         return $comments;
@@ -44,6 +44,21 @@ class CommentDAO extends DAO
 
     }
 
+    /**
+     * Permet d'afficher la liste des commentaires non approuvés sur l'espace admin
+     */
+    public function getCommentsNoValidated() 
+    {
+
+        $sql = 'SELECT commentaires.idCommentaire as idcom, commentaires.pseudoAuteur 
+        as pseudocomment, commentaires.contenuCommentaire as commentcontent, 
+        commentaires.dateCreation as datecomment, commentaires.validation as validation, articles.titreArticle as newtitle
+        FROM commentaires INNER JOIN articles ON commentaires.idPost = articles.idPost WHERE commentaires.validation IS NULL';
+        $result = $this->sql($sql);
+        $comments = $result->fetchAll(PDO::FETCH_OBJ);
+        return $comments;
+    
+    }
 
     /**
      * @param mixed $idCommentaire
@@ -55,6 +70,21 @@ class CommentDAO extends DAO
         $sql = 'UPDATE commentaires set validation = 1 WHERE idCommentaire = ?';
         $this->sql($sql, [$idCommentaire]);
 
+    }
+
+    /**
+     * @param mixed $validation
+     * 
+     * Permet de vérifier si un commentaire a été approuvé.
+     */
+    public function checkValidation()
+    {
+
+        $sql = 'SELECT validation FROM commentaires WHERE idCommentaire > 0';
+        $check = $this->sql($sql);
+        $row = $check->fetch();
+        $validated = $row['validation'];
+        return $validated;
     }
 
     

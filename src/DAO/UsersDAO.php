@@ -130,6 +130,19 @@ class UsersDAO extends DAO
     }
 
     /**
+     * @param mixed $recoveryCode
+     * 
+     * Permet de vérifier l'existence du code de récupération en base de données.
+     */
+    public function checkRecoveryCode($recoveryCode) {
+
+        $sql = 'SELECT recoveryCode FROM membres WHERE recoveryCode = ?';
+        $resultCheckCode = $this->sql($sql, [$recoveryCode]);
+    
+        return $resultCheckCode->fetch();
+    }
+
+    /**
      * @param mixed $password
      * @param mixed $email
      * 

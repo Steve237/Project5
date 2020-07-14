@@ -12,7 +12,7 @@ class ArticleDAO extends DAO
     public function getArticles()
     {
        
-        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, imageArticle FROM articles';
+        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y") AS dateModification, imageArticle FROM articles ORDER BY idPost ASC';
         
         $result = $this->sql($sql);
         
@@ -31,7 +31,7 @@ class ArticleDAO extends DAO
      */
     public function getArticle($idArt)
     {
-        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y %Hh%imin%ss") AS dateModification, imageArticle FROM articles WHERE idPost = ?';
+        $sql = 'SELECT idPost, titreArticle, pseudoAuteur, descriptifArticle, contenu, DATE_FORMAT(dateModification, "%d/%m/%Y") AS dateModification, imageArticle FROM articles WHERE idPost = ?';
         $result = $this->sql($sql, [$idArt]);
         
         $row = $result->fetch();
@@ -66,7 +66,7 @@ class ArticleDAO extends DAO
      * @param mixed $imagename
      * @param mixed $idPost
      * 
-     * Permet la modification d'un article.
+     * Permet la modification d'un article en incluant une image.
      */
     public function updatePost($title, $author, $resume, $content, $image, $imagename, $idPost)
     {
@@ -76,6 +76,22 @@ class ArticleDAO extends DAO
 
     }
     
+      /**
+     * @param mixed $title
+     * @param mixed $author
+     * @param mixed $resume
+     * @param mixed $content
+     * @param mixed $idPost
+     * 
+     * Permet la modification d'un article sans inclure une image (en laissant l'image d'origine).
+     */
+    public function updateNew($title, $author, $resume, $content, $idPost)
+    {
+
+        $sql = 'UPDATE articles SET titreArticle = ?, pseudoAuteur = ?, descriptifArticle = ?, contenu = ?, dateModification = NOW() WHERE idPost = ?';
+        $this->sql($sql, [$title, $author, $resume, $content, $idPost]);
+
+    }
     
     /**
      * @param mixed $idPost
