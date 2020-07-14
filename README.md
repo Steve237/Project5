@@ -26,6 +26,9 @@ Ensuite, dès que le server est configuré pour l'envoi de mail, vous devez rens
 alors de se rendre dans la fonction sendmail et d'inscrire l'adresse email de l'expéditeur de l'email dans la variable $to. Il faut faire de même, dans le fichier backcontroller, disponible dans src/controller,
 à la ligne 101 pour l'envoi du mail de confirmation d'inscription, puis à la ligne 288 pour l'envoi du mail de récupération du mot de passe. Ainsi, l'envoi de mail depuis l'application se déroulera correctement.
 
-Etape 5 : l'application est désormais correctement installé! Vous pouvez désormais utiliser toutes les fonctionnalités du blog! Vous pouvez désormais vous inscrire et vous connecter à l'espace membre, puis publier un commentaire.
+Etape 5 : l'application est désormais correctement installé! 
+Si vous avez installé le projet en local sur WampServer, vous pourrez accéder au site via l'url suivante : localhost/public/index.php
+
+Vous pouvez désormais utiliser toutes les fonctionnalités du blog! Vous pouvez désormais vous inscrire et vous connecter à l'espace membre, puis publier un commentaire.
 Si vous souhaitez qu'un utilisateur puisse se connecter à l'espace administration, vous devez accéder à la table membres de la base de données, puis entrer la valeur 1 dans la colonne admin de l'utilisateur que vous souhaitez, et enregistrez. Il sera alors possible
 de se connecter à l'espace administrateur avec les identifiants de connexion de ce membres.
