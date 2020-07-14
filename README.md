@@ -6,7 +6,7 @@ Création d'un blog professionel avec une architecture MVC Orienté objet en PHP
 
 Installation du projet
 
-Etape 1 : vous devez télécharger les fichiers dans la branche Master du repository GitHub du projet et les transmettre dans le dossier web de votre serveur web.  Il s'aggit généralement du dossier "WWW".
+Etape 1 : vous devez télécharger les fichiers dans la branche Master du repository GitHub du projet et les transmettre dans le dossier web de votre serveur web.  Il s'aggit généralement du dossier "www".
 
 Etape 2 : vous devez créer une base de données dans votre SGBD et y importer le fichier blog.sql disponible à la racine des fichiers du projet.
 
