@@ -1,9 +1,10 @@
 <?php
 namespace App\config;
 
-use App\src\Controller\FrontController;
-use App\src\Controller\ErrorController;
+use Exception;
 use App\src\Controller\BackController;
+use App\src\Controller\ErrorController;
+use App\src\Controller\FrontController;
 
 class Router
 {
@@ -21,7 +22,7 @@ class Router
 
     public function run()
     {
-        try{
+        try {
             
             $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
             $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -127,6 +128,11 @@ class Router
                         
                         $this->errorController->unknown();
                     }
+                
+                } else {
+
+                    $this->errorController->unknown();
+
                 }
             
             } else {
