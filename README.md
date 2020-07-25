@@ -1,3 +1,6 @@
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cecda9ac396a487197574ffb939a660f)](https://app.codacy.com/manual/Steve237/Project5?utm_source=github.com&utm_medium=referral&utm_content=Steve237/Project5&utm_campaign=Badge_Grade_Dashboard)
+
 Projet 5 du parcours développeur d'application PHP/Symfony, sur OpenClassrooms.
 
 Codacy Badge
